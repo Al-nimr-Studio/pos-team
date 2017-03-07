@@ -1,0 +1,119 @@
+    <div class="sidebar" data-color="azure" data-image="../assets/img/full-screen-image-3.jpg">
+        <!--
+
+            Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+            Tip 2: you can also add an image using data-image tag
+
+        -->
+
+        <div class="logo">
+            <a class="logo-text">
+                Al Nimr Studio
+            </a>
+        </div>
+
+    	<div class="sidebar-wrapper">
+            <div class="user">
+                <div class="photo">
+                    <img src="../assets/img/logo.jpg" />
+                </div>
+                <div class="info">
+                    <a data-toggle="collapse" href="#collapseExample" class="collapsed">
+                        Al Nimr Team
+                        <b class="caret"></b>
+                    </a>
+                    <div class="collapse" id="collapseExample">
+                        <ul class="nav">
+                            <li><a href="#">Ahmed Rana</a></li>
+                            <li><a href="#">Faheem Rana</a></li>
+                            <li><a href="#">Azhar Rasheed</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <ul class="nav">
+           
+                <li>
+                    <a data-toggle="collapse" href="#crud">
+                        <i class="pe-7s-server"></i>
+                        <p>Curd-full
+                           <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse" id="crud">
+                        <ul class="nav">
+                            <li><a [routerLink]="['/allinone']">All in one</a></li>
+                            <li><a [routerLink]="['/createform']">Create Form</a></li>
+                            <li><a [routerLink]="['/readform']">Read Form</a></li>
+                            <li><a [routerLink]="['/updateform']">Update Form</a></li>
+                            <li><a [routerLink]="['/deleteform']">Delete Form</a></li>
+                           
+                        </ul>
+                    </div>
+                </li>
+            
+                <li>
+                    <a data-toggle="collapse" href="#View-1">
+                        <i class="pe-7s-server"></i>
+                        <p>View-1
+                           <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse" id="View-1">
+                        <ul class="nav">
+                            <li><a [routerLink]="['/view1create']">Create Form</a></li>
+                            <li><a [routerLink]="['/View1read']">Read Form</a></li>
+                            <li><a [routerLink]="['/View1update']">Update Form</a></li>
+                            <li><a [routerLink]="['/View1delete']">Delete Form</a></li>
+                           
+                        </ul>
+                    </div>
+                </li>
+           
+                <li>
+                    <a data-toggle="collapse" href="#View-2">
+                        <i class="pe-7s-server"></i>
+                        <p>View-2
+                           <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse" id="View-2">
+                        <ul class="nav">
+                            <li><a [routerLink]="['/View2create']">Create Form</a></li>
+                            <li><a [routerLink]="['/View2read']">Read Form</a></li>
+                            <li><a [routerLink]="['/View2update']">Update Form</a></li>
+                            <li><a [routerLink]="['/View2delete']">Delete Form</a></li>
+                           
+                        </ul>
+                    </div>
+                </li>
+                 <li>
+                    <a data-toggle="collapse" href="#file-system">
+                        <i class="pe-7s-folder"></i>
+                        <p>File system
+                           <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse" id="file-system">
+                        <ul class="nav">
+                            <li><a [routerLink]="['/fullfs']">Full File Management</a></li>
+                            <li><a [routerLink]="['/uploadfiles']">Upload Files</a></li>
+                            <li><a [routerLink]="['/viewfiles']">View Files</a></li>
+                            <li><a [routerLink]="['/updatefiles']">Update Files</a></li>
+                            <li><a [routerLink]="['/deletefiles']">Delete Files</a></li>
+                           
+                        </ul>
+                    </div>
+                </li>
+                
+               
+               
+
+
+                
+
+               
+            </ul>
+    	</div>
+    </div>

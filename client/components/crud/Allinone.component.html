@@ -1,0 +1,50 @@
+         
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">                   
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Table with Links</h4>
+                                <p class="category">Here is a subtitle for this table</p>
+                            </div>
+           
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Password</th>
+                                            <th class="text-right">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                     
+                                        <tr *ngFor="let entry of entries; trackBy:entry?.id">
+                                            <td>{{entry.name}}</td>
+                                            <td>{{entry.email}}</td>
+                                            <td>{{entry.password}}</td>
+                                            <td class="td-actions text-right">
+                                          
+                                                <button title="View Profile" class="btn btn-info btn-simple btn-xs" ><i class="fa fa-user"></i></button>
+                                                <a title="Edit Profile" href="#modal-sections" uk-toggle class="btn btn-success btn-simple btn-xs" [routerLink]="['/update',entry.id]"><i class="fa fa-edit"></i></a>
+                                                <button title="Remove" class="btn btn-danger btn-simple btn-xs" (click)="delete(entry)"><i class="fa fa-times"></i></button>
+                                            </td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    
+            
+                </div>
+               
+            </div>
+        </div>
+
+        

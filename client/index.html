@@ -1,0 +1,42 @@
+<!DOCKTYPE html>
+<html>
+    <head>
+        <base href="/">
+        <meta charset="utf8">
+        <title>Angular2 full stack</title>
+
+    <script src="scripts/jquery/dist/jquery.min.js" type="text/javascript"></script>
+    <script src="scripts/pouchdb/dist/pouchdb.min.js" type="text/javascript"></script>
+    <script src="scripts/uikit/dist/js/uikit.min.js" type="text/javascript"></script>
+    <script src="scripts/fileuploading.js" type="text/javascript"></script>
+
+    <link rel="stylesheet" href="scripts/uikit/dist/css/uikit.min.css" />
+
+        <link rel="stylesheet" href="scripts/theme/app.css">
+    </head>
+    
+    <body>
+        
+         <app-main>Loading ...</app-main>
+         
+    </body>
+    <script src="scripts/theme/app.js" type="text/javascript"></script>
+    <script>
+
+    jQuery(function () {
+
+        var animate = setInterval(function () {
+
+            window.progressbar && (progressbar.value += 10);
+
+            if (!window.progressbar || progressbar.value >= progressbar.max) {
+                clearInterval(animate);
+            }
+
+        }, 1000);
+
+    });
+
+</script>
+
+</html>

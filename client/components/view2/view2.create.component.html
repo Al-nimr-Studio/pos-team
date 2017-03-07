@@ -1,0 +1,77 @@
+<div class="content">
+    <div class="container-fluid">      
+        <div class="card">
+            <div class="content">
+                <div class="header">
+                    <legend>Supplier</legend>
+                    </div>
+                 <div class="content">
+                     <form (ngSubmit)="onSubmit(form)"  novalidate #form="ngForm">
+
+                        <div class="container">
+
+
+                                                 <!--name Field-->
+                         <div class="form-group">
+                              <div class="row">
+                                <div class="col-md-3">
+                                    <div>View2 Name</div>
+                                      <input type="text" class="form-control"  
+                                            [(ngModel)]="entry.v2name" name="v2name"required>
+                                </div>
+                              </div>
+                              </div>
+                              <!--Email field-->
+                <div class="form-group">
+                  <div class="row"> 
+                    <div class="col-md-3">
+                     <div>View2 Email</div>
+
+            <input type="email" class="form-control" #emailField="ngModel"
+          [(ngModel)]="entry.v2email" name="v2email" required pattern=".+@.+">
+
+           <p *ngIf="emailField.touched && emailField.invalid"
+          class="alert alert-danger">Please enter a valid email</p>
+
+               
+
+                                </div>
+                              </div>
+                         </div>
+             <!--Password Field-->
+            <div class="form-group">
+                  <div class="row"> 
+                    <div class="col-md-3">
+                     <div>View2 Password</div>
+
+            <input type="password" class="form-control" #passwordField="ngModel"
+          [(ngModel)]="entry.v2password" name="v2password" required>
+
+           <p *ngIf="passwordField.touched && passwordField.invalid"
+          class="alert alert-danger">Please enter a password</p>
+
+               
+
+                                </div>
+                              </div>
+                         </div>
+                         <div class="row">
+
+                           <div class="col-md-2">
+ <button type="submit" class="btn btn-info btn-fill btn-wd"
+  [disabled]="form.invalid">Create</button>
+                           </div>
+                       </div>
+
+                        
+					
+                        </div>    
+                               </form>
+                            </div><!-- second content-->
+                    </div><!-- first content-->
+
+                </div><!-- card -->
+                
+
+            </div><!-- fluid container -->
+</div><!-- main content-->

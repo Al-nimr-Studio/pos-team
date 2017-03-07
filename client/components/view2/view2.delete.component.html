@@ -1,0 +1,47 @@
+                     
+                     
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">                   
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Striped Table with Hover</h4>
+                                <p class="category">Here is a subtitle for this table</p>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                    	<th>&nbsp; v1Name</th>
+                                    	<th>&nbsp; v1email</th>
+                                    	<th>&nbsp; v1password</th>
+                                    	<th>&nbsp; v2Name</th>
+                                    	<th>&nbsp; v2email</th>
+                                    	<th>&nbsp; v2password</th>
+                                    	<th>&nbsp; Action</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let entry of entries; trackBy:entry?.id">
+                                        	<td >{{entry.v1name}}</td>
+                                        	<td >{{entry.v1email}}</td>
+                                        	<td >{{entry.v1password}}</td>
+                                            <td >{{entry.v2name}}</td>
+                                        	<td >{{entry.v2email}}</td>
+                                        	<td >{{entry.v2password}}</td>
+                                        	<td><button type="button" class="btn btn-wd btn-fill btn-danger" (click)="delete(entry)"><span class="btn-label"><i class="fa fa-times"></i> </span> Danger</button></td>
+                                        </tr>
+                                       
+                                    </tbody>
+                                </table>
+                                   
+                            </div>
+                        </div>
+                    </div>  
+          
+                    
+                                 
+                </div> 
+                    
+            </div>
+        </div>
+         
