@@ -45,13 +45,19 @@ import {View2readComponent} from "../components/view2/view2.read.component";
 import {View2deleteComponent} from "../components/view2/view2.delete.component";
 import {View2updateComponent} from "../components/view2/view2.update.component";
 
+
+import {SupplierupdateComponent} from "../components/supplier/supplier.update";
+import {SupplierreadComponent} from "../components/supplier/supplier.read";
+import {SuppliercreateComponent} from "../components/supplier/supplier.create";
+
+
 // import {CrudService} from "../services/crud.service";
 import {FileService} from "../components/fs/service/file.service";
 
 import {CrudService} from "../components/crud/service/crud.service";
 import {View1Service} from "../components/view1/service/view1.service";
+import {SupplierService} from "../components/supplier/service/view1.service";
 import {View2Service} from "../components/view2/service/view2.service";
-
 
 
 // enableProdMode();
@@ -95,14 +101,18 @@ import {View2Service} from "../components/view2/service/view2.service";
        View2createComponent,
        View2readComponent,
        View2deleteComponent,
-       View2updateComponent
+       View2updateComponent,
+
+       SupplierupdateComponent,
+       SupplierreadComponent,
+       SuppliercreateComponent
 
 
 
 
         ],
   providers:[
-      CrudService,FileService,View1Service,View2Service,
+      CrudService,FileService,View1Service,View2Service,SupplierService,
       {provide: LocationStrategy, useClass: HashLocationStrategy},
 
       {provide: LocationStrategy, useClass: HashLocationStrategy}

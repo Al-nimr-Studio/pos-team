@@ -8,7 +8,8 @@
     <script src="scripts/jquery/dist/jquery.min.js" type="text/javascript"></script>
     <script src="scripts/pouchdb/dist/pouchdb.min.js" type="text/javascript"></script>
     <script src="scripts/uikit/dist/js/uikit.min.js" type="text/javascript"></script>
-    <script src="scripts/fileuploading.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
 
     <link rel="stylesheet" href="scripts/uikit/dist/css/uikit.min.css" />
 
@@ -20,7 +21,48 @@
          <app-main>Loading ...</app-main>
          
     </body>
-    <script src="scripts/theme/app.js" type="text/javascript"></script>
+    <!--<script src="scripts/theme/app.js" type="text/javascript"></script>-->
+    <script src="scripts/theme/script.js" type="text/javascript"></script>
+     
+   <script type="text/javascript">
+    $(document).ready(function() {
+		$('#datatables').DataTable({
+		    "pagingType": "full_numbers",
+		    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+		    responsive: true,
+		    language: {
+		    search: "_INPUT_",
+		    searchPlaceholder: "Search records",
+		    }
+
+		});
+
+
+		var table = $('#datatables').DataTable();
+
+		// Edit record
+		table.on( 'click', '.edit', function () {
+		    $tr = $(this).closest('tr');
+
+		    var data = table.row($tr).data();
+		    alert( 'You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.' );
+		} );
+
+		// Delete a record
+		table.on( 'click', '.remove', function (e) {
+		    $tr = $(this).closest('tr');
+		    table.row($tr).remove().draw();
+		    e.preventDefault();
+		} );
+
+		//Like record
+		table.on( 'click', '.like', function () {
+		    alert('You clicked on Like button');
+		});
+	});
+
+    </script>
+
     <script>
 
     jQuery(function () {
@@ -38,5 +80,6 @@
     });
 
 </script>
+
 
 </html>
