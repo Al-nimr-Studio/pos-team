@@ -1,0 +1,304 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="header">
+                <h4 class="title">InventoryItem List</h4><br>
+                <p class="category"><button href="#modal-overflow" uk-toggle class="btn btn-info btn-fill btn-wd">Add New Inventory Item</button></p>
+            </div>
+            <div class="content table-responsive table-full-width">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th>item Code</th>
+                            <th>item Name</th>
+                            <th>Descrpition</th>
+                            <!--<th>unitName</th>-->
+                            <th>cost Price </th>
+                            <th>sale Price</th>
+
+
+                            <th class="text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr *ngFor="let entry of entries; trackBy:entry?.id">
+                            <td class="text-center"></td>
+                            <td>{{entry.itemCode}}</td>
+                            <td>{{entry.itemName}}</td>
+                            <td>{{entry.Descrpition}}</td>
+                            <!--<td>{{entry.unitName}}</td>-->
+                            <td>{{entry.costPrice}}</td>
+                            <td>{{entry.salePrice}}</td>
+
+
+                            <td class="td-actions text-right">
+                                <a uk-toggle="target: #rana" rel="tooltip" title="" class="btn btn-info btn-fill btn-wd">Edit</a>
+                            </td>
+
+                            <div id="rana" class="uk-modal-container" uk-modal>
+                                <div class="uk-modal-dialog uk-modal-body">
+                                    <button class="uk-modal-close-default" type="button" uk-close></button>
+                                    <div class="uk-modal-header">
+                                        <h2 class="uk-modal-title">Edit Here</h2>
+                                    </div>
+                                    <div class="uk-modal-body">
+                                        <form novalidate>
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-sm-2">
+                                                        <div class="container">
+                                                            <div class="row">
+                                                                <div class="col-sm-2">Item code</div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-2">
+                                                                    <input type="number" class="form-control" [(ngModel)]="entry.itemCode" name="itemCode" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="container">
+                                                            <div class="row">
+                                                                <div class="col-sm-2">Item name</div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-2">
+                                                                    <input type="text" class="form-control" [(ngModel)]="entry.itemName" name="itemName" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-4">
+                                                        <div class="container">
+                                                            <div class="row">
+
+                                                                <div class="col-sm-2">Unit name</div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-2">
+                                                                    <input type="text" placeholder="E.g cm,kg,ltr" class="form-control" [(ngModel)]="entry.unitName" name="unitName" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-sm-2">
+                                                        <div class="container">
+                                                            <div class="row">
+                                                                <div class="col-sm-2">Cost Price</div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-2">
+                                                                    <input type="number" placeholder="optional" class="form-control" [(ngModel)]="entry.costPrice" name="costPrice" required>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <div class="container">
+                                                            <div class="row">
+                                                                <div class="col-sm-2">Sale Price</div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-2">
+                                                                    <input type="number" placeholder="optional" class="form-control" [(ngModel)]="entry.salePrice" name="salePrice" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-sm-2">
+                                                        <div class="container">
+                                                            <div class="row">
+                                                                <div class="col-sm-2">Descrpition</div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-8">
+                                                                    <textarea rows="4" cols="20" class="form-control" input type="text" class="form-control" [(ngModel)]="entry.Descrpition" name="Descrpition">
+                                                    </textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <div class="container">
+                                                            <input type="checkbox" id="inlineCheckbox1" value="option1"> Custom income account</div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="container">
+                                                        <div class="col-sm-4">
+                                                            <input type="checkbox" id="inlineCheckbox1" value="option1"> Custom expense account</div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="container">
+                                                        <div class="col-sm-4">
+                                                            <input type="checkbox" id="inlineCheckbox1" value="option1"> start balance</div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <!-- container -->
+                                        </form>
+                                    </div>
+                                    <div class="uk-modal-footer uk-text-right">
+                                        <button class="btn btn-info btn-fill btn-wd uk-modal-close" (click)="update(entry)" type="button">Update</button>
+                                        <button class="btn btn-danger btn-fill btn-wd uk-modal-close" (click)="delete(entry)" type="button">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!--<div id="modal-overflow" uk-modal>
+    <div class="uk-modal-dialog">-->
+<div id="modal-overflow" class="uk-modal-container" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+
+        <div class="uk-modal-header">
+            <h2 class="uk-modal-title">Add New InventoryItem</h2>
+        </div>
+
+        <div class="uk-modal-body">
+            <form novalidate #form="ngForm">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-2">Item code</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <input type="number" class="form-control" [(ngModel)]="entry.itemCode" name="itemCode" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-2">Item name</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" [(ngModel)]="entry.itemName" name="itemName" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="container">
+                            <div class="row">
+
+                                <div class="col-sm-2">Unit name</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <input type="text" placeholder="E.g cm,kg,ltr" class="form-control" [(ngModel)]="entry.unitName" name="unitName" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-2">Cost Price</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <input type="number" placeholder="optional" class="form-control" [(ngModel)]="entry.costPrice" name="costPrice" required>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-2">Sale Price</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <input type="number" placeholder="optional" class="form-control" [(ngModel)]="entry.salePrice" name="salePrice" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-2">Descrpition</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <textarea rows="4" cols="10" class="form-control" input type="text" class="form-control" [(ngModel)]="entry.Descrpition" name="Descrpition">
+                                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="container">
+                        <div class="col-sm-4">
+                            <input type="checkbox" id="inlineCheckbox1" value="option1"> Custom income account</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="container">
+                        <div class="col-sm-4">
+                            <input type="checkbox" id="inlineCheckbox1" value="option1"> Custom expense account</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="container">
+                        <div class="col-sm-4">
+                            <input type="checkbox" id="inlineCheckbox1" value="option1"> start balance</div>
+                    </div>
+                </div>
+
+
+
+
+            </form>
+
+        </div>
+
+        <div class="uk-modal-footer uk-text-right">
+            <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+            <button class="uk-button uk-button-primary uk-modal-close" (click)="save(entry)" [disabled]="form.invalid">Save</button>
+        </div>
+    </div>
+</div>

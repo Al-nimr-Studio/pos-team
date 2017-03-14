@@ -1,0 +1,324 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="header">
+                <h4 class="title">Purchase Invoice List</h4><br>
+                <p class="category"><button href="#modal-overflow" uk-toggle class="btn btn-info btn-fill btn-wd">Add New Purchase Invoice</button></p>
+            </div>
+            <div class="content table-responsive table-full-width">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th>Invoice Date</th>
+                            <!--<th>Due Date</th>-->
+                            <th>Invoice #</th>
+                            <th>Order #</th>
+                            <th>Supplier</th>
+                            <th>Descripition</th>
+                            <th>Invoice total</th>
+                            <th>Balance due</th>
+                            <th>Status</th>
+
+
+                            <th class="text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr *ngFor="let entry of entries; trackBy:entry?.id">
+                            <td class="text-center"></td>
+                            <td>{{entry.invoiceDate}}</td>
+                            <!--<td>{{entry.dueDate}}</td>-->
+                            <td>{{entry.invoiceNumber}}</td>
+                            <td>{{entry.orderNumber}}</td>
+                            <td> test</td>
+                            <td> test</td>
+                            <td> test</td>
+                            <td> test</td>
+                            <td> test</td>
+
+
+                            <td class="td-actions text-right">
+                                <a uk-toggle="target: #rana" rel="tooltip" title="" class="btn btn-info btn-fill btn-wd">Edit</a>
+                            </td>
+
+                            <div id="rana" class="uk-modal-container" uk-modal>
+                                <div class="uk-modal-dialog uk-modal-body">
+                                    <button class="uk-modal-close-default" type="button" uk-close></button>
+                                    <div class="uk-modal-header">
+                                        <h2 class="uk-modal-title">Edit Here</h2>
+                                    </div>
+                                    <div class="uk-modal-body">
+                                        <form novalidate>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <div>Invoice Date</div>
+                                                    <input type="Date" class="form-control datetimepicker" placeholder="Date" [(ngModel)]="entry.invoiceDate" name="invoiceDate" required>
+
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div>Due Date</div>
+                                                    <input type="date" class="form-control datetimepicker" placeholder="Date" [(ngModel)]="entry.dueDate" name="dueDate" required>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div>Invoice Number</div>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">#</span>
+                                                        <input type="number" class="form-control" [(ngModel)]="entry.invoiceNumber" name="invoiceNumber" required>
+                                                        <span class="input-group-addon"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-1"></div>
+                                                <div class="col-sm-2">
+                                                    <div>Order Number</div>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">#</span>
+                                                        <input type="number" class="form-control" [(ngModel)]="entry.orderNumber" name="orderNumber" required>
+                                                        <span class="input-group-addon"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div>Suppliers</div>
+                                                    <select name="Currency" class="selectpicker" data-title="Select Currency" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                                                        <option value="id">Bahasa Indonesia</option>
+                                                        <option value="ms">Bahasa Melayu</option>
+                                                        <option value="ca">Català</option>
+                                                        <option value="da">Dansk</option>
+                                                        <option value="de">Deutsch</option>
+                                                        <option value="en">English</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <br>
+
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div>Description</div>
+                                                            <div class="row">
+
+                                                                <div class="col-sm-6">
+                                                                    <textarea rows="3" cols="15" class="form-control" input type="text" [(ngModel)]="entry.description" name="description" required>
+                                                     </textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div> Description</div>
+                                                    <input type="text" class="form-control" [(ngModel)]="entry.description1" name="description1" required>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div>Qty</div>
+                                                    <input type="number" class="form-control" [(ngModel)]="entry.qty" name="qty" required>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div>Unit Price</div>
+                                                    <input type="number" class="form-control" [(ngModel)]="entry.Unitprice" name="Unitprice" required>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div>Discount</div>
+                                                    <div class="input-group">
+                                                        <span></span>
+                                                        <input type="number" class="form-control" [(ngModel)]="entry.discount" name="discount" required>
+                                                        <span class="input-group-addon">%</span>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-md-2">
+                                                    <div>Amount</div>
+                                                    <input type="number" class="form-control" [(ngModel)]="entry.amount" name="amount" required>
+                                                </div>
+
+                                            </div>
+
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-md-9"></div>
+                                                <div class="col-md-2">
+                                                    <input type="text" class="form-control" placeholder="0" />
+                                                </div>
+                                            </div>
+
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            Internal Information
+                                                            <div class="row">
+
+                                                                <div class="col-sm-6"><textarea rows="3" cols="15" class="form-control" input type="text" [(ngModel)]="entry.info" name="info" required></textarea></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="uk-modal-footer uk-text-right">
+                                        <button class="btn btn-info btn-fill btn-wd uk-modal-close" (click)="update(entry)" type="button">Update</button>
+                                        <button class="btn btn-danger btn-fill btn-wd uk-modal-close" (click)="delete(entry)" type="button">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!--<div id="modal-overflow" uk-modal>
+    <div class="uk-modal-dialog">-->
+<div id="modal-overflow" class="uk-modal-container" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+
+        <div class="uk-modal-header">
+            <h2 class="uk-modal-title">Add New Purchase Invoice</h2>
+        </div>
+
+        <div class="uk-modal-body">
+            <form novalidate #form="ngForm">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div>Invoice Date</div>
+                        <input type="Date" class="form-control datetimepicker" placeholder="Date" [(ngModel)]="entry.invoiceDate" name="invoiceDate" required>
+
+                    </div>
+                    <div class="col-sm-2">
+                        <div>Due Date</div>
+                        <input type="date" class="form-control datetimepicker" placeholder="Date" [(ngModel)]="entry.dueDate" name="dueDate" required>
+                    </div>
+                    <div class="col-sm-2">
+                        <div>Invoice Number</div>
+                        <div class="input-group">
+                            <span class="input-group-addon">#</span>
+                            <input type="text" class="form-control" [(ngModel)]="entry.invoiceNumber" name="invoiceNumber" required>
+
+                            <span class="input-group-addon"></span>
+
+                        </div>
+                        <!--#invoiceNumber="ngModel" [rangeLength]="[5, 9]"-->
+                        <!--<p *ngIf="invoiceNumber.errors?.rangeLength" class="alert alert-danger">The range should between 5-9</p>-->
+                    </div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2">
+                        <div>Order Number</div>
+                        <div class="input-group">
+                            <span class="input-group-addon">#</span>
+                            <input type="number" class="form-control" [(ngModel)]="entry.orderNumber" name="orderNumber" required>
+                            <span class="input-group-addon"></span>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div>Suppliers</div>
+                        <select name="Currency" class="selectpicker" data-title="Select Currency" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                            <option value="id">Bahasa Indonesia</option>
+                            <option value="ms">Bahasa Melayu</option>
+                            <option value="ca">Català</option>
+                            <option value="da">Dansk</option>
+                            <option value="de">Deutsch</option>
+                            <option value="en">English</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="container">
+                            <div class="row">
+                                <div>Description</div>
+                                <div class="row">
+
+                                    <div class="col-sm-6">
+                                        <textarea rows="3" cols="15" class="form-control" input type="text" [(ngModel)]="entry.description" name="description" required>
+                                                     </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div> Description</div>
+                        <input type="text" class="form-control" [(ngModel)]="entry.description1" name="description1" required>
+                    </div>
+                    <div class="col-md-2">
+                        <div>Qty</div>
+                        <input type="number" class="form-control" [(ngModel)]="entry.qty" name="qty" required>
+                    </div>
+                    <div class="col-md-2">
+                        <div>Unit Price</div>
+                        <input type="number" class="form-control" [(ngModel)]="entry.Unitprice" name="Unitprice" required>
+                    </div>
+                    <div class="col-md-2">
+                        <div>Discount</div>
+                        <div class="input-group">
+                            <span></span>
+                            <input type="number" class="form-control" [(ngModel)]="entry.discount" name="discount" required>
+                            <span class="input-group-addon">%</span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-2">
+                        <div>Amount</div>
+                        <input type="number" class="form-control" [(ngModel)]="entry.amount" name="amount" required>
+                    </div>
+
+                </div>
+
+                <br>
+                <div class="row">
+                    <div class="col-md-9"></div>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" placeholder="0" />
+                    </div>
+                </div>
+
+                <br>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="container">
+                            <div class="row">
+                                Internal Information
+                                <div class="row">
+
+                                    <div class="col-sm-6"><textarea rows="3" cols="15" class="form-control" input type="text" [(ngModel)]="entry.info" name="info" required></textarea></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="uk-modal-footer uk-text-right">
+            <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+            <button class="uk-button uk-button-primary uk-modal-close" (click)="save(entry)" [disabled]="form.invalid">Save</button>
+        </div>
+    </div>
+</div>

@@ -23,7 +23,22 @@ import {UpdateformComponent} from "../components/crud/Updateform.component";
 import {AllinoneComponent} from "../components/crud/allinone.component";
 import {UpdatemodalComponent} from "../components/crud/Updatemodal.component";
 
+//declare component
+import { SupplierComponent } from "../components/Supplier/Supplier";//azhar
+import { InventoryItemReadComponent } from "../components/InventoryItem/InventoryItemRead";
+import { PurchaseInvoiceReadComponent } from "../components/PurchaseInvoice/PurchaseInvoiceRead";
+import { PurchaseOrder } from "../components/PurchaseOrder/PurchaseOrder";
+
+
+
+//declare services
+
 import {CrudService} from "../components/crud/service/crud.service";
+import { SupplierService } from "../components/Supplier/Service/Supplier.service";//azhar
+import { InventoryItemService } from "../components/InventoryItem/Service/InventoryItem.service";
+import { PurchaseInvoiceService } from "../components/PurchaseInvoice/Service/PurchaseInvoice.service";
+import { PurchaseOrderService } from "../components/PurchaseOrder/Service/PurchaseOrder.service";
+
 
 
 import {InputTextModule,DataTableModule,ButtonModule,DialogModule,DataListModule,FileUploadModule,GrowlModule} from 'primeng/primeng';
@@ -51,13 +66,15 @@ import {InputTextModule,DataTableModule,ButtonModule,DialogModule,DataListModule
        UpdatemodalComponent,
        AllinoneComponent,
 
-
-
+        SupplierComponent,//azhar
+        InventoryItemReadComponent,
+        PurchaseInvoiceReadComponent,
+        PurchaseOrder,
 
 
         ],
   providers:[
-      CrudService,
+      CrudService,SupplierService,InventoryItemService, PurchaseInvoiceService,PurchaseOrderService,
       {provide: LocationStrategy, useClass: HashLocationStrategy},
 
 

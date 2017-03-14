@@ -1,0 +1,236 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="header">
+                <h4 class="title">Supplier's List</h4><br>
+                <p class="category"><button href="#modal-overflow" uk-toggle class="btn btn-info btn-fill btn-wd">Add New Supplier</button></p>
+            </div>
+            <div class="content table-responsive table-full-width">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-center">#</th>
+
+                            <th>code</th>
+                            <th>name</th>
+                            <!--<th>address</th>-->
+                            <!--<th>creditLimit</th>-->
+                            <th>email</th>
+                            <th>telephone</th>
+                            <!--<th>fax</th>-->
+                            <!--<th>mobile</th>-->
+                            <!--<th>info</th>-->
+                            <th>Purchase Invoice</th>
+                            <th>Accounts payable</th>
+                            <th>Available credit</th>
+                            <th class="text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr *ngFor="let entry of entries; trackBy:entry?.id">
+                            <td class="text-center"></td>
+
+                            <td>{{entry.code}}</td>
+                            <td>{{entry.name}}</td>
+                            <!--<td>{{entry.address}}</td>-->
+                            <!--<td>{{entry.creditLimit}}</td>-->
+                            <td>{{entry.email}}</td>
+                            <td>{{entry.telephone}}</td>
+                            <!--<td>{{entry.fax}}</td>-->
+                            <!--<td>{{entry.mobile}}</td>-->
+                            <!--<td>{{entry.info}}</td>-->
+                            <td> test</td>
+                            <td> test</td>
+                            <td> test</td>
+                            <td class="td-actions text-right">
+                                <a uk-toggle="target: #rana" rel="tooltip" title="" class="btn btn-info btn-fill btn-wd">Edit</a>
+                            </td>
+
+                            <div id="rana" class="uk-modal-container" uk-modal>
+                                <div class="uk-modal-dialog uk-modal-body">
+                                    <button class="uk-modal-close-default" type="button" uk-close></button>
+                                    <div class="uk-modal-header">
+                                        <h2 class="uk-modal-title">Edit Here</h2>
+                                    </div>
+                                    <div class="uk-modal-body">
+                                        <form novalidate>
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div>Name</div>
+                                                        <input type="text" class="form-control" [(ngModel)]="entry.name" name="name" required>
+                                                    </div>
+                                                    <div class="col-sm-4"> </div>
+                                                    <div class="col-sm-2">
+                                                        <div>Code</div>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">#</span>
+                                                            <input type="number" class="form-control " [(ngModel)]="entry.code" name="code" required>
+                                                            <span class="input-group-addon"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div> Address</div>
+                                                        <textarea rows="4" cols="20" class="form-control" input type="text" [(ngModel)]="entry.address" name="address" required></textarea>
+                                                    </div>
+                                                    <div class="col-sm-3"> </div>
+                                                    <div class="col-sm-2">
+                                                        <div>Credit Limit</div>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">#</span>
+                                                            <input type="number" class="form-control " [(ngModel)]="entry.creditLimit" name="creditLimit" required>
+                                                            <span class="input-group-addon"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div> Emai Address</div>
+                                                        <input type="email" class="form-control" #emailField="ngModel" [(ngModel)]="entry.email" name="email" required pattern=".+@.+">
+                                                        <p *ngIf="emailField.touched && emailField.invalid" class="alert alert-danger">Please enter a valid email</p>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div> Telephone</div>
+                                                        <input type="tel" class="form-control " [(ngModel)]="entry.telephone" name="telephone" required>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div> Fax</div>
+                                                        <input type="tel" class="form-control " [(ngModel)]="entry.fax" name="fax" required>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div> Mobile</div>
+                                                        <input type="tel" class="form-control " [(ngModel)]="entry.mobile" name="mobile" required>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div> Addtional Information</div>
+                                                        <textarea rows="4" cols="20" class="form-control" input type="text" [(ngModel)]="entry.info" name="info" required></textarea>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> Starting Balance</div>
+                                                </div>
+                                            </div>
+                                            <!-- container -->
+                                        </form>
+                                    </div>
+                                    <div class="uk-modal-footer uk-text-right">
+                                        <button class="btn btn-info btn-fill btn-wd uk-modal-close" (click)="update(entry)" type="button">Update</button>
+                                        <button class="btn btn-danger btn-fill btn-wd uk-modal-close" (click)="delete(entry)" type="button">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="modal-overflow" class="uk-modal-container" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <div class="uk-modal-header">
+            <h2 class="uk-modal-title">Add New Supplier</h2>
+        </div>
+        <div class="uk-modal-body">
+            <form novalidate #form="ngForm">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div>Name</div>
+                            <input type="text" class="form-control" [(ngModel)]="entry.name" name="name" required>
+                        </div>
+                        <div class="col-sm-4"> </div>
+                        <div class="col-sm-2">
+                            <div>Code</div>
+                            <div class="input-group">
+                                <span class="input-group-addon">#</span>
+                                <input type="number" class="form-control " [(ngModel)]="entry.code" name="code" required>
+                                <span class="input-group-addon"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div> Address</div>
+                            <textarea rows="4" cols="20" class="form-control" input type="text" [(ngModel)]="entry.address" name="address" required></textarea>
+                        </div>
+                        <div class="col-sm-3"> </div>
+                        <div class="col-sm-2">
+                            <div>Credit Limit</div>
+                            <div class="input-group">
+                                <span class="input-group-addon">#</span>
+                                <input type="number" class="form-control " [(ngModel)]="entry.creditLimit" name="creditLimit" required>
+                                <span class="input-group-addon"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div> Emai Address</div>
+                            <input type="email" class="form-control" #emailField="ngModel" [(ngModel)]="entry.email" name="email" required pattern=".+@.+">
+                            <p *ngIf="emailField.touched && emailField.invalid" class="alert alert-danger">Please enter a valid email</p>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div> Telephone</div>
+                            <input type="tel" class="form-control " [(ngModel)]="entry.telephone" name="telephone" required>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div> Fax</div>
+                            <input type="tel" class="form-control " [(ngModel)]="entry.fax" name="fax" required>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div> Mobile</div>
+                            <input type="tel" class="form-control " [(ngModel)]="entry.mobile" name="mobile" required>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div> Addtional Information</div>
+                            <textarea rows="4" cols="20" class="form-control" input type="text" [(ngModel)]="entry.info" name="info" required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <!-- container -->
+            </form>
+        </div>
+        <div class="uk-modal-footer uk-text-right">
+            <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+            <button class="uk-button uk-button-primary uk-modal-close" (click)="save(entry)" [disabled]="form.invalid">Save</button>
+        </div>
+    </div>
+</div>
