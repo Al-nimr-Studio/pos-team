@@ -6,7 +6,7 @@
     "build": "webpack --progress",
     "build:prod": "webpack -p --progress",
     "postinstall": "typings install",
-    "start": "concurrently \"webpack --watch --colors\" \"gulp\" \"node server/main.js\" "
+    "start": "concurrently \"webpack --watch --colors\" \"gulp\" \"electron\" "
   },
   "dependencies": {
     "@angular/common": "2.0.0",
@@ -29,6 +29,7 @@
     "jquery": "^2.2.4",
     "morgan": "^1.7.0",
     "pouchdb": "^6.0.5",
+    "primeng": "^2.0.3",
     "reflect-metadata": "^0.1.3",
     "rxjs": "5.0.0-beta.12",
     "systemjs": "0.19.27",
@@ -38,6 +39,7 @@
     "browser-sync": "^2.18.7",
     "concurrently": "^2.2.0",
     "del": "^2.2.2",
+    "electron-prebuilt": "^1.4.13",
     "extract-text-webpack-plugin": "^1.0.1",
     "gulp": "^3.9.1",
     "gulp-util": "^3.0.8",
