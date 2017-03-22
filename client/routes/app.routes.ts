@@ -21,6 +21,7 @@ import { SalesOrderReadComponent } from "../components/SalesOrder/SalesOrder";
 import { SalesQuoteReadComponent } from "../components/SalesQuote/SalesQuote";
 import { SalesInvoiceReadComponent } from "../components/SalesInvoice/SalesInvoice";
 import { DeliveryNotesReadComponent } from "../components/DeliveryNotes/DeliveryNotes";
+import { MyBusinessDetailsReadComponent } from "../components/MyBusinessDetails/MyBusinessDetails";
 
 const AppRoutes: Routes = [
     { path: '', redirectTo: '/deskboard', pathMatch: 'full' },
@@ -34,18 +35,19 @@ const AppRoutes: Routes = [
     { path: 'allinone', component: AllinoneComponent },
     { path: 'updateform', component: UpdateformComponent },
 
-//azhar
+    //azhar
     { path: 'SupplierComponent', component: SupplierComponent },
     { path: 'InventoryItemRead', component: InventoryItemReadComponent },
     { path: 'PurchaseInvoiceRead', component: PurchaseInvoiceReadComponent },
     { path: 'PurchaseOrder', component: PurchaseOrder },
 
-//faheem
+    //faheem
     { path: 'Customer', component: CustomerReadComponent },
     { path: 'SalesOrder', component: SalesOrderReadComponent },
     { path: 'SalesQuote', component: SalesQuoteReadComponent },
     { path: 'SalesInvoice', component: SalesInvoiceReadComponent },
     { path: 'DeliveryNotes', component: DeliveryNotesReadComponent },
+    { path: 'MyBusinessDetails', component: MyBusinessDetailsReadComponent },
 
 ];
 

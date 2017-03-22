@@ -5,14 +5,14 @@ module.exports = {
 
   entry: './client/ng-main/main.ts',
   output: {
-    path: './dist',
+    path: './distribution',
     filename: 'app.bundle.js'
   },
   module: {
     loaders: [
-      {test: /\.ts$/, loader: 'ts'},
-      {test: /\.html$/, loader: 'raw'},
-      {test: /\.css$/, loader: 'raw'}
+      { test: /\.ts$/, loader: 'ts' },
+      { test: /\.html$/, loader: 'raw' },
+      { test: /\.css$/, loader: 'raw' }
     ]
   },
   resolve: {
@@ -27,7 +27,7 @@ module.exports = {
         environment: JSON.stringify(process.env.APP_ENVIRONMENT || 'development')
       }
     }),
-        new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin()
 
   ]
 

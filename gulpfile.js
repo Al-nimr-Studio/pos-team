@@ -9,10 +9,10 @@ var gulp = require('gulp'),
 
 
 //browserSync 
-gulp.task('browserSync', function() {
+gulp.task('browserSync', function () {
     browserSync.init({
         server: {
-            baseDir: 'dist'
+            baseDir: 'distribution'
         },
     })
 });
@@ -20,36 +20,36 @@ gulp.task('browserSync', function() {
 
 
 //copying scripts
-gulp.task('copying-scripts', function() {
+gulp.task('copying-scripts', function () {
     return gulp.src('client/static/**/*')
-        .pipe(gulp.dest('dist/'))
+        .pipe(gulp.dest('distribution/'))
 });
 
 //copying index
-gulp.task('index', function() {
+gulp.task('index', function () {
     return gulp.src('client/index.html')
-        .pipe(gulp.dest('dist/'))
+        .pipe(gulp.dest('distribution/'))
 });
-//del the dist first
-gulp.task('clean:dist', function() {
-    return del.sync('dist');
+//del the distribution first
+gulp.task('clean:distribution', function () {
+    return del.sync('distribution');
 });
 
 //watch task
-gulp.task('watch', ['browserSync'], function() {
+gulp.task('watch', ['browserSync'], function () {
     // Reloads the browser whenever HTML or JS files change
-    gulp.watch('dist/**/*', browserSync.reload);
+    gulp.watch('distribution/**/*', browserSync.reload);
     // gulp.watch('client/**/*', browserSync.reload);
 });
 
 // gulp sequence
-gulp.task('build', function(callback) {
-    runSequence('clean:dist', 'copying-scripts', [
+gulp.task('build', function (callback) {
+    runSequence('clean:distribution', 'copying-scripts', [
 
 
-            'browserSync',
-            'watch'
-        ],
+        'browserSync',
+        'watch'
+    ],
 
         callback
     )

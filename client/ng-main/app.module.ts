@@ -35,6 +35,7 @@ import { SalesOrderReadComponent } from "../components/SalesOrder/SalesOrder";
 import { SalesQuoteReadComponent } from "../components/SalesQuote/SalesQuote";
 import { SalesInvoiceReadComponent } from "../components/SalesInvoice/SalesInvoice";
 import { DeliveryNotesReadComponent } from "../components/DeliveryNotes/DeliveryNotes";
+import { MyBusinessDetailsReadComponent } from "../components/MyBusinessDetails/MyBusinessDetails";
 
 //declare servicesazhar
 
@@ -50,6 +51,7 @@ import { SalesOrderService } from "../components/SalesOrder/Service/SalesOrder.s
 import { SalesQuoteService } from "../components/SalesQuote/Service/SalesQuote.service";
 import { SalesInvoiceService } from "../components/SalesInvoice/Service/SalesInvoice.service";
 import { DeliveryNotesService } from "../components/DeliveryNotes/Service/DeliveryNotes.service";
+import { MyBusinessDetailsService } from "../components/MyBusinessDetails/Service/MyBusinessDetails.service";
 
 
 
@@ -91,11 +93,12 @@ import { InputTextModule, DataTableModule, ButtonModule, DialogModule, DataListM
         SalesQuoteReadComponent,
         SalesInvoiceReadComponent,
         DeliveryNotesReadComponent,
+        MyBusinessDetailsReadComponent,
 
     ],
     providers: [
         CrudService, SupplierService, InventoryItemService, PurchaseInvoiceService, PurchaseOrderService,
-        CustomerService, SalesOrderService, SalesQuoteService, SalesInvoiceService, DeliveryNotesService,
+        CustomerService, SalesOrderService, SalesQuoteService, SalesInvoiceService, DeliveryNotesService, MyBusinessDetailsService,
         { provide: LocationStrategy, useClass: HashLocationStrategy },
 
 
