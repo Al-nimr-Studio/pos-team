@@ -44,8 +44,9 @@ gulp.task('watch', ['browserSync'], function() {
 
 // gulp sequence
 gulp.task('build', function(callback) {
-    runSequence('clean:dist', [
-            'copying-scripts',
+    runSequence('clean:dist', 'copying-scripts', [
+
+
             'browserSync',
             'watch'
         ],

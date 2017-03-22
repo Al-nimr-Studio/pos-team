@@ -11,12 +11,11 @@
 
 
 
-import { PurchaseInvoiceInterface } from "./PurchaseInvoice.interface";
+import { PurchaseInvoiceInterface , SupplierInterface } from "./PurchaseInvoice.interface";
 // import {PurchaseInvoiceInterface} from "../interface/PurchaseInvoice.interface";
 // import {View2Interface} from "../interface/view2.interface";
 import { PurchaseInvoiceObserver } from "./PurchaseInvoice.observer";
 // import { View1Interface } from "../../view1/service/view1.interface";
-
 declare let PouchDB: any;
 declare let emit: Function;
 
@@ -104,6 +103,24 @@ export class PurchaseInvoiceService {
                 .catch(reject);
         });
     }
+fetchsupplier(): Promise<Array<SupplierInterface>> {
+               return new Promise((resolve, reject) => {
+            let mapFunc:Function = (doc:any) => emit(doc.view);
+
+            let options:Object = {
+                key: 'Supplier',
+                include_docs: true
+            };
+
+            this.pouchDb.query(mapFunc, options)
+                .then((result:any) => {
+                    let entries:Array<SupplierInterface> = result.rows.map((row:any) => this.mapObjectToEntrysupplier(row.doc));
+                    entries.sort((one:SupplierInterface, two:SupplierInterface) => two.compareTo(one));
+                    resolve(entries);
+                })
+                .catch(reject);
+        });
+    }
 
     fetchEntry(id: String): Promise<PurchaseInvoiceInterface> {
         return new Promise((resolve, reject) => {
@@ -135,6 +152,7 @@ export class PurchaseInvoiceService {
         });
     }
 
+
     private mapObjectToEntry(object: any): PurchaseInvoiceInterface {
         let entry: PurchaseInvoiceInterface = new PurchaseInvoiceInterface();
         entry.id = object._id;
@@ -152,6 +170,7 @@ export class PurchaseInvoiceService {
         entry.discount = object.discount;
         entry.amount = object.amount;
         entry.info = object.info;
+        entry.Supplier = object.Supplier;
 
         entry.created = new Date(object.created);
         entry.updated = new Date(object.updated);
@@ -169,17 +188,64 @@ export class PurchaseInvoiceService {
             invoiceNumber: entry.invoiceNumber,
             orderNumber: entry.orderNumber,
 
-             description: entry.description,
+            description: entry.description,
             description1: entry.description1,
             qty: entry.qty,
             Unitprice: entry.Unitprice,
             discount: entry.discount,
             amount: entry.amount,
             info: entry.info,
-
+            Supplier: entry.Supplier,
             created: entry.created.toISOString(),
             updated: entry.updated.toISOString()
         };
     }
 
+    private mapObjectToEntrysupplier(object:any):SupplierInterface {
+        let entry:SupplierInterface = new SupplierInterface();
+        entry.id = object._id;
+        entry.rev = object._rev;
+ 
+        entry.view = object.view;
+
+        entry.name = object.name;
+        entry.code = object.code;
+        entry.address= object.address;
+        entry.creditLimit = object.creditLimit;
+        entry.email =object.email;
+        entry.telephone = object.telephone;
+        entry.fax = object.fax;
+        entry.mobile = object.mobile;
+        entry.info = object.info;
+
+       
+
+        entry.created = new Date(object.created);
+        entry.updated = new Date(object.updated);
+        return entry
+    }
+
+    private mapEntryToObjectsupplier(entry:SupplierInterface):Object {
+        return {
+            _id: entry.id,
+            _rev: entry.rev,
+            type: SupplierInterface.TYPE,
+
+            view: entry.view,
+
+           name: entry.name,
+            code : entry.code,
+            address: entry.address,
+            creditLimit: entry.creditLimit,
+            email: entry.email,
+            telephone: entry.telephone,
+            fax: entry.fax,
+            mobile: entry.mobile,
+            info: entry.info,
+
+
+            created: entry.created.toISOString(),
+            updated: entry.updated.toISOString()
+        };
+    }
 } 

@@ -15,6 +15,13 @@ import { InventoryItemReadComponent } from "../components/InventoryItem/Inventor
 import { PurchaseInvoiceReadComponent } from "../components/PurchaseInvoice/PurchaseInvoiceRead";
 import { PurchaseOrder } from "../components/PurchaseOrder/PurchaseOrder";
 
+// faheem
+import { CustomerReadComponent } from "../components/Customer/Customer";
+import { SalesOrderReadComponent } from "../components/SalesOrder/SalesOrder";
+import { SalesQuoteReadComponent } from "../components/SalesQuote/SalesQuote";
+import { SalesInvoiceReadComponent } from "../components/SalesInvoice/SalesInvoice";
+import { DeliveryNotesReadComponent } from "../components/DeliveryNotes/DeliveryNotes";
+
 const AppRoutes: Routes = [
     { path: '', redirectTo: '/deskboard', pathMatch: 'full' },
     { path: 'deskboard', component: DeskboardComponent },
@@ -26,10 +33,19 @@ const AppRoutes: Routes = [
     { path: 'deleteform', component: DeleteformComponent },
     { path: 'allinone', component: AllinoneComponent },
     { path: 'updateform', component: UpdateformComponent },
-    { path: 'SupplierComponent', component: SupplierComponent },//azhar
+
+//azhar
+    { path: 'SupplierComponent', component: SupplierComponent },
     { path: 'InventoryItemRead', component: InventoryItemReadComponent },
     { path: 'PurchaseInvoiceRead', component: PurchaseInvoiceReadComponent },
     { path: 'PurchaseOrder', component: PurchaseOrder },
+
+//faheem
+    { path: 'Customer', component: CustomerReadComponent },
+    { path: 'SalesOrder', component: SalesOrderReadComponent },
+    { path: 'SalesQuote', component: SalesQuoteReadComponent },
+    { path: 'SalesInvoice', component: SalesInvoiceReadComponent },
+    { path: 'DeliveryNotes', component: DeliveryNotesReadComponent },
 
 ];
 

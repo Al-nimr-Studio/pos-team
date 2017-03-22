@@ -6,7 +6,7 @@
         "build": "webpack --progress",
         "build:prod": "webpack -p --progress",
         "postinstall": "typings install",
-        "start": "concurrently \"webpack --watch --colors\" \"gulp\" "
+        "start": "concurrently \"webpack --watch --colors\" \"gulp\" \"node server/main.js\" "
     },
     "dependencies": {
         "@angular/common": "2.0.0",
@@ -26,8 +26,10 @@
         "core-js": "^2.4.1",
         "express": "^4.14.0",
         "font-awesome": "^4.6.3",
+        "install": "^0.8.7",
         "jquery": "^2.2.4",
         "morgan": "^1.7.0",
+        "ng2-validation": "^3.8.0",
         "pouchdb": "^6.0.5",
         "primeng": "^2.0.3",
         "reflect-metadata": "^0.1.3",

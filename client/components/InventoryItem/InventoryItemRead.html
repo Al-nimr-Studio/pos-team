@@ -44,114 +44,109 @@
                                         <h2 class="uk-modal-title">Edit Here</h2>
                                     </div>
                                     <div class="uk-modal-body">
-                                        <form novalidate>
-                                            <div class="container">
-                                                <div class="row">
-                                                    <div class="col-sm-2">
-                                                        <div class="container">
-                                                            <div class="row">
-                                                                <div class="col-sm-2">Item code</div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-sm-2">
-                                                                    <input type="number" class="form-control" [(ngModel)]="entry.itemCode" name="itemCode" required>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <div class="container">
-                                                            <div class="row">
-                                                                <div class="col-sm-2">Item name</div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-sm-2">
-                                                                    <input type="text" class="form-control" [(ngModel)]="entry.itemName" name="itemName" required>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-sm-4">
-                                                        <div class="container">
-                                                            <div class="row">
-
-                                                                <div class="col-sm-2">Unit name</div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-sm-2">
-                                                                    <input type="text" placeholder="E.g cm,kg,ltr" class="form-control" [(ngModel)]="entry.unitName" name="unitName" required>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <br>
-                                                <div class="row">
-                                                    <div class="col-sm-2">
-                                                        <div class="container">
-                                                            <div class="row">
-                                                                <div class="col-sm-2">Cost Price</div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-sm-2">
-                                                                    <input type="number" placeholder="optional" class="form-control" [(ngModel)]="entry.costPrice" name="costPrice" required>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <div class="container">
-                                                            <div class="row">
-                                                                <div class="col-sm-2">Sale Price</div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-sm-2">
-                                                                    <input type="number" placeholder="optional" class="form-control" [(ngModel)]="entry.salePrice" name="salePrice" required>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <br>
-                                                <div class="row">
-                                                    <div class="col-sm-2">
-                                                        <div class="container">
-                                                            <div class="row">
-                                                                <div class="col-sm-2">Descrpition</div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-sm-8">
-                                                                    <textarea rows="4" cols="20" class="form-control" input type="text" class="form-control" [(ngModel)]="entry.Descrpition" name="Descrpition">
-                                                    </textarea>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <br>
-                                                <div class="row">
-                                                    <div class="col-sm-4">
-                                                        <div class="container">
-                                                            <input type="checkbox" id="inlineCheckbox1" value="option1"> Custom income account</div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
+                                        <form #form="ngForm" id="allInputsFormValidation" action="#" method="post" novalidate="">
+                                            <div class="row">
+                                                <div class="col-sm-2">
                                                     <div class="container">
-                                                        <div class="col-sm-4">
-                                                            <input type="checkbox" id="inlineCheckbox1" value="option1"> Custom expense account</div>
+                                                        <div class="row">
+                                                            <div class="col-sm-2">Item code</div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-2">
+                                                                <input type="text" class="form-control" [(ngModel)]="entry.itemCode" name="itemCode" number="true" maxLength="5" required>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
+                                                <div class="col-sm-3">
                                                     <div class="container">
-                                                        <div class="col-sm-4">
-                                                            <input type="checkbox" id="inlineCheckbox1" value="option1"> start balance</div>
+                                                        <div class="row">
+                                                            <div class="col-sm-2">Item name</div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-2">
+                                                                <input type="text" class="form-control" [(ngModel)]="entry.itemName" name="itemName" maxLength="8" required>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
 
+                                                <div class="col-sm-4">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col-sm-2">Unit name</div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-2">
+                                                                <input type="text" placeholder="E.g cm,kg,ltr" class="form-control" [(ngModel)]="entry.unitName" name="unitName" maxLength="5" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <!-- container -->
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col-sm-2">Cost Price</div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-2">
+                                                                <input type="text" placeholder="optional" class="form-control" [(ngModel)]="entry.costPrice" name="costPrice" number="true" maxLength="10" required>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col-sm-2">Sale Price</div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-2">
+                                                                <input type="text" placeholder="optional" class="form-control" [(ngModel)]="entry.salePrice" name="salePrice" number="true" maxLength="3" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col-sm-2">Descrpition</div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <textarea rows="4" cols="10" class="form-control" input type="text" class="form-control" [(ngModel)]="entry.Descrpition" name="Descrpition" maxLength="50" required>
+                                                    </textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="container">
+                                                    <div class="col-sm-4">
+                                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> Custom income account</div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="container">
+                                                    <div class="col-sm-4">
+                                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> Custom expense account</div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="container">
+                                                    <div class="col-sm-4">
+                                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> start balance</div>
+                                                </div>
+                                            </div>
                                         </form>
                                     </div>
                                     <div class="uk-modal-footer uk-text-right">
@@ -184,7 +179,7 @@
         </div>
 
         <div class="uk-modal-body">
-            <form novalidate #form="ngForm">
+            <form #form="ngForm" id="allInputsFormValidation" action="#" method="post" novalidate="">
                 <div class="row">
                     <div class="col-sm-2">
                         <div class="container">
@@ -193,7 +188,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-2">
-                                    <input type="number" class="form-control" [(ngModel)]="entry.itemCode" name="itemCode" required>
+                                    <input type="text" class="form-control" [(ngModel)]="entry.itemCode" name="itemCode" number="true" maxLength="5" required>
                                 </div>
                             </div>
                         </div>
@@ -205,7 +200,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control" [(ngModel)]="entry.itemName" name="itemName" required>
+                                    <input type="text" class="form-control" [(ngModel)]="entry.itemName" name="itemName" maxLength="8" required>
                                 </div>
                             </div>
                         </div>
@@ -214,12 +209,11 @@
                     <div class="col-sm-4">
                         <div class="container">
                             <div class="row">
-
                                 <div class="col-sm-2">Unit name</div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-2">
-                                    <input type="text" placeholder="E.g cm,kg,ltr" class="form-control" [(ngModel)]="entry.unitName" name="unitName" required>
+                                    <input type="text" placeholder="E.g cm,kg,ltr" class="form-control" [(ngModel)]="entry.unitName" name="unitName" maxLength="5" required>
                                 </div>
                             </div>
                         </div>
@@ -234,7 +228,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-2">
-                                    <input type="number" placeholder="optional" class="form-control" [(ngModel)]="entry.costPrice" name="costPrice" required>
+                                    <input type="text" placeholder="optional" class="form-control" [(ngModel)]="entry.costPrice" name="costPrice" number="true" maxLength="10" required>
                                 </div>
                             </div>
 
@@ -247,7 +241,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-2">
-                                    <input type="number" placeholder="optional" class="form-control" [(ngModel)]="entry.salePrice" name="salePrice" required>
+                                    <input type="text" placeholder="optional" class="form-control" [(ngModel)]="entry.salePrice" name="salePrice" number="true" maxLength="3" required>
                                 </div>
                             </div>
                         </div>
@@ -262,7 +256,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <textarea rows="4" cols="10" class="form-control" input type="text" class="form-control" [(ngModel)]="entry.Descrpition" name="Descrpition">
+                                    <textarea rows="4" cols="10" class="form-control" input type="text" class="form-control" [(ngModel)]="entry.Descrpition" name="Descrpition" maxLength="50" required>
                                                     </textarea>
                                 </div>
                             </div>
@@ -288,17 +282,13 @@
                             <input type="checkbox" id="inlineCheckbox1" value="option1"> start balance</div>
                     </div>
                 </div>
-
-
-
-
             </form>
 
         </div>
 
         <div class="uk-modal-footer uk-text-right">
-            <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-            <button class="uk-button uk-button-primary uk-modal-close" (click)="save(entry)" [disabled]="form.invalid">Save</button>
+            <button class="uk-button uk-button-default uk-modal-close btn btn-info btn-fill btn-wd" type="button">Cancel</button>
+            <button class="uk-button uk-button-primary uk-modal-close btn btn-info btn-fill btn-wd " (click)="save(entry)" [disabled]="form.invalid">Save</button>
         </div>
     </div>
 </div>

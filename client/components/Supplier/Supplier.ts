@@ -10,10 +10,10 @@ import{ NgForm} from '@angular/forms';
 @Component({
     selector: 'Supplier',
     template: require('./Supplier.html'),
-    styles: [`
-    input.ng-dirty.ng-invalid { border: solid red 2px; }
-    input.ng-dirty.ng-valid { border: solid green 2px; }
-  `]
+//     styles: [`
+ 
+//     input.ng-dirty.ng-invalid { border: solid green 2px; }
+//   `]
 
 })
 export class SupplierComponent implements OnInit, OnDestroy, SupplierObserver {

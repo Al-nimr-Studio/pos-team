@@ -1,121 +1,129 @@
 <div class="content">
-    <div class="container-fluid">      
-        <div class="card">
-            <div class="content">
-                <div class="header">
-                    <legend>Supplier</legend>
-                    </div>
-                 <div class="content">
-                     <form (ngSubmit)="onSubmit(form)"  novalidate #form="ngForm">
+    <div class="container-fluid">
+        <div class="row">
 
-                        <div class="container">
-                        
-                        <!--name Field-->
-                         <div class="form-group">
-                              <div class="row">
-                                <div class="col-md-3">
-                                    <div>View1 Name</div>
-                                      <input type="text" class="form-control"  
-                                            [(ngModel)]="entry.v1name" name="v1name"required>
+
+
+            <div class="col-md-12">
+                <div class="card">
+                    <form id="allInputsFormValidation" class="form-horizontal" action="#" method="post" novalidate="">
+                        <div class="content">
+                            <legend>Type Validation</legend>
+
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Required Text</label>
+                                    <div class="col-sm-6">
+                                        <input class="form-control" type="text" name="required" required="required" />
+                                    </div>
+                                    <div class="col-sm-4"><code>required</code></div>
                                 </div>
-                              </div>
-                              </div>
-                              <!--Email field-->
-                <div class="form-group">
-                  <div class="row"> 
-                    <div class="col-md-3">
-                     <div>View1 Email</div>
+                            </fieldset>
 
-            <input type="email" class="form-control" #emailField="ngModel"
-          [(ngModel)]="entry.v1email" name="v1email" required pattern=".+@.+">
-
-           <p *ngIf="emailField.touched && emailField.invalid"
-          class="alert alert-danger">Please enter a valid email</p>
-
-               
-
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Email</label>
+                                    <div class="col-sm-6">
+                                        <input class="form-control" type="text" name="email" email="true" />
+                                    </div>
+                                    <div class="col-sm-4"><code>email="true"</code></div>
                                 </div>
-                              </div>
-                         </div>
-             <!--Password Field-->
-            <div class="form-group">
-                  <div class="row"> 
-                    <div class="col-md-3">
-                     <div>View1 Password</div>
+                            </fieldset>
 
-            <input type="password" class="form-control" #passwordField="ngModel"
-          [(ngModel)]="entry.v1password" name="v1password" required>
-
-           <p *ngIf="passwordField.touched && passwordField.invalid"
-          class="alert alert-danger">Please enter a password</p>
-
-               
-
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Number</label>
+                                    <div class="col-sm-6">
+                                        <input class="form-control" type="text" name="number" number="true" />
+                                    </div>
+                                    <div class="col-sm-4"><code>number="true"</code></div>
                                 </div>
-                              </div>
-                         </div>
+                            </fieldset>
 
-                                                 <!--name Field-->
-                         <div class="form-group">
-                              <div class="row">
-                                <div class="col-md-3">
-                                    <div>View2 Name</div>
-                                      <input type="text" class="form-control"  
-                                            [(ngModel)]="entry.v2name" name="v2name"required>
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Url</label>
+                                    <div class="col-sm-6">
+                                        <input class="form-control" type="text" name="url" url="true" />
+                                    </div>
+                                    <div class="col-sm-4"><code>url="true"</code></div>
                                 </div>
-                              </div>
-                              </div>
-                              <!--Email field-->
-                <div class="form-group">
-                  <div class="row"> 
-                    <div class="col-md-3">
-                     <div>View2 Email</div>
+                            </fieldset>
 
-            <input type="email" class="form-control" #emailField="ngModel"
-          [(ngModel)]="entry.v2email" name="v2email" required pattern=".+@.+">
-
-           <p *ngIf="emailField.touched && emailField.invalid"
-          class="alert alert-danger">Please enter a valid email</p>
-
-               
-
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Equal to</label>
+                                    <div class="col-sm-3">
+                                        <input class="form-control" id="idSource" type="text" placeholder="#idSource" />
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input class="form-control" id="idDestination" type="text" placeholder="#idDestination" equalTo="#idSource" />
+                                    </div>
+                                    <div class="col-sm-4"><code>equalTo="#idSource"</code>
+                                    </div>
                                 </div>
-                              </div>
-                         </div>
-             <!--Password Field-->
-            <div class="form-group">
-                  <div class="row"> 
-                    <div class="col-md-3">
-                     <div>View2 Password</div>
+                            </fieldset>
 
-            <input type="password" class="form-control" #passwordField="ngModel"
-          [(ngModel)]="entry.v2password" name="v2password" required>
+                            <legend>Range validation</legend>
 
-           <p *ngIf="passwordField.touched && passwordField.invalid"
-          class="alert alert-danger">Please enter a password</p>
-
-               
-
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Min Length</label>
+                                    <div class="col-sm-6">
+                                        <input class="form-control" type="text" name="min_length" minLength="5" />
+                                    </div>
+                                    <div class="col-sm-4"><code>minLength="5"</code></div>
                                 </div>
-                              </div>
-                         </div>
-                         <div class="row">
+                            </fieldset>
 
-                           <div class="col-md-2">
- <button type="submit" class="btn btn-info btn-fill btn-wd"
-  [disabled]="form.invalid">Create</button>
-                           </div>
-                       </div>
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Max Length</label>
+                                    <div class="col-sm-6">
+                                        <input class="form-control" type="text" name="max_length" maxLength="5" />
+                                    </div>
+                                    <div class="col-sm-4"><code>maxLength="5"</code></div>
+                                </div>
+                            </fieldset>
 
-                        
-					
-                        </div>    
-                               </form>
-                            </div><!-- second content-->
-                    </div><!-- first content-->
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Range</label>
+                                    <div class="col-sm-6">
+                                        <input class="form-control" type="text" name="range" range="[6,10]" />
+                                    </div>
+                                    <div class="col-sm-4"><code>range="[6,10]"</code></div>
+                                </div>
+                            </fieldset>
 
-                </div><!-- card -->
-                
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Min Value</label>
+                                    <div class="col-sm-6">
+                                        <input class="form-control" type="text" name="min" min="6" />
+                                    </div>
+                                    <div class="col-sm-4"><code>min="6"</code></div>
+                                </div>
+                            </fieldset>
 
-            </div><!-- fluid container -->
-</div><!-- main content-->
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Max Value</label>
+                                    <div class="col-sm-6">
+                                        <input class="form-control" type="text" name="max" max="6" />
+                                    </div>
+                                    <div class="col-sm-4"><code>max="6"</code></div>
+                                </div>
+                            </fieldset>
+
+                        </div>
+                        <div class="footer text-center">
+                            <button type="submit" class="btn btn-info btn-fill">Validate Inputs</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

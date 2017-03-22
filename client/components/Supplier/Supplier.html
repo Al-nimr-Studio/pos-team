@@ -54,7 +54,7 @@
                                         <h2 class="uk-modal-title">Edit Here</h2>
                                     </div>
                                     <div class="uk-modal-body">
-                                        <form novalidate>
+                                        <form #form="ngForm" id="allInputsFormValidation" action="#" method="post" novalidate="">
                                             <div class="container">
                                                 <div class="row">
                                                     <div class="col-md-3">
@@ -62,27 +62,28 @@
                                                         <input type="text" class="form-control" [(ngModel)]="entry.name" name="name" required>
                                                     </div>
                                                     <div class="col-sm-4"> </div>
-                                                    <div class="col-sm-2">
+                                                    <div class="col-sm-3">
                                                         <div>Code</div>
                                                         <div class="input-group">
                                                             <span class="input-group-addon">#</span>
-                                                            <input type="number" class="form-control " [(ngModel)]="entry.code" name="code" required>
+                                                            <input type="text" class="form-control " [(ngModel)]="entry.code" name="code" number="true" maxLength="5" required>
                                                             <span class="input-group-addon"></span>
                                                         </div>
+
                                                     </div>
                                                 </div>
                                                 <br>
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div> Address</div>
-                                                        <textarea rows="4" cols="20" class="form-control" input type="text" [(ngModel)]="entry.address" name="address" required></textarea>
+                                                        <textarea rows="4" cols="20" class="form-control" input type="text" [(ngModel)]="entry.address" name="address" maxLength="30" required></textarea>
                                                     </div>
                                                     <div class="col-sm-3"> </div>
-                                                    <div class="col-sm-2">
+                                                    <div class="col-sm-3">
                                                         <div>Credit Limit</div>
                                                         <div class="input-group">
                                                             <span class="input-group-addon">#</span>
-                                                            <input type="number" class="form-control " [(ngModel)]="entry.creditLimit" name="creditLimit" required>
+                                                            <input type="text" class="form-control " [(ngModel)]="entry.creditLimit" name="creditLimit" number="true" maxLength="3">
                                                             <span class="input-group-addon"></span>
                                                         </div>
                                                     </div>
@@ -91,42 +92,39 @@
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div> Emai Address</div>
-                                                        <input type="email" class="form-control" #emailField="ngModel" [(ngModel)]="entry.email" name="email" required pattern=".+@.+">
-                                                        <p *ngIf="emailField.touched && emailField.invalid" class="alert alert-danger">Please enter a valid email</p>
+                                                        <input type="text" class="form-control" [(ngModel)]="entry.email" name="email" email="true" required pattern=".+@.+.com" maxLength="15">
+
                                                     </div>
                                                 </div>
-                                                <br>
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <div> Telephone</div>
-                                                        <input type="tel" class="form-control " [(ngModel)]="entry.telephone" name="telephone" required>
+                                                <fieldset>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <div> Telephone</div>
+
+                                                            <input type="text" class="form-control" [(ngModel)]="entry.telephone" name="telephone" number="true" required maxLength="13">
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                </fieldset>
                                                 <br>
                                                 <div class="row">
                                                     <div class="col-md-3">
                                                         <div> Fax</div>
-                                                        <input type="tel" class="form-control " [(ngModel)]="entry.fax" name="fax" required>
+                                                        <input type="text" class="form-control " [(ngModel)]="entry.fax" name="fax" number="true" required maxLength="13">
                                                     </div>
                                                 </div>
                                                 <br>
                                                 <div class="row">
                                                     <div class="col-md-3">
                                                         <div> Mobile</div>
-                                                        <input type="tel" class="form-control " [(ngModel)]="entry.mobile" name="mobile" required>
+                                                        <input type="text" class="form-control " [(ngModel)]="entry.mobile" name="mobile" number="true" required maxLength="13">
                                                     </div>
                                                 </div>
                                                 <br>
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div> Addtional Information</div>
-                                                        <textarea rows="4" cols="20" class="form-control" input type="text" [(ngModel)]="entry.info" name="info" required></textarea>
+                                                        <textarea rows="4" cols="20" class="form-control" input type="text" [(ngModel)]="entry.info" name="info" required maxLength="25"></textarea>
                                                     </div>
-                                                </div>
-                                                <br>
-                                                <div class="row">
-                                                    <div class="col-sm-4">
-                                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> Starting Balance</div>
                                                 </div>
                                             </div>
                                             <!-- container -->
@@ -155,7 +153,7 @@
             <h2 class="uk-modal-title">Add New Supplier</h2>
         </div>
         <div class="uk-modal-body">
-            <form novalidate #form="ngForm">
+            <form novalidate="" #form="ngForm" id="allInputsFormValidation" action="#" method="post">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-3">
@@ -163,27 +161,28 @@
                             <input type="text" class="form-control" [(ngModel)]="entry.name" name="name" required>
                         </div>
                         <div class="col-sm-4"> </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <div>Code</div>
                             <div class="input-group">
                                 <span class="input-group-addon">#</span>
-                                <input type="number" class="form-control " [(ngModel)]="entry.code" name="code" required>
+                                <input type="text" class="form-control " [(ngModel)]="entry.code" name="code" number="true" maxLength="5" required>
                                 <span class="input-group-addon"></span>
                             </div>
+
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-md-4">
                             <div> Address</div>
-                            <textarea rows="4" cols="20" class="form-control" input type="text" [(ngModel)]="entry.address" name="address" required></textarea>
+                            <textarea rows="4" cols="20" class="form-control" input type="text" [(ngModel)]="entry.address" name="address" maxLength="30" required></textarea>
                         </div>
                         <div class="col-sm-3"> </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <div>Credit Limit</div>
                             <div class="input-group">
                                 <span class="input-group-addon">#</span>
-                                <input type="number" class="form-control " [(ngModel)]="entry.creditLimit" name="creditLimit" required>
+                                <input type="text" class="form-control " [(ngModel)]="entry.creditLimit" name="creditLimit" number="true" maxLength="3">
                                 <span class="input-group-addon"></span>
                             </div>
                         </div>
@@ -192,36 +191,38 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div> Emai Address</div>
-                            <input type="email" class="form-control" #emailField="ngModel" [(ngModel)]="entry.email" name="email" required pattern=".+@.+">
-                            <p *ngIf="emailField.touched && emailField.invalid" class="alert alert-danger">Please enter a valid email</p>
+                            <input type="text" class="form-control" placeholder="abc@gmail.com" [(ngModel)]="entry.email" name="email" email="true" maxLength="15">
+                            <!--<p *ngIf="emailField.touched && emailField.invalid" class="alert alert-danger">Please enter a valid email    required pattern=".+@.+.com" </p>-->
                         </div>
                     </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div> Telephone</div>
-                            <input type="tel" class="form-control " [(ngModel)]="entry.telephone" name="telephone" required>
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div> Telephone</div>
+                                <!--<input class="form-control" type="text" [(ngModel)]="entry.number" name="number" number="true" />-->
+                                <input type="text" class="form-control" placeholder="0423-XXXXXXX" [(ngModel)]="entry.telephone" name="telephone" number="true" maxLength="13" required>
+                            </div>
                         </div>
-                    </div>
+                    </fieldset>
                     <br>
                     <div class="row">
                         <div class="col-md-3">
                             <div> Fax</div>
-                            <input type="tel" class="form-control " [(ngModel)]="entry.fax" name="fax" required>
+                            <input type="text" class="form-control " placeholder="+1(865)346-3654/ (865)934-1234" [(ngModel)]="entry.fax" name="fax" number="true" required maxLength="13">
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-md-3">
                             <div> Mobile</div>
-                            <input type="tel" class="form-control " [(ngModel)]="entry.mobile" name="mobile" required>
+                            <input type="text" class="form-control " placeholder="0300 XXXXXXX" [(ngModel)]="entry.mobile" name="mobile" number="true" required maxLength="13">
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-md-4">
                             <div> Addtional Information</div>
-                            <textarea rows="4" cols="20" class="form-control" input type="text" [(ngModel)]="entry.info" name="info" required></textarea>
+                            <textarea rows="4" cols="20" class="form-control" input type="text" [(ngModel)]="entry.info" name="info" required maxLength="25"></textarea>
                         </div>
                     </div>
                 </div>
@@ -229,8 +230,8 @@
             </form>
         </div>
         <div class="uk-modal-footer uk-text-right">
-            <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-            <button class="uk-button uk-button-primary uk-modal-close" (click)="save(entry)" [disabled]="form.invalid">Save</button>
+            <button class="uk-button uk-button-default uk-modal-close btn btn-info btn-fill btn-wd" type="button">Cancel</button>
+            <button class="uk-button uk-button-primary uk-modal-close btn btn-info btn-fill btn-wd " type="submit" (click)="save(entry)" [disabled]="form.invalid">Save</button>
         </div>
     </div>
 </div>

@@ -1,0 +1,503 @@
+<div class="row">
+	<div class="col-md-12">
+		<div class="card">
+			<div class="header">
+				<h4 class="title">Sales Invoice's List </h4><br>
+				<p class="category"><button href="#modal-overflow" uk-toggle class="btn btn-info btn-fill btn-wd">New Sales Invoice</button></p>
+			</div>
+			<div class="content table-responsive table-full-width">
+				<table class="table">
+					<thead>
+						<tr>
+							<th class="text-center">#</th>
+							<th>Invoice Date</th>
+							<th>Invoice number</th>
+							<th>Purchase Order</th>
+							<th>Customer</th>
+							<th>Description</th>
+							<th>Amount</th>
+							<th class="text-right">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<tr *ngFor="let entry of entries; trackBy:entry?.id">
+
+							<td class="text-center"></td>
+							<td>{{entry.invoicedate}}</td>
+							<td>{{entry.invoicenumber}}</td>
+							<td>{{entry.purchaseorder}}</td>
+							<td>{{entry.customer}}</td>
+							<td>{{entry.invoicesummeryn}}</td>
+							<td>{{entry.amount}}</td>
+							<td class="td-actions text-right">
+								<a uk-toggle="target: #rana" rel="tooltip" title="" class="btn btn-info btn-fill">Edit</a>
+								<a uk-toggle="target: #invoice" rel="tooltip" title="" class="btn btn-info btn-fill">View</a>
+							</td>
+
+
+							<div id="rana" class="uk-modal-container" uk-modal>
+								<div class="uk-modal-dialog uk-modal-body">
+
+									<button class="uk-modal-close-default" type="button" uk-close></button>
+									<div class="uk-modal-header">
+										<h2 class="uk-modal-title">Edit Here</h2>
+									</div>
+									<div class="uk-modal-body">
+										<form novalidate>
+
+											<div class="container">
+
+												<!--name Field-->
+
+
+												<div class="row">
+													<div class="col-sm-2">
+														<div>Invoice No.</div>
+														<div class="input-group">
+															<span class="input-group-addon">#</span>
+															<input type="text" placeholder="Invoice no." class="form-control" [(ngModel)]="entry.invoicenumber" name="invoicenumber"
+															 required>
+															<span class="input-group-addon"></span>
+														</div>
+													</div>
+												</div>
+												<br>
+												<div class="row">
+													<div class="col-sm-2">
+														<div>Purchase Order</div>
+														<div class="input-group">
+															<span class="input-group-addon">#</span>
+															<input type="text" placeholder="Purchase order" class="form-control" [(ngModel)]="entry. purchaseorder" name=" purchaseorder"
+															 required>
+															<span class="input-group-addon"></span>
+														</div>
+													</div>
+												</div>
+												<br>
+												<div class="row">
+													<div class="col-sm-2">
+														<div>Sales Quote</div>
+														<div class="input-group">
+															<span class="input-group-addon">#</span>
+															<input type="text" placeholder="Sales Quote" class="form-control" [(ngModel)]="entry. salesquote" name=" salesquote" required>
+															<span class="input-group-addon"></span>
+														</div>
+													</div>
+												</div>
+												<br>
+												<div class="row">
+													<div class="col-md-2">
+														<div> Invoice Date</div>
+														<input class="form-control datetimepicker" placeholder="Datetime Picker Here" type="text" [(ngModel)]="entry. invoicedate"
+														 name=" invoicedate" required>
+													</div>
+													<div class="col-md-4"></div>
+													<div class="col-md-2">
+														<div> Due Date</div>
+														<input class="form-control datetimepicker" placeholder="Datetime Picker Here" type="text" [(ngModel)]="entry.duedate" name="duedate"
+														 required>
+													</div>
+
+												</div>
+												<br>
+
+												<div class="row">
+													<div class="col-md-2">
+														<div> Customer</div>
+														<input type="text" class="form-control datetimepicker" placeholder="Customer name" [(ngModel)]="entry.customer" name="customer"
+														 required>
+													</div>
+												</div>
+												<br>
+												<div class="row">
+													<div class="col-md-4">
+														<div> Billing Address</div>
+														<textarea rows="4" cols="20" class="form-control" [(ngModel)]=" entry.billingaddress" name="billingaddress"></textarea>
+													</div>
+												</div>
+												<br>
+												<div class="row">
+													<div class="col-md-6">
+														<div>Invoice Summary</div>
+														<input type="text" class="form-control" placeholder="optional" [(ngModel)]=" entry.invoicesummery" name="invoicesummery"
+														 required>
+													</div>
+												</div>
+												<br>
+												<div class="row">
+													<div class="col-md-2">
+														<div> Item name</div>
+														<input type="text" class="form-control" placeholder="Item name" [(ngModel)]=" entry.item" name="Item" required>
+													</div>
+
+													<div class="col-md-4">
+														<div> Description</div>
+														<input type="text" class="form-control" placeholder="Description of quete" [(ngModel)]="entry.description" name="description"
+														 required>
+													</div>
+
+													<div class="col-sm-1">
+														<div>Qty</div>
+														<input type="number" class="form-control" placeholder="0" [(ngModel)]="entry.qty" name="qty" required>
+													</div>
+
+													<div class="col-sm-1">
+														<div>Unit Price</div>
+														<input type="number" class="form-control" placeholder="0" [(ngModel)]="entry.unitprice" name="unitprice" required>
+													</div>
+
+													<div class="col-sm-1">
+														<div>Discount</div>
+														<input type="number" class="form-control" placeholder="%" [(ngModel)]="entry.discount" name="discount" required>
+													</div>
+													<div class="col-sm-2">
+														<div>Amount</div>
+														<div class="input-group">
+															<span class="input-group-addon"></span>
+															<input type="number" class="form-control" placeholder="0%" [(ngModel)]="entry.amount" name="amount" required>
+															<span class="input-group-addon">Rs.</span>
+														</div>
+													</div>
+												</div>
+												<br>
+												<div class="row">
+													<div class="col-sm-2">
+														<select name="cities" class="selectpicker" data-title="Add line" data-style="btn-info btn-fill btn-block btn-sm" data-menu-style="dropdown-blue"></select>
+													</div>
+													<div class="col-sm-7"></div>
+													<div class="col-sm-2">
+														<input type="text" class="form-control" placeholder="0" [(ngModel)]="entry.amount" name="amount" required>
+													</div>
+												</div>
+
+
+
+
+												<br>
+
+
+
+												<div class="row">
+													<div class="col-md-4">
+														<div> Notes</div>
+														<textarea type="text" rows="4" cols="20" class="form-control" placeholder="Notes" [(ngModel)]="entry.notes" name="notes"
+														 required></textarea>
+													</div>
+												</div>
+
+											</div>
+										</form>
+									</div>
+									<div class="uk-modal-footer uk-text-right">
+										<button class="btn btn-info btn-fill btn-wd uk-modal-close" (click)="update(entry)" type="button">Update</button>
+										<button class="btn btn-danger btn-fill btn-wd uk-modal-close" (click)="delete(entry)" type="button">Delete</button>
+									</div>
+								</div>
+							</div>
+							<div id="invoice" class="uk-modal-container" uk-modal>
+								<div class="uk-modal-dialog uk-modal-body">
+
+									<button class="uk-modal-close-default" type="button" uk-close></button>
+
+
+									<div styles="height:6000px;" class="uk-modal-body">
+
+										<div class="invoice-box">
+											<table cellpadding="0" cellspacing="0">
+												<tr class="top">
+													<td colspan="2">
+														<table>
+															<tr>
+																<td class="title">
+																	<img src="http://nextstepwebs.com/images/logo.png" style="width:100%; max-width:300px;">
+																</td>
+
+																<td>
+																	Invoice #: {{ entry.invoicenumber}}<br> Created: January 1, 2015<br> Due: February 1, 2015
+																</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+
+												<tr class="information">
+													<td colspan="2">
+														<table>
+															<tr>
+																<td>
+																	Al nimr Studio, Inc.<br> Shan Arcade, Barkat Markeet<br> Lahore , 54000
+																</td>
+
+																<td>
+																	Acme Corp.<br> Rana Faheem<br> ranafaheem@alnimrstudio.com
+																</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+
+												<tr class="heading">
+													<td>
+														Payment Method
+													</td>
+
+													<td>
+														Check #
+													</td>
+												</tr>
+
+												<tr class="details">
+													<td>
+														Check
+													</td>
+
+													<td>
+														1000
+													</td>
+												</tr>
+
+												<tr class="heading">
+													<td>
+														Item
+													</td>
+
+													<td>
+														Price
+													</td>
+												</tr>
+
+												<tr class="item">
+													<td>
+														{{entry.description}}
+													</td>
+
+													<td>
+														{{entry.amount}}
+													</td>
+												</tr>
+
+												<tr class="item">
+													<td>
+														Hosting (3 months)
+													</td>
+
+													<td>
+														$75.00
+													</td>
+												</tr>
+
+												<tr class="item last">
+													<td>
+														Domain name (1 year)
+													</td>
+
+													<td>
+														$10.00
+													</td>
+												</tr>
+
+												<tr class="total">
+													<td></td>
+
+													<td>
+														Total: $385.00
+													</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+
+
+								</div>
+							</div>
+
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+
+
+
+
+
+<!--enter new SalesInvoice page-->
+
+<div id="modal-overflow" class="uk-modal-container" uk-modal>
+	<div class="uk-modal-dialog uk-modal-body">
+
+		<button class="uk-modal-close-default" type="button" uk-close></button>
+
+		<div class="uk-modal-header">
+			<h2 class="uk-modal-title">New Sales Invoice</h2>
+		</div>
+
+		<div styles="height:6000px;" class="uk-modal-body">
+			<form novalidate #form="ngForm">
+
+
+				<!--enter new SalesInvoice code here-->
+
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-2">
+							<div>Invoice No.</div>
+							<div class="input-group">
+								<span class="input-group-addon">#</span>
+								<input type="text" placeholder="Invoice no." class="form-control" [(ngModel)]="entry.invoicenumber" name="invoicenumber"
+								 required>
+								<span class="input-group-addon"></span>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-sm-2">
+							<div>Purchase Order</div>
+							<div class="input-group">
+								<span class="input-group-addon">#</span>
+								<input type="text" placeholder="rPurchase Order" class="form-control" [(ngModel)]="entry. purchaseorder" name=" purchaseorder"
+								 required>
+								<span class="input-group-addon"></span>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-sm-2">
+							<div>Sales Quote</div>
+							<div class="input-group">
+								<span class="input-group-addon">#</span>
+								<input type="text" placeholder="rSales Quote" class="form-control" [(ngModel)]="entry. salesquote" name=" salesquote" required>
+								<span class="input-group-addon"></span>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-md-2">
+							<div> Invoice Date</div>
+							<input class="form-control datetimepicker" placeholder="Datetime Picker Here" type="text" [(ngModel)]="entry. invoicedate"
+							 name=" invoicedate" required>
+						</div>
+						<div class="col-md-4"></div>
+						<div class="col-md-2">
+							<div> Due Date</div>
+							<input class="form-control datetimepicker" placeholder="Datetime Picker Here" type="text" [(ngModel)]="entry.duedate" name="duedate"
+							 required>
+						</div>
+
+					</div>
+					<br>
+
+					<div class="row">
+						<div class="col-md-2">
+							<div> Customer</div>
+							<input type="text" class="form-control datetimepicker" placeholder="Customer name" [(ngModel)]="entry.customer" name="customer"
+							 required>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="row">
+							<div class="col-md-4">
+								<div> Billing Address</div>
+								<textarea rows="4" cols="20" class="form-control" [(ngModel)]=" entry.billingaddres" name="billingaddres"></textarea>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-md-6">
+							<div> Invoice Summary</div>
+							<input type="text" class="form-control" placeholder="optional" [(ngModel)]="entry.invoicesummery" name="invoicesummery" required>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-md-2">
+							<div> Item name</div>
+							<input type="text" class="form-control" placeholder="Item name" [(ngModel)]=" entry.item" name="Item" required>
+						</div>
+
+						<div class="col-md-4">
+							<div> Description</div>
+							<input type="text" class="form-control" placeholder="Description of quete" [(ngModel)]="entry.description" name="description"
+							 required>
+						</div>
+
+						<div class="col-sm-1">
+							<div>Qty</div>
+							<input type="number" class="form-control" placeholder="0" [(ngModel)]="entry.qty" name="qty" required>
+						</div>
+
+						<div class="col-sm-1">
+							<div>Unit Price</div>
+							<input type="number" class="form-control" placeholder="0" [(ngModel)]="entry.unitprice" name="unitprice" required>
+						</div>
+
+						<div class="col-sm-1">
+							<div>Discount</div>
+							<input type="number" class="form-control" placeholder="%" [(ngModel)]="entry.discount" name="discount" required>
+						</div>
+						<div class="col-sm-2">
+							<div>Amount</div>
+							<div class="input-group">
+								<span class="input-group-addon"></span>
+								<input type="number" class="form-control" placeholder="0%" [(ngModel)]="entry.amount" name="amount" required>
+								<span class="input-group-addon">Rs.</span>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-sm-2">
+							<select name="cities" class="selectpicker" data-title="Add line" data-style="btn-info btn-fill btn-block btn-sm" data-menu-style="dropdown-blue"></select>
+						</div>
+						<div class="col-sm-7"></div>
+						<div class="col-sm-2">
+							<input type="text" class="form-control" placeholder="0" [(ngModel)]="entry.amount" name="amount" required>
+						</div>
+					</div>
+
+
+
+
+					<br>
+
+
+					<div class="row">
+						<div class="col-md-4">
+							<div> Notes</div>
+							<textarea type="text" rows="4" cols="20" class="form-control" placeholder="optional" [(ngModel)]="entry.notes" name="notes"
+							 required></textarea>
+						</div>
+					</div>
+					<br>
+
+
+
+
+				</div>
+
+			</form>
+
+		</div>
+
+		<div class="uk-modal-footer uk-text-right ">
+			<button class="uk-button uk-button-default uk-modal-close " type="button ">Cancel</button>
+			<button class="uk-button uk-button-primary uk-modal-close " (click)="save(entry) " [disabled]="form.invalid ">Save</button>
+		</div>
+
+	</div>
+</div>
+
+
+<!--enter new SalesInvoice page-->
