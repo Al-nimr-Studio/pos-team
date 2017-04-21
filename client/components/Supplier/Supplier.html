@@ -76,7 +76,8 @@
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div> Address</div>
-                                                        <textarea rows="4" cols="20" class="form-control" input type="text" [(ngModel)]="entry.address" name="address" maxLength="30" required></textarea>
+                                                        <textarea rows="4" cols="20" class="form-control" input type="text" [(ngModel)]="entry.address" name="address" maxLength="30"
+                                                            required></textarea>
                                                     </div>
                                                     <div class="col-sm-3"> </div>
                                                     <div class="col-sm-3">
@@ -92,7 +93,8 @@
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div> Emai Address</div>
-                                                        <input type="text" class="form-control" [(ngModel)]="entry.email" name="email" email="true" required pattern=".+@.+.com" maxLength="15">
+                                                        <input type="text" class="form-control" [(ngModel)]="entry.email" name="email" email="true" required pattern=".+@.+.com"
+                                                            maxLength="15">
 
                                                     </div>
                                                 </div>
@@ -153,21 +155,24 @@
             <h2 class="uk-modal-title">Add New Supplier</h2>
         </div>
         <div class="uk-modal-body">
-            <form novalidate="" #form="ngForm" id="allInputsFormValidation" action="#" method="post">
+            <form novalidate="" #form="ngForm">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-3">
                             <div>Name</div>
-                            <input type="text" class="form-control" [(ngModel)]="entry.name" name="name" required>
+                            <input type="text" class="form-control" [(ngModel)]="entry.name" name="name" #name="ngModel" [rangeLength]="[4, 20]" required>
+                            <p *ngIf="name.errors?.rangeLength">enter a valid name</p>
                         </div>
                         <div class="col-sm-4"> </div>
                         <div class="col-sm-3">
                             <div>Code</div>
                             <div class="input-group">
                                 <span class="input-group-addon">#</span>
-                                <input type="text" class="form-control " [(ngModel)]="entry.code" name="code" number="true" maxLength="5" required>
+                                <input type="text" class="form-control " [(ngModel)]="entry.code" name="code" number="true" maxLength="5" #code="ngModel"
+                                    [rangeLength]="[4, 20]" required>
                                 <span class="input-group-addon"></span>
                             </div>
+                            <p *ngIf="code.errors?.rangeLength">enter a valid code</p>
 
                         </div>
                     </div>
@@ -175,7 +180,8 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div> Address</div>
-                            <textarea rows="4" cols="20" class="form-control" input type="text" [(ngModel)]="entry.address" name="address" maxLength="30" required></textarea>
+                            <textarea rows="4" cols="20" class="form-control" input type="text" [(ngModel)]="entry.address" name="address" maxLength="30"
+                                required></textarea>
                         </div>
                         <div class="col-sm-3"> </div>
                         <div class="col-sm-3">
@@ -200,7 +206,8 @@
                             <div class="col-md-3">
                                 <div> Telephone</div>
                                 <!--<input class="form-control" type="text" [(ngModel)]="entry.number" name="number" number="true" />-->
-                                <input type="text" class="form-control" placeholder="0423-XXXXXXX" [(ngModel)]="entry.telephone" name="telephone" number="true" maxLength="13" required>
+                                <input type="text" class="form-control" placeholder="0423-XXXXXXX" [(ngModel)]="entry.telephone" name="telephone" number="true"
+                                    maxLength="13" required>
                             </div>
                         </div>
                     </fieldset>
@@ -208,14 +215,16 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div> Fax</div>
-                            <input type="text" class="form-control " placeholder="+1(865)346-3654/ (865)934-1234" [(ngModel)]="entry.fax" name="fax" number="true" required maxLength="13">
+                            <input type="text" class="form-control " placeholder="+1(865)346-3654/ (865)934-1234" [(ngModel)]="entry.fax" name="fax"
+                                number="true" required maxLength="13">
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-md-3">
                             <div> Mobile</div>
-                            <input type="text" class="form-control " placeholder="0300 XXXXXXX" [(ngModel)]="entry.mobile" name="mobile" number="true" required maxLength="13">
+                            <input type="text" class="form-control " placeholder="0300 XXXXXXX" [(ngModel)]="entry.mobile" name="mobile" number="true"
+                                required maxLength="13">
                         </div>
                     </div>
                     <br>
@@ -231,7 +240,8 @@
         </div>
         <div class="uk-modal-footer uk-text-right">
             <button class="uk-button uk-button-default uk-modal-close btn btn-info btn-fill btn-wd" type="button">Cancel</button>
-            <button class="uk-button uk-button-primary uk-modal-close btn btn-info btn-fill btn-wd " type="submit" (click)="save(entry)" [disabled]="form.invalid">Save</button>
+            <button class="uk-button uk-button-primary uk-modal-close btn btn-info btn-fill btn-wd " type="submit" (click)="save(entry)"
+                [disabled]="form.invalid">Save</button>
         </div>
     </div>
 </div>

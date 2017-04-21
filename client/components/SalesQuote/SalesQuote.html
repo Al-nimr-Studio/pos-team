@@ -38,17 +38,20 @@
                                         <h2 class="uk-modal-title">Edit Here</h2>
                                     </div>
                                     <div class="uk-modal-body">
-                                        <form novalidate>
+                                        <form novalidate #form="ngForm">
+
+
+                                            <!--enter new SalesQuote code here-->
 
                                             <div class="container">
-
-                                                <!--name Field-->
                                                 <div class="row">
                                                     <div class="col-sm-2">
                                                         <div>Reference No.</div>
                                                         <div class="input-group">
                                                             <span class="input-group-addon">#</span>
-                                                            <input type="text" placeholder="reference no." class="form-control" [(ngModel)]="entry.reference" name="reference" required>
+                                                            <input type="text" placeholder="reference no." class="form-control" [(ngModel)]="entry.reference" name="reference" #reference="ngModel"
+                                                                [rangeLength]="[3, 30]" required>
+                                                            <p *ngIf="reference.errors?.rangeLength">must contain be 3 to 10 worlds</p>
                                                             <span class="input-group-addon"></span>
                                                         </div>
                                                     </div>
@@ -57,31 +60,24 @@
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div> Heading</div>
-                                                        <input type="text" placeholder="Quote heading" class="form-control" [(ngModel)]="entry.heading" name="heading" required>
+                                                        <input type="text" placeholder="Quote heading" class="form-control" [(ngModel)]="entry.heading" name="heading" #heading="ngModel"
+                                                            [rangeLength]="[5, 30]" required>
+                                                        <p *ngIf="heading.errors?.rangeLength">must contain be 3 to 10 worlds</p>
                                                     </div>
                                                 </div>
 
 
 
+                                                <br>
                                                 <div class="row">
                                                     <div class="col-md-2">
-                                                        <div> Issuse Date</div>
+                                                        <div> Issue Date</div>
                                                         <input class="form-control datetimepicker" placeholder="Datetime Picker Here" type="text" [(ngModel)]="entry.issuedate" name="issuedate"
                                                             required>
                                                     </div>
                                                 </div>
                                                 <br>
-                                                <div class="row">
-                                                    <div class="col-sm-2">
-                                                        <div>Reference No.</div>
-                                                        <div class="input-group">
-                                                            <span class="input-group-addon">#</span>
-                                                            <input type="text" placeholder="reference no." class="form-control" [(ngModel)]="entry.reference" name="reference" required>
-                                                            <span class="input-group-addon"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <br>
+
                                                 <div class="row">
                                                     <div class="col-md-2">
                                                         <div> Customer</div>
@@ -93,14 +89,18 @@
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div> Billing Address</div>
-                                                        <textarea rows="4" cols="20" class="form-control"></textarea>
+                                                        <input type="text" class="form-control" placeholder="billing address" [(ngModel)]="entry.billingaddress" name="billingaddress"
+                                                            #billingaddress="ngModel" [rangeLength]="[5, 70]" required>
+                                                        <p *ngIf="billingaddress.errors?.rangeLength">billing address must be less 30 worlds</p>
                                                     </div>
                                                 </div>
                                                 <br>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div> Summary</div>
-                                                        <input type="text" class="form-control" placeholder="optional" [(ngModel)]="entry.summery" name="summery" required>
+                                                        <input type="text" class="form-control" placeholder="optional" [(ngModel)]="entry.quotesummery" name="quotesummery" #quotesummery="ngModel"
+                                                            [rangeLength]="[5, 70]">
+                                                        <p *ngIf="quotesummery.errors?.rangeLength">Summery must be less 30 worlds</p>
                                                     </div>
                                                 </div>
                                                 <br>
@@ -154,25 +154,23 @@
 
 
                                                 <br>
-                                                <div class="row">
-                                                    <div class="col-md-2">
-                                                        <div> Delivery Date</div>
-                                                        <input type="text" class="form-control datetimepicker" placeholder="08/19/2016" [(ngModel)]="entry.deliverydate" name="deliverydate"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                                <br>
 
 
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div> Notes</div>
-                                                        <textarea type="text" rows="4" cols="20" class="form-control" placeholder="Notes" [(ngModel)]="entry.notes" name="deliveryinstructions"
-                                                            required></textarea>
+                                                        <textarea type="text" rows="4" cols="20" class="form-control" placeholder="optional" [(ngModel)]="entry.notes" name="notes"
+                                                            #notes="ngModel" [rangeLength]="[0, 100]" required></textarea>
+                                                        <p *ngIf="notes.errors?.rangeLength">must be less then 100 worlds</p>
                                                     </div>
                                                 </div>
+                                                <br>
+
+
+
 
                                             </div>
+
                                         </form>
                                     </div>
                                     <div class="uk-modal-footer uk-text-right">
@@ -339,16 +337,22 @@
                             <div>Reference No.</div>
                             <div class="input-group">
                                 <span class="input-group-addon">#</span>
-                                <input type="text" placeholder="reference no." class="form-control" [(ngModel)]="entry.reference" name="reference" required>
+                                <input type="text" placeholder="reference no." class="form-control" [(ngModel)]="entry.reference" name="reference" #reference="ngModel"
+                                    [rangeLength]="[3, 30]" required>
+
                                 <span class="input-group-addon"></span>
+
                             </div>
+                            <p *ngIf="reference.errors?.rangeLength">must be 3 to 10 worlds</p>
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-md-4">
                             <div> Heading</div>
-                            <input type="text" placeholder="Quote heading" class="form-control" [(ngModel)]="entry.heading" name="heading" required>
+                            <input type="text" placeholder="Quote heading" class="form-control" [(ngModel)]="entry.heading" name="heading" #heading="ngModel"
+                                [rangeLength]="[5, 30]" required>
+                            <p *ngIf="heading.errors?.rangeLength">must contain 3 to 10 worlds</p>
                         </div>
                     </div>
 
@@ -376,14 +380,17 @@
                         <div class="col-md-4">
                             <div> Billing Address</div>
                             <input type="text" class="form-control" placeholder="billing address" [(ngModel)]="entry.billingaddress" name="billingaddress"
-                                required>
+                                #billingaddress="ngModel" [rangeLength]="[5, 70]" required>
+                            <p *ngIf="billingaddress.errors?.rangeLength">billing address must be less 30 worlds</p>
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-md-6">
                             <div> Summary</div>
-                            <input type="text" class="form-control" placeholder="optional" [(ngModel)]="entry.quotesummery" name="quotesummery" required>
+                            <input type="text" class="form-control" placeholder="optional" [(ngModel)]="entry.quotesummery" name="quotesummery" #quotesummery="ngModel"
+                                [rangeLength]="[5, 70]">
+                            <p *ngIf="quotesummery.errors?.rangeLength">Summery must be less 30 worlds</p>
                         </div>
                     </div>
                     <br>
@@ -442,8 +449,9 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div> Notes</div>
-                            <textarea type="text" rows="4" cols="20" class="form-control" placeholder="optional" [(ngModel)]="entry.notes" name="deliveryinstructions"
-                                required></textarea>
+                            <textarea type="text" rows="4" cols="20" class="form-control" placeholder="optional" [(ngModel)]="entry.notes" name="notes"
+                                #notes="ngModel" [rangeLength]="[0, 100]" required></textarea>
+                            <p *ngIf="notes.errors?.rangeLength">must be less then 100 worlds</p>
                         </div>
                     </div>
                     <br>

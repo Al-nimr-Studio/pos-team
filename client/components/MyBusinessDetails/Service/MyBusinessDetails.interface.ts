@@ -7,19 +7,16 @@ export class MyBusinessDetailsInterface {
     id: String;
     view: String;
     rev: String;
-    name: String;
+    mybusinessname: String;
     created: Date;
     updated: Date;
-    code: String;
-    currency: String;
-    creditlimit: String;
-    businessidentifier: String;
-    billingaddress: String;
-    telephonenumber: String;
-    email: String;
-    fax: String;
-    mobile: String;
-    additionalinformation: String
+    mybusinessidentifier: String;
+    mybusinessaddress: String;
+    mytelephonenumber: String;
+    mybusinessemail: String;
+    myfax: String;
+    mymobile: String;
+    logo: String
 
     compareTo(other: MyBusinessDetailsInterface): number {
         return this.created.valueOf() - other.created.valueOf();

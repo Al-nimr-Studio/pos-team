@@ -4,16 +4,17 @@ import { CustomerService } from './Service/Customer.service';
 import { CustomerObserver } from './Service/Customer.observer';
 import { NgForm } from '@angular/forms';
 
+
 declare var $: any;
 declare var $tr: any;
 
 @Component({
     selector: 'Customer',
     template: require('./Customer.html'),
-//     styles: [`
-//     input.ng-dirty.ng-invalid { border: solid red 2px; }
-//     input.ng-dirty.ng-valid { border: solid green 2px; }
-//   `]
+    styles: [`
+   input.ng-dirty.ng-invalid { border: solid red 2px; }
+    input.ng-dirty.ng-valid { border: solid green 2px; }
+  `]
 
 })
 export class CustomerReadComponent implements OnInit, OnDestroy, CustomerObserver {

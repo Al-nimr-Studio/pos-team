@@ -163,7 +163,7 @@
                                                             <div class="row">
 
                                                                 <div class="col-sm-6"><textarea rows="3" cols="15" class="form-control" input type="text"
-                                                                        [(ngModel)]="entry.info" name="info" maxLength="5" required></textarea></div>
+                                                                        [(ngModel)]="entry.info" name="info" required></textarea></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -334,67 +334,73 @@
                         <div>Invoice Number</div>
                         <div class="input-group">
                             <span class="input-group-addon">#</span>
-                            <input type="text" class="form-control" [(ngModel)]="entry.invoiceNumber" name="invoiceNumber" number="true" maxLength="5"
+                            <input type="text" class="form-control" [(ngModel)]="entry.invoiceNumber" name="invoiceNumber" #invoiceNumber="ngModel" [rangeLength]="[5, 10]"
                                 required>
                             <span class="input-group-addon"></span>
                         </div>
+                        <p *ngIf="invoiceNumber.errors?.rangeLength">it must be between 5 to 10</p>
                     </div>
                     <div class="col-sm-1"></div>
                     <div class="col-sm-3">
                         <div>Order Number</div>
                         <div class="input-group">
                             <span class="input-group-addon">#</span>
-                            <input type="text" class="form-control" [(ngModel)]="entry.orderNumber" name="orderNumber" number="true" maxLength="5" required>
-                            <span class="input-group-addon"></span>
+                            <input type="text" class="form-control" [(ngModel)]="entry.orderNumber" name="orderNumber" number="true" #orderNumber="ngModel"
+                                [rangeLength]="
+                                [5, 10] " required>
+                            <span class=" input-group-addon "></span>
                         </div>
+                        <p *ngIf="orderNumber.errors?.rangeLength ">it must be between 5 to 10</p>
                     </div>
                 </div>
                 <br>
-                <div class="row">
-                    <div class="col-sm-4">
+                <div class="row ">
+                    <div class="col-sm-4 ">
                         <div>Suppliers</div>
-                        <select required name="sup" [(ngModel)]="entry.Supplier" class="selectpicker">
-                          <!--<option value="" selected="supplier[0]">test</option>-->
-                            <option  *ngFor="let s of sup; trackBy:s?.id" [attr.Value]="s.name">{{s.name}}</option>
+                        <select required name="sup " [(ngModel)]="entry.Supplier " class="selectpicker ">
+                          <!--<option value=" " selected="supplier[0] ">test</option>-->
+                            <option  *ngFor="let s of sup; trackBy:s?.id " [attr.Value]="s.name ">{{s.name}}</option>
                             </select>
                         <!--<br>-->
-                        <!--<select required name="countries" [(ngModel)]="entry.Supplier" class="selectpicker" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
-                            <option *ngFor="let c of countries" [attr.value]="c.name">{{c.name}}</option>
+                        <!--<select required name="countries " [(ngModel)]="entry.Supplier " class="selectpicker
+                                " data-style="btn-default btn-block " data-menu-style="dropdown-blue ">
+                            <option *ngFor="let c of countries " [attr.value]="c.name ">{{c.name}}</option>
                             </select>-->
-                        <!--<option value="supplier1">supplier</option>
-                            <option value="supplier 1">supplier 1</option>
-                            <option value="supplier2">supplier2</option>
-                            <option value="da">Dansk</option>
-                            <option value="de">Deutsch</option>
-                            <option value="en">English</option>-->
-                        <!--<option *ngFor="let c of countries" [ngValue]="c">{{c.name}}</option>-->
-                        <!--<option *ngFor="#c of countries" value="c">{{c.name}}</option>-->
+                        <!--<option value="supplier1 ">supplier</option>
+                            <option value="supplier 1 ">supplier 1</option>
+                            <option value="supplier2 ">supplier2</option>
+                            <option value="da ">Dansk</option>
+                            <option value="de ">Deutsch</option>
+                            <option value="en ">English</option>-->
+                        <!--<option *ngFor="let c of countries " [ngValue]="c ">{{c.name}}</option>-->
+                        <!--<option *ngFor="#c of countries " value="c ">{{c.name}}</option>-->
 
 
 
                         <!--<label>Name</label>-->
-                        <!--<select [(ngModel)]="name" name="Select name" class="selectpicker" data-style="btn-default btn-block" data-menu-style="dropdown-blue"> 
-                            <option *ngFor="#n of names" [attr.value]="n">{{n}}</option>
+                        <!--<select [(ngModel)]="name " name="Select name " class="selectpicker " data-style="btn-default
+                                btn-block " data-menu-style="dropdown-blue "> 
+                            <option *ngFor="#n of names " [attr.value]="n ">{{n}}</option>
                         </select>-->
                         <!--</select>-->
 
-                        <!--<select [(ngModel)]="selectedValue">
-                            <option *ngFor="let c of countries" [ngValue]="c">{{c.name}}</option>
+                        <!--<select [(ngModel)]="selectedValue ">
+                            <option *ngFor="let c of countries " [ngValue]="c ">{{c.name}}</option>
                         </select>-->
-                        <!--<select [(ngModel)]="selectedValue">
-                            <option *ngFor="#c of countries" [value]="c.id">{{c.name}}</option>
+                        <!--<select [(ngModel)]="selectedValue ">
+                            <option *ngFor="#c of countries " [value]="c.id ">{{c.name}}</option>
                         </select>-->
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-2">
-                        <div class="container">
-                            <div class="row">
+                <div class="row ">
+                    <div class="col-sm-2 ">
+                        <div class="container ">
+                            <div class="row ">
                                 <div>Description</div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <textarea rows="3" cols="15" class="form-control" input type="text" [(ngModel)]="entry.description" name="description" maxLength="25"
-                                            required>
+                                <div class="row ">
+                                    <div class="col-sm-6 ">
+                                        <textarea rows="3 " cols="15 " class="form-control " input type="text
+                                " [(ngModel)]="entry.description " name="description " maxLength="25 " required>
                                                      </textarea>
                                     </div>
                                 </div>
@@ -404,65 +410,73 @@
                 </div>
 
                 <br>
-                <div class="row">
-                    <div class="col-md-3">
+                <div class="row ">
+                    <div class="col-md-3 ">
                         <div> Description</div>
-                        <input type="text" class="form-control" [(ngModel)]="entry.description1" name="description1" maxLength="15" required>
+                        <input type="text " class="form-control " [(ngModel)]="entry.description1 " name="description1
+                                " maxLength="15 " required>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 ">
                         <div>Qty</div>
-                        <input type="text" class="form-control" [(ngModel)]="entry.qty" name="qty" number="true" maxLength="5" required>
+                        <input type="text " class="form-control " [(ngModel)]="entry.qty " name="qty " number="true
+                                " maxLength="5 " required>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 ">
                         <div>Unit Price</div>
-                        <input type="text" class="form-control" [(ngModel)]="entry.Unitprice" name="Unitprice" number="true" maxLength="5" required>
+                        <input type="text " class="form-control " [(ngModel)]="entry.Unitprice " name="Unitprice
+                                " number="true " maxLength="5 " required>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 ">
                         <div>Discount</div>
-                        <div class="input-group">
+                        <div class="input-group ">
                             <span></span>
-                            <input type="text" class="form-control" [(ngModel)]="entry.discount" name="discount" number="true" maxLength="5" required>
-                            <span class="input-group-addon">%</span>
+                            <input type="text " class="form-control " [(ngModel)]="entry.discount " name="discount
+                                " number="true " maxLength="5 " required>
+                            <span class="input-group-addon ">%</span>
                         </div>
                     </div>
 
 
-                    <div class="col-md-2">
+                    <div class="col-md-2 ">
                         <div>Amount</div>
-                        <input type="number" class="form-control" [(ngModel)]="entry.amount" name="amount" number="true" maxLength="15" required>
+                        <input type="number " class="form-control " [(ngModel)]="entry.amount " name="amount " number="true
+                                " maxLength="15 " required>
                     </div>
 
                 </div>
 
                 <br>
-                <div class="row">
-                    <div class="col-md-9"></div>
-                    <div class="col-md-2">
-                        <input type="text" class="form-control" placeholder="0" />
+                <div class="row ">
+                    <div class="col-md-9 "></div>
+                    <div class="col-md-2 ">
+                        <input type="text " class="form-control " placeholder="0 " />
                     </div>
                 </div>
 
                 <br>
-                <div class="row">
-                    <div class="col-sm-2">
-                        <div class="container">
-                            <div class="row">
+                <div class="row ">
+                    <div class="col-sm-2 ">
+                        <div class="container ">
+                            <div class="row ">
                                 Internal Information
-                                <div class="row">
+                                <div class="row ">
 
-                                    <div class="col-sm-6"><textarea rows="3" cols="15" class="form-control" input type="text" [(ngModel)]="entry.info"
-                                            name="info" maxLength="5" required></textarea></div>
+                                    <div class="col-sm-6 ">
+                                        <textarea rows="3 " cols="15 " class="form-control " input type="text
+                                " [(ngModel)]="entry.info " name="info"></textarea></div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
-        <div class="uk-modal-footer uk-text-right">
-            <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+        <div class="uk-modal-footer uk-text-right ">
+            <button class="uk-button uk-button-default uk-modal-close " type="button ">Cancel</button>
             <button class="uk-button uk-button-primary uk-modal-close " (click)="save(entry) " [disabled]="form.invalid ">Save</button>
-            <!--<button class="uk-button uk-button-primary uk-modal-close btn btn-info btn-fill btn-wd " type="submit" (click)="save(entry)" [disabled]="form.invalid">Save</button>-->
+            <!--<button class="uk-button uk-button-primary uk-modal-close btn btn-info btn-fill btn-wd " type="submit
+                                " (click)="save(entry) " [disabled]="form.invalid ">Save</button>-->
         </div>
     </div>
 </div>

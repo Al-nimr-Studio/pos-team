@@ -139,16 +139,14 @@ export class MyBusinessDetailsService {
         entry.view = object.view;
         entry.id = object._id;
         entry.rev = object._rev;
-        entry.name = object.name;
-        entry.email = object.email;
-        entry.code = object.code;
-        entry.currency = object.currency;
-        entry.businessidentifier = object.businessidentifierd;
-        entry.billingaddress = object.billingaddress;
-        entry.telephonenumber = object.telephonenumber;
-        entry.fax = object.fax;
-        entry.mobile = object.mobile;
-        entry.additionalinformation = object.additionalinformation;
+        entry.mybusinessname = object.mybusinessname;
+        entry.mybusinessemail = object.mybusinessemail;
+        entry.mybusinessidentifier = object.mybusinessidentifierd;
+        entry.mybusinessaddress = object.mybusinessaddress;
+        entry.mytelephonenumber = object.mytelephonenumber;
+        entry.myfax = object.myfax;
+        entry.mymobile = object.mymobile;
+        entry.logo = object.logo;
 
 
         entry.created = new Date(object.created);
@@ -162,16 +160,14 @@ export class MyBusinessDetailsService {
             _id: entry.id,
             _rev: entry.rev,
             type: MyBusinessDetailsInterface.TYPE,
-            name: entry.name,
-            email: entry.email,
-            code: entry.code,
-            currency: entry.currency,
-            businessidentifier: entry.businessidentifier,
-            billingaddress: entry.billingaddress,
-            telephonenumber: entry.telephonenumber,
-            fax: entry.fax,
-            mobile: entry.mobile,
-            additionalinformation: entry.additionalinformation,
+            mybusinessname: entry.mybusinessname,
+            mybusinessemail: entry.mybusinessemail,
+            mybusinessidentifier: entry.mybusinessidentifier,
+            mybusinessaddress: entry.mybusinessaddress,
+            mytelephonenumber: entry.mytelephonenumber,
+            myfax: entry.myfax,
+            mymobile: entry.mymobile,
+            logo: entry.logo,
 
 
             created: entry.created.toISOString(),

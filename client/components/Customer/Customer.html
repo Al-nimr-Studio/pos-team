@@ -35,19 +35,23 @@
                                         <h2 class="uk-modal-title">Edit Here</h2>
                                     </div>
                                     <div class="uk-modal-body">
-                                        <form novalidate #form="ngForm">
+                                        <form novalidate="" #form="ngForm">
                                             <!--enter new customer code here-->
                                             <div class="row">
                                                 <div class="container">
                                                     <div class="col-md-4">
                                                         <label>Name</label>
-                                                        <input type="text" placeholder="Rana Faheem" class="form-control" [(ngModel)]="entry.name" name="name" required>
+                                                        <input type="text" placeholder="Rana Faheem" class="form-control" [(ngModel)]="entry.name" name="name" #name="ngModel" [rangeLength]="[3, 15]"
+                                                            required>
+                                                        <p *ngIf="name.errors?.rangeLength">name must contain at least 3 and maximum 15 cherecters </p>
                                                     </div>
                                                     <div class="col-md-4"></div>
                                                     <div class="col-md-2">
                                                         <label>Code</label>
-                                                        <input type="text" placeholder="business code" class="form-control" [(ngModel)]="entry.code" name="code" number="true" required
-                                                            maxLength="13" required>
+                                                        <input type="text" placeholder="business code" class="form-control" [(ngModel)]="entry.code" name="code" #code="ngModel"
+                                                            [rangeLength]="[3, 15]">
+                                                        <p *ngIf="code.errors?.rangeLength">code must contain at least 3 and maximum 15 cherecters </p>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -57,13 +61,14 @@
                                                     <div class="col-md-4">
                                                         <label>Business Identifier</label>
                                                         <input type="text" placeholder="VAT XXX XXX XXX, TIN XXX XXX XXX, ABN XXX XXX XXX etc" class="form-control" [(ngModel)]="entry.businessidentifier"
-                                                            name="businessid">
+                                                            name="businessidentifier" #businessidentifier="ngModel" [rangeLength]="[3, 15]">
+                                                        <p *ngIf="businessidentifier.errors?.rangeLength">Business id must contain at least 3 and maximum 15 cherecters</p>
                                                     </div>
                                                     <div class="col-md-4"></div>
                                                     <div class="col-md-2">
                                                         <label>Credit Limit</label>
-                                                        <input type="text" placeholder="Credit limit" class="form-control" [(ngModel)]="entry.creditlimit" name="creditlimit" number="true"
-                                                            required maxLength="13" required>
+                                                        <input type="number" placeholder="Credit limit" class="form-control" [(ngModel)]="entry.creditlimit" name="creditlimit" number="true"
+                                                            maxLength="7">
                                                     </div>
                                                 </div>
                                             </div>
@@ -72,7 +77,10 @@
                                                 <div class="container">
                                                     <div class="col-md-4">
                                                         <label>Billing Address</label>
-                                                        <input type="text" placeholder="address" class="form-control" [(ngModel)]="entry.billingaddress" name="billingaddress" required>
+                                                        <input type="text" placeholder="address" class="form-control" [(ngModel)]="entry.billingaddress" name="billingaddress" #billingaddress="ngModel"
+                                                            [rangeLength]="[3, 70]" required>
+                                                        <p *ngIf="billingaddress.errors?.rangeLength">Business Address must contain at least 3 and maximum 70 cherecters</p>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -81,9 +89,10 @@
                                                 <div class="container">
                                                     <div class="col-md-4">
                                                         <label>Email Address</label>
-                                                        <input type="email" placeholder="abc@gmail.com" class="form-control" #emailField="ngModel" [(ngModel)]="entry.email" name="email"
-                                                            email="true" maxLength="15" required pattern=".+@.+.com">
-                                                        <!--<p *ngIf="emailField.touched && emailField.invalid" class="alert alert-danger">Please enter a valid email</p>-->
+                                                        <input type="text" placeholder="abc@gmail.com" class="form-control" [(ngModel)]="entry.email" name="email" email="true" #email="ngModel"
+                                                            email>
+                                                        <p *ngIf="email.errors?.email">please enter a valid email</p>
+                                                        <!--<p *ngIf="emailField.touched && emailField.invalid" class="alert alert-danger">Please enter a valid email</p -->
                                                     </div>
                                                 </div>
                                             </div>
@@ -92,8 +101,9 @@
                                                 <div class="container">
                                                     <div class="col-md-4">
                                                         <label>Telephone Number</label>
-                                                        <input type="text" placeholder="0423-XXXXXXX" class="form-control" [(ngModel)]="entry.telephonenumber" name="telephonenumbers"
-                                                            number="true" maxLength="13" required>
+                                                        <input type="number" placeholder="0423-XXXXXXX" class="form-control" [(ngModel)]="entry.telephonenumber" name="telephonenumbers"
+                                                            number="true" maxLength="10">
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -102,8 +112,8 @@
                                                 <div class="container">
                                                     <div class="col-md-4">
                                                         <label>Fax</label>
-                                                        <input type="text" placeholder="+1(865)346-3654/ (865)934-1234" class="form-control" [(ngModel)]="entry.fax" name="fax" number="true"
-                                                            maxLength="13">
+                                                        <input type="number" placeholder="+1(865)346-3654/ (865)934-1234" class="form-control" [(ngModel)]="entry.fax" name="fax"
+                                                            number="true" maxLength="13">
                                                     </div>
                                                 </div>
                                             </div>
@@ -112,19 +122,22 @@
                                                 <div class="container">
                                                     <div class="col-md-4">
                                                         <label>Mobile Number</label>
-                                                        <input type="number" placeholder="0300 XXXXXXX" class="form-control" [(ngModel)]="entry.mobile" name="mobile" required>
+                                                        <input type="number" placeholder="0300 XXXXXXX" class="form-control" [(ngModel)]="entry.mobile" name="mobile" #mobile="ngModel"
+                                                            [range]="[03000000000, 03999999999]" required>
+                                                        <p *ngIf="mobile.errors?.range"> mobile number must contain 11 digits </p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <br>
-                                            <div class="row">
-                                                <div class="container">
-                                                    <div class="col-md-4">
+                                            <div class=" row ">
+                                                <div class="container ">
+                                                    <div class="col-md-4 ">
                                                         <label>Additional Information</label>
-                                                        <textarea rows="4" cols="10" class="form-control" input type="text" placeholder="Any Information whcih can help you in future"
-                                                            class="form-control" [(ngModel)]="entry.additionalinformation" name="additionalinformation"
-                                                            maxlength="50">
-								                            </textarea>
+                                                        <textarea rows="4 " cols="10 " class="form-control " input type="text " placeholder="Any Information which can help you in future "
+                                                            class="form-control " [(ngModel)]="entry.additionalinformation "
+                                                            name="additionalinformation
+                                " maxlength="50 ">
+								</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -162,19 +175,24 @@
         </div>
 
         <div styles="height:6000px;" class="uk-modal-body">
-            <form novalidate="" #form="ngForm" id="allInputsFormValidation" class="form-horizontal" action="#" method="post">
+            <p class="text-warning"> Name, Billing Address and Mobile number is mendatory.</p>
+            <form novalidate="" #form="ngForm">
                 <!--enter new customer code here-->
                 <div class="row">
                     <div class="container">
                         <div class="col-md-4">
                             <label>Name</label>
-                            <input type="text" placeholder="Rana Faheem" class="form-control" [(ngModel)]="entry.name" name="name" required>
+                            <input type="text" placeholder="Rana Faheem" class="form-control" [(ngModel)]="entry.name" name="name" #name="ngModel" [rangeLength]="[3, 15]"
+                                required>
+                            <p *ngIf="name.errors?.rangeLength">name must contain at least 3 and maximum 15 cherecters </p>
                         </div>
                         <div class="col-md-4"></div>
                         <div class="col-md-2">
                             <label>Code</label>
-                            <input type="text" placeholder="business code" class="form-control" [(ngModel)]="entry.code" name="code" number="true" required
-                                maxLength="13" required>
+                            <input type="text" placeholder="business code" class="form-control" [(ngModel)]="entry.code" name="code" #code="ngModel"
+                                [rangeLength]="[3, 15]">
+                            <p *ngIf="code.errors?.rangeLength">code must contain at least 3 and maximum 15 cherecters </p>
+
                         </div>
                     </div>
                 </div>
@@ -184,13 +202,14 @@
                         <div class="col-md-4">
                             <label>Business Identifier</label>
                             <input type="text" placeholder="VAT XXX XXX XXX, TIN XXX XXX XXX, ABN XXX XXX XXX etc" class="form-control" [(ngModel)]="entry.businessidentifier"
-                                name="businessid">
+                                name="businessidentifier" #businessidentifier="ngModel" [rangeLength]="[3, 15]">
+                            <p *ngIf="businessidentifier.errors?.rangeLength">Business id must contain at least 3 and maximum 15 cherecters</p>
                         </div>
                         <div class="col-md-4"></div>
                         <div class="col-md-2">
                             <label>Credit Limit</label>
-                            <input type="text" placeholder="Credit limit" class="form-control" [(ngModel)]="entry.creditlimit" name="creditlimit" number="true"
-                                required maxLength="13" required>
+                            <input type="number" placeholder="Credit limit" class="form-control" [(ngModel)]="entry.creditlimit" name="creditlimit" number="true"
+                                maxLength="7">
                         </div>
                     </div>
                 </div>
@@ -199,7 +218,10 @@
                     <div class="container">
                         <div class="col-md-4">
                             <label>Billing Address</label>
-                            <input type="text" placeholder="address" class="form-control" [(ngModel)]="entry.billingaddress" name="billingaddress" required>
+                            <input type="text" placeholder="address" class="form-control" [(ngModel)]="entry.billingaddress" name="billingaddress" #billingaddress="ngModel"
+                                [rangeLength]="[3, 70]" required>
+                            <p *ngIf="billingaddress.errors?.rangeLength">Business Address must contain at least 3 and maximum 70 cherecters</p>
+
                         </div>
                     </div>
                 </div>
@@ -208,9 +230,10 @@
                     <div class="container">
                         <div class="col-md-4">
                             <label>Email Address</label>
-                            <input type="text" placeholder="abc@gmail.com" class="form-control" [(ngModel)]="entry.email" name="email" email="true" maxLength="15"
-                                required pattern=".+@.+.com">
-                            <!--<p *ngIf="emailField.touched && emailField.invalid" class="alert alert-danger">Please enter a valid email</p>-->
+                            <input type="text" placeholder="abc@gmail.com" class="form-control" [(ngModel)]="entry.email" name="email" email="true" #email="ngModel"
+                                email>
+                            <p *ngIf="email.errors?.email">please enter a valid email</p>
+                            <!--<p *ngIf="emailField.touched && emailField.invalid" class="alert alert-danger">Please enter a valid email</p -->
                         </div>
                     </div>
                 </div>
@@ -219,8 +242,9 @@
                     <div class="container">
                         <div class="col-md-4">
                             <label>Telephone Number</label>
-                            <input type="text" placeholder="0423-XXXXXXX" class="form-control" [(ngModel)]="entry.telephonenumber" name="telephonenumbers"
-                                number="true" maxLength="13" required>
+                            <input type="number" placeholder="0423-XXXXXXX" class="form-control" [(ngModel)]="entry.telephonenumber" name="telephonenumbers"
+                                number="true" maxLength="10">
+
                         </div>
                     </div>
                 </div>
@@ -229,8 +253,8 @@
                     <div class="container">
                         <div class="col-md-4">
                             <label>Fax</label>
-                            <input type="text" placeholder="+1(865)346-3654/ (865)934-1234" class="form-control" [(ngModel)]="entry.fax" name="fax" number="true"
-                                maxLength="13">
+                            <input type="number" placeholder="+1(865)346-3654/ (865)934-1234" class="form-control" [(ngModel)]="entry.fax" name="fax"
+                                number="true" maxLength="13">
                         </div>
                     </div>
                 </div>
@@ -239,17 +263,20 @@
                     <div class="container">
                         <div class="col-md-4">
                             <label>Mobile Number</label>
-                            <input type="text" placeholder="0300 XXXXXXX" class="form-control" [(ngModel)]="entry.mobile" name="mobile" required>
+                            <input type="number" placeholder="0300 XXXXXXX" class="form-control" [(ngModel)]="entry.mobile" name="mobile" #mobile="ngModel"
+                                [range]="[03000000000, 03999999999]" required>
+                            <p *ngIf="mobile.errors?.range"> mobile number must contain 11 digits </p>
                         </div>
                     </div>
                 </div>
                 <br>
-                <div class="row">
-                    <div class="container">
-                        <div class="col-md-4">
+                <div class=" row ">
+                    <div class="container ">
+                        <div class="col-md-4 ">
                             <label>Additional Information</label>
-                            <textarea rows="4" cols="10" class="form-control" input type="text" placeholder="Any Information whcih can help you in future"
-                                class="form-control" [(ngModel)]="entry.additionalinformation" name="additionalinformation" maxlength="50">
+                            <textarea rows="4 " cols="10 " class="form-control " input type="text " placeholder="Any Information which can help you in future "
+                                class="form-control " [(ngModel)]="entry.additionalinformation " name="additionalinformation
+                                " maxlength="50 ">
 								</textarea>
                         </div>
                     </div>

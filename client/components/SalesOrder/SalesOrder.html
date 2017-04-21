@@ -38,15 +38,15 @@
 										<h2 class="uk-modal-title">Edit Here</h2>
 									</div>
 									<div class="uk-modal-body">
-										<form novalidate>
+										<form novalidate #form="ngForm">
+
+
+											<!--enter new SalesOrder code here-->
 
 											<div class="container">
-
-												<!--name Field-->
-
 												<div class="row">
 													<div class="col-md-2">
-														<div> Issue Date</div>
+														<div> Issuse Date</div>
 														<input class="form-control datetimepicker" placeholder="Datetime Picker Here" type="text" [(ngModel)]="entry.issuedate" name="issuedate"
 														 required>
 													</div>
@@ -57,7 +57,9 @@
 														<div>Reference No.</div>
 														<div class="input-group">
 															<span class="input-group-addon">#</span>
-															<input type="text" placeholder="reference no." class="form-control" [(ngModel)]="entry.reference" name="reference" required>
+															<input type="text" placeholder="reference no." class="form-control" [(ngModel)]="entry.reference" name="reference" #reference="ngModel"
+															 [rangeLength]="[0, 25]" required>
+															<p *ngIf="reference.errors?.rangeLength">must be less then 25 cherecters</p>
 															<span class="input-group-addon"></span>
 														</div>
 													</div>
@@ -81,7 +83,9 @@
 												<div class="row">
 													<div class="col-md-6">
 														<div> Summary</div>
-														<input type="text" class="form-control" placeholder="optional" [(ngModel)]="entry.summery" name="summery" required>
+														<input type="text" class="form-control" placeholder="optional" [(ngModel)]="entry.summery" name="summery" #summery="ngModel"
+														 [rangeLength]="[0, 100]" required>
+														<p *ngIf="summery.errors?.rangeLength">must be less then 100 worlds</p>
 													</div>
 												</div>
 												<br>
@@ -143,19 +147,24 @@
 													</div>
 												</div>
 												<br>
+
 												<div class="row">
 													<div class="col-md-4">
 														<div> Delivery Address</div>
-														<textarea rows="4" cols="20" p class="form-control" [(ngModel)]="entry.deliveryaddress" name="deliveryaddress"></textarea>
+														<textarea rows="4" cols="20" p class="form-control" [(ngModel)]="entry.deliveryaddress" name="deliveryaddress" #deliveryaddress="ngModel"
+														 [rangeLength]="[0, 35]"></textarea>
+														<p *ngIf="deliveryaddress.errors?.rangeLength">must be less then 10 words</p>
 													</div>
 												</div>
+
 												<br>
 
 												<div class="row">
 													<div class="col-md-4">
 														<div> Delivery Instruction</div>
 														<textarea type="text" rows="4" cols="20" class="form-control" placeholder="optional" [(ngModel)]="entry.deliveryinstructions"
-														 name="deliveryinstructions" required></textarea>
+														 #deliveryinstructions="ngModel" [rangeLength]="[0, 100]" name="deliveryinstructions" required></textarea>
+														<p *ngIf="deliveryinstructions.errors?.rangeLength">must be less then 100 worlds</p>
 													</div>
 												</div>
 												<br>
@@ -164,11 +173,17 @@
 													<div class="col-md-4">
 														<div> Authorized</div>
 														<input type="text" class="form-control" placeholder="Authoerised by" [(ngModel)]="entry.authorizedby" name="authorizedby"
-														 required>
+														 #authorizedby="ngModel" [rangeLength]="[0, 15]" required>
+														<p *ngIf="authorizedby.errors?.rangeLength">must be less then 15 words</p>
 													</div>
 												</div>
+
+
+
 											</div>
+
 										</form>
+
 									</div>
 									<div class="uk-modal-footer uk-text-right">
 										<button class="btn btn-info btn-fill btn-wd uk-modal-close" (click)="update(entry)" type="button">Update</button>
@@ -341,7 +356,9 @@
 							<div>Reference No.</div>
 							<div class="input-group">
 								<span class="input-group-addon">#</span>
-								<input type="text" placeholder="reference no." class="form-control" [(ngModel)]="entry.reference" name="reference" required>
+								<input type="text" placeholder="reference no." class="form-control" [(ngModel)]="entry.reference" name="reference" #reference="ngModel"
+								 [rangeLength]="[0, 25]" required>
+								<p *ngIf="reference.errors?.rangeLength">must be less then 25 cherecters</p>
 								<span class="input-group-addon"></span>
 							</div>
 						</div>
@@ -365,7 +382,9 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div> Summary</div>
-							<input type="text" class="form-control" placeholder="optional" [(ngModel)]="entry.summery" name="summery" required>
+							<input type="text" class="form-control" placeholder="optional" [(ngModel)]="entry.summery" name="summery" #summery="ngModel"
+							 [rangeLength]="[0, 100]" required>
+							<p *ngIf="summery.errors?.rangeLength">must be less then 100 worlds</p>
 						</div>
 					</div>
 					<br>
@@ -427,21 +446,24 @@
 						</div>
 					</div>
 					<br>
+
 					<div class="row">
-						<div class="row">
-							<div class="col-md-4">
-								<div> Delivery Address</div>
-								<textarea rows="4" cols="20" p class="form-control" [(ngModel)]="entry.deliveryaddress" name="deliveryaddress"></textarea>
-							</div>
+						<div class="col-md-4">
+							<div> Delivery Address</div>
+							<textarea rows="4" cols="20" p class="form-control" [(ngModel)]="entry.deliveryaddress" name="deliveryaddress" #deliveryaddress="ngModel"
+							 [rangeLength]="[0, 35]"></textarea>
+							<p *ngIf="deliveryaddress.errors?.rangeLength">must be less then 10 words</p>
 						</div>
 					</div>
+
 					<br>
 
 					<div class="row">
 						<div class="col-md-4">
 							<div> Delivery Instruction</div>
 							<textarea type="text" rows="4" cols="20" class="form-control" placeholder="optional" [(ngModel)]="entry.deliveryinstructions"
-							 name="deliveryinstructions" required></textarea>
+							 #deliveryinstructions="ngModel" [rangeLength]="[0, 100]" name="deliveryinstructions" required></textarea>
+							<p *ngIf="deliveryinstructions.errors?.rangeLength">must be less then 100 worlds</p>
 						</div>
 					</div>
 					<br>
@@ -450,7 +472,8 @@
 						<div class="col-md-4">
 							<div> Authorized</div>
 							<input type="text" class="form-control" placeholder="Authoerised by" [(ngModel)]="entry.authorizedby" name="authorizedby"
-							 required>
+							 #authorizedby="ngModel" [rangeLength]="[0, 15]" required>
+							<p *ngIf="authorizedby.errors?.rangeLength">must be less then 15 words</p>
 						</div>
 					</div>
 
@@ -458,7 +481,7 @@
 
 				</div>
 
-			</form>
+			</form>>
 
 		</div>
 
