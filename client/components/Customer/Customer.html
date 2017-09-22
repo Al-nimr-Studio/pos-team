@@ -1,29 +1,80 @@
-<div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="header">
-                <h4 class="title">Customer's List </h4><br>
-                <p class="category"><button href="#modal-overflow" uk-toggle class="btn btn-info btn-fill btn-wd">New Customer</button></p>
+<div class="fresh-table toolbar-color" style="display: block;">
+    <!--    Available colors for the full background: full-color-blue, full-color-azure, full-color-green, full-color-red, full-color-orange
+                        Available colors only for the toolbar: toolbar-color-blue, toolbar-color-azure, toolbar-color-green, toolbar-color-red, toolbar-color-orange
+                -->
+
+
+    <div class="bootstrap-table">
+        <div class="fixed-table-toolbar">
+            <div class="bars pull-left">
+                <div class="toolbar">
+                    <!--<button id="alertBtn" [routerLink]="['/NewSalesQuote']" class="btn btn-info btn-fill"> New Sales Quote</button>-->
+                    <p class="category"><button href="#modal-overflow" uk-toggle class="btn btn-info btn-fill btn-wd">New Customer</button></p>
+
+                </div>
             </div>
-            <div class="content table-responsive table-full-width">
-                <table class="table">
+            <div class="columns columns-right pull-right"><button class="btn btn-info btn-fill" type="button" name="refresh" title="Refresh"><i class="glyphicon fa fa-refresh"></i></button>
+                <div class="keep-open btn-group" title="Columns"><button type="button" class="btn btn-info btn-fill dropdown-toggle" data-toggle="dropdown"><i class="glyphicon fa fa-th-list"></i> <span class="caret"></span></button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a (click)="export('Json')">Export Json</a></li>
+                        <li><a (click)="export('Excel')">Export Excel</a></li>
+
+                    </ul>
+                </div>
+
+            </div>
+            <div class="pull-right search"><input class="form-control" type="text" [(ngModel)]="search" (keyup)="find()" placeholder="Search"></div>
+        </div>
+        <div class="fixed-table-container" style="padding-bottom: 0px;">
+            <div class="fixed-table-header" style="display: none;">
+                <table></table>
+            </div>
+            <div class="fixed-table-body">
+                <div class="fixed-table-loading" style="top: 45px;">Loading, please wait...</div>
+                <table id="fresh-table" class="table table-hover table-striped">
                     <thead>
                         <tr>
-                            <th class="text-center">#</th>
-                            <th>Customer name</th>
-                            <th>Phone Number</th>
-                            <th>Billing Address</th>
-                            <th class="text-right">Actions</th>
+                            <th data-field="id">
+                                <div class="th-inner ">ID</div>
+                                <div class="fht-cell"></div>
+                            </th>
+                            <th data-field="name">
+                                <div class="th-inner">Name</div>
+                                <div class="fht-cell"></div>
+                            </th>
+                            <th data-field="salary">
+                                <div class="th-inner">Mobile</div>
+                                <div class="fht-cell"></div>
+                            </th>
+                            <th data-field="country">
+                                <div class="th-inner">Email</div>
+                                <div class="fht-cell"></div>
+                            </th>
+                            <th data-field="country">
+                                <div class="th-inner">Sale Invoice</div>
+                                <div class="fht-cell"></div>
+                            </th>
+                            <th data-field="country">
+                                <div class="th-inner">AccountsReceivable</div>
+                                <div class="fht-cell"></div>
+                            </th>
+
+                            <th data-field="actions">
+                                <div class="th-inner ">Actions</div>
+                                <div class="fht-cell"></div>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
-
-                        <tr *ngFor="let entry of entries; trackBy:entry?.id">
-                            <td class="text-center"></td>
+                        <tr *ngFor="let entry of entries; trackBy:entry?.id;let i=index;">
+                            <td>{{i+1}}</td>
                             <td>{{entry.name}}</td>
-                            <td>{{entry.telephonenumber}}</td>
-                            <td>{{entry.billingaddress}}</td>
-                            <td class="td-actions text-right">
+                            <td>{{entry.mobile}}</td>
+                            <td>{{entry.email}}</td>
+                            <td>-</td>
+                            <td>-</td>
+
+                            <td class="td-actions">
                                 <a uk-toggle="target: #rana" rel="tooltip" title="" class="btn btn-info btn-fill btn-wd">Edit</a>
                             </td>
 
@@ -38,47 +89,44 @@
                                         <form novalidate="" #form="ngForm">
                                             <!--enter new customer code here-->
                                             <div class="row">
-                                                <div class="container">
+                                                <div class="container-fluid">
                                                     <div class="col-md-4">
                                                         <label>Name</label>
-                                                        <input type="text" placeholder="Rana Faheem" class="form-control" [(ngModel)]="entry.name" name="name" #name="ngModel" [rangeLength]="[3, 15]"
-                                                            required>
-                                                        <p *ngIf="name.errors?.rangeLength">name must contain at least 3 and maximum 15 cherecters </p>
+                                                        <input type="text" placeholder="Rana Faheem" class="form-control" [(ngModel)]="entry.name" name="name" #name="ngModel" [rangeLength]="[3, 15]" required>
+                                                        <p *ngIf="name.errors?.rangeLength">name must contain at least 3 and maximum 15 cherecters
+                                                        </p>
                                                     </div>
                                                     <div class="col-md-4"></div>
                                                     <div class="col-md-2">
                                                         <label>Code</label>
-                                                        <input type="text" placeholder="business code" class="form-control" [(ngModel)]="entry.code" name="code" #code="ngModel"
-                                                            [rangeLength]="[3, 15]">
-                                                        <p *ngIf="code.errors?.rangeLength">code must contain at least 3 and maximum 15 cherecters </p>
+                                                        <input type="text" placeholder="business code" class="form-control" [(ngModel)]="entry.code" name="code" #code="ngModel" [rangeLength]="[3, 15]">
+                                                        <p *ngIf="code.errors?.rangeLength">code must contain at least 3 and maximum 15 cherecters
+                                                        </p>
 
                                                     </div>
                                                 </div>
                                             </div>
                                             <br>
                                             <div class="row">
-                                                <div class="container">
+                                                <div class="container-fluid">
                                                     <div class="col-md-4">
                                                         <label>Business Identifier</label>
-                                                        <input type="text" placeholder="VAT XXX XXX XXX, TIN XXX XXX XXX, ABN XXX XXX XXX etc" class="form-control" [(ngModel)]="entry.businessidentifier"
-                                                            name="businessidentifier" #businessidentifier="ngModel" [rangeLength]="[3, 15]">
+                                                        <input type="text" placeholder="VAT XXX XXX XXX, TIN XXX XXX XXX, ABN XXX XXX XXX etc" class="form-control" [(ngModel)]="entry.businessidentifier" name="businessidentifier" #businessidentifier="ngModel" [rangeLength]="[3, 15]">
                                                         <p *ngIf="businessidentifier.errors?.rangeLength">Business id must contain at least 3 and maximum 15 cherecters</p>
                                                     </div>
                                                     <div class="col-md-4"></div>
                                                     <div class="col-md-2">
                                                         <label>Credit Limit</label>
-                                                        <input type="number" placeholder="Credit limit" class="form-control" [(ngModel)]="entry.creditlimit" name="creditlimit" number="true"
-                                                            maxLength="7">
+                                                        <input type="number" placeholder="Credit limit" class="form-control" [(ngModel)]="entry.creditlimit" name="creditlimit" number="true" maxLength="7">
                                                     </div>
                                                 </div>
                                             </div>
                                             <br>
                                             <div class="row">
-                                                <div class="container">
+                                                <div class="container-fluid">
                                                     <div class="col-md-4">
                                                         <label>Billing Address</label>
-                                                        <input type="text" placeholder="address" class="form-control" [(ngModel)]="entry.billingaddress" name="billingaddress" #billingaddress="ngModel"
-                                                            [rangeLength]="[3, 70]" required>
+                                                        <input type="text" placeholder="address" class="form-control" [(ngModel)]="entry.billingaddress" name="billingaddress" #billingaddress="ngModel" [rangeLength]="[3, 70]" required>
                                                         <p *ngIf="billingaddress.errors?.rangeLength">Business Address must contain at least 3 and maximum 70 cherecters</p>
 
                                                     </div>
@@ -86,11 +134,10 @@
                                             </div>
                                             <br>
                                             <div class="row">
-                                                <div class="container">
+                                                <div class="container-fluid">
                                                     <div class="col-md-4">
                                                         <label>Email Address</label>
-                                                        <input type="text" placeholder="abc@gmail.com" class="form-control" [(ngModel)]="entry.email" name="email" email="true" #email="ngModel"
-                                                            email>
+                                                        <input type="text" placeholder="abc@gmail.com" class="form-control" [(ngModel)]="entry.email" name="email" email="true" #email="ngModel" email>
                                                         <p *ngIf="email.errors?.email">please enter a valid email</p>
                                                         <!--<p *ngIf="emailField.touched && emailField.invalid" class="alert alert-danger">Please enter a valid email</p -->
                                                     </div>
@@ -98,44 +145,39 @@
                                             </div>
                                             <br>
                                             <div class="row">
-                                                <div class="container">
+                                                <div class="container-fluid">
                                                     <div class="col-md-4">
                                                         <label>Telephone Number</label>
-                                                        <input type="number" placeholder="0423-XXXXXXX" class="form-control" [(ngModel)]="entry.telephonenumber" name="telephonenumbers"
-                                                            number="true" maxLength="10">
+                                                        <input type="number" placeholder="0423-XXXXXXX" class="form-control" [(ngModel)]="entry.telephonenumber" name="telephonenumbers" number="true" maxLength="10">
 
                                                     </div>
                                                 </div>
                                             </div>
                                             <br>
                                             <div class="row">
-                                                <div class="container">
+                                                <div class="container-fluid">
                                                     <div class="col-md-4">
                                                         <label>Fax</label>
-                                                        <input type="number" placeholder="+1(865)346-3654/ (865)934-1234" class="form-control" [(ngModel)]="entry.fax" name="fax"
-                                                            number="true" maxLength="13">
+                                                        <input type="number" placeholder="+1(865)346-3654/ (865)934-1234" class="form-control" [(ngModel)]="entry.fax" name="fax" number="true" maxLength="13">
                                                     </div>
                                                 </div>
                                             </div>
                                             <br>
                                             <div class="row">
-                                                <div class="container">
+                                                <div class="container-fluid">
                                                     <div class="col-md-4">
                                                         <label>Mobile Number</label>
-                                                        <input type="number" placeholder="0300 XXXXXXX" class="form-control" [(ngModel)]="entry.mobile" name="mobile" #mobile="ngModel"
-                                                            [range]="[03000000000, 03999999999]" required>
+                                                        <input type="number" placeholder="0300 XXXXXXX" class="form-control" [(ngModel)]="entry.mobile" name="mobile" #mobile="ngModel" [range]="[03000000000, 03999999999]" required>
                                                         <p *ngIf="mobile.errors?.range"> mobile number must contain 11 digits </p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <br>
                                             <div class=" row ">
-                                                <div class="container ">
+                                                <div class="container-fluid ">
                                                     <div class="col-md-4 ">
                                                         <label>Additional Information</label>
-                                                        <textarea rows="4 " cols="10 " class="form-control " input type="text " placeholder="Any Information which can help you in future "
-                                                            class="form-control " [(ngModel)]="entry.additionalinformation "
-                                                            name="additionalinformation
+                                                        <textarea rows="4 " cols="10 " class="form-control " input type="text " placeholder="Any Information which can help you in future " class="form-control " [(ngModel)]="entry.additionalinformation " name="additionalinformation
                                 " maxlength="50 ">
 								</textarea>
                                                     </div>
@@ -150,12 +192,34 @@
                                 </div>
                             </div>
                         </tr>
+
                     </tbody>
                 </table>
             </div>
+            <div class="fixed-table-footer" style="display: none;">
+                <table>
+                    <tbody>
+                        <tr></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="fixed-table-pagination">
+                <br>
+                <br>
+                <br>
+
+            </div>
         </div>
     </div>
+    <div class="clearfix"></div>
 </div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
 
 
 
@@ -179,18 +243,16 @@
             <form novalidate="" #form="ngForm">
                 <!--enter new customer code here-->
                 <div class="row">
-                    <div class="container">
+                    <div class="container-fluid">
                         <div class="col-md-4">
                             <label>Name</label>
-                            <input type="text" placeholder="Rana Faheem" class="form-control" [(ngModel)]="entry.name" name="name" #name="ngModel" [rangeLength]="[3, 15]"
-                                required>
+                            <input type="text" placeholder="Rana Faheem" class="form-control" [(ngModel)]="entry.name" name="name" #name="ngModel" [rangeLength]="[3, 15]" required>
                             <p *ngIf="name.errors?.rangeLength">name must contain at least 3 and maximum 15 cherecters </p>
                         </div>
                         <div class="col-md-4"></div>
                         <div class="col-md-2">
                             <label>Code</label>
-                            <input type="text" placeholder="business code" class="form-control" [(ngModel)]="entry.code" name="code" #code="ngModel"
-                                [rangeLength]="[3, 15]">
+                            <input type="text" placeholder="business code" class="form-control" [(ngModel)]="entry.code" name="code" #code="ngModel" [rangeLength]="[3, 15]">
                             <p *ngIf="code.errors?.rangeLength">code must contain at least 3 and maximum 15 cherecters </p>
 
                         </div>
@@ -198,28 +260,25 @@
                 </div>
                 <br>
                 <div class="row">
-                    <div class="container">
+                    <div class="container-fluid">
                         <div class="col-md-4">
                             <label>Business Identifier</label>
-                            <input type="text" placeholder="VAT XXX XXX XXX, TIN XXX XXX XXX, ABN XXX XXX XXX etc" class="form-control" [(ngModel)]="entry.businessidentifier"
-                                name="businessidentifier" #businessidentifier="ngModel" [rangeLength]="[3, 15]">
+                            <input type="text" placeholder="VAT XXX XXX XXX, TIN XXX XXX XXX, ABN XXX XXX XXX etc" class="form-control" [(ngModel)]="entry.businessidentifier" name="businessidentifier" #businessidentifier="ngModel" [rangeLength]="[3, 15]">
                             <p *ngIf="businessidentifier.errors?.rangeLength">Business id must contain at least 3 and maximum 15 cherecters</p>
                         </div>
                         <div class="col-md-4"></div>
                         <div class="col-md-2">
                             <label>Credit Limit</label>
-                            <input type="number" placeholder="Credit limit" class="form-control" [(ngModel)]="entry.creditlimit" name="creditlimit" number="true"
-                                maxLength="7">
+                            <input type="number" placeholder="Credit limit" class="form-control" [(ngModel)]="entry.creditlimit" name="creditlimit" number="true" maxLength="7">
                         </div>
                     </div>
                 </div>
                 <br>
                 <div class="row">
-                    <div class="container">
+                    <div class="container-fluid">
                         <div class="col-md-4">
                             <label>Billing Address</label>
-                            <input type="text" placeholder="address" class="form-control" [(ngModel)]="entry.billingaddress" name="billingaddress" #billingaddress="ngModel"
-                                [rangeLength]="[3, 70]" required>
+                            <input type="text" placeholder="address" class="form-control" [(ngModel)]="entry.billingaddress" name="billingaddress" #billingaddress="ngModel" [rangeLength]="[3, 70]" required>
                             <p *ngIf="billingaddress.errors?.rangeLength">Business Address must contain at least 3 and maximum 70 cherecters</p>
 
                         </div>
@@ -227,11 +286,10 @@
                 </div>
                 <br>
                 <div class="row">
-                    <div class="container">
+                    <div class="container-fluid">
                         <div class="col-md-4">
                             <label>Email Address</label>
-                            <input type="text" placeholder="abc@gmail.com" class="form-control" [(ngModel)]="entry.email" name="email" email="true" #email="ngModel"
-                                email>
+                            <input type="text" placeholder="abc@gmail.com" class="form-control" [(ngModel)]="entry.email" name="email" email="true" #email="ngModel" email>
                             <p *ngIf="email.errors?.email">please enter a valid email</p>
                             <!--<p *ngIf="emailField.touched && emailField.invalid" class="alert alert-danger">Please enter a valid email</p -->
                         </div>
@@ -239,43 +297,39 @@
                 </div>
                 <br>
                 <div class="row">
-                    <div class="container">
+                    <div class="container-fluid">
                         <div class="col-md-4">
                             <label>Telephone Number</label>
-                            <input type="number" placeholder="0423-XXXXXXX" class="form-control" [(ngModel)]="entry.telephonenumber" name="telephonenumbers"
-                                number="true" maxLength="10">
+                            <input type="number" placeholder="0423-XXXXXXX" class="form-control" [(ngModel)]="entry.telephonenumber" name="telephonenumbers" number="true" maxLength="8">
 
                         </div>
                     </div>
                 </div>
                 <br>
                 <div class="row">
-                    <div class="container">
+                    <div class="container-fluid">
                         <div class="col-md-4">
                             <label>Fax</label>
-                            <input type="number" placeholder="+1(865)346-3654/ (865)934-1234" class="form-control" [(ngModel)]="entry.fax" name="fax"
-                                number="true" maxLength="13">
+                            <input type="number" placeholder="+1(865)346-3654/ (865)934-1234" class="form-control" [(ngModel)]="entry.fax" name="fax" number="true" maxLength="13">
                         </div>
                     </div>
                 </div>
                 <br>
                 <div class="row">
-                    <div class="container">
+                    <div class="container-fluid">
                         <div class="col-md-4">
                             <label>Mobile Number</label>
-                            <input type="number" placeholder="0300 XXXXXXX" class="form-control" [(ngModel)]="entry.mobile" name="mobile" #mobile="ngModel"
-                                [range]="[03000000000, 03999999999]" required>
+                            <input type="number" placeholder="0300 XXXXXXX" class="form-control" [(ngModel)]="entry.mobile" name="mobile" #mobile="ngModel" [range]="[03000000000, 03999999999]" required>
                             <p *ngIf="mobile.errors?.range"> mobile number must contain 11 digits </p>
                         </div>
                     </div>
                 </div>
                 <br>
                 <div class=" row ">
-                    <div class="container ">
+                    <div class="container-fluid ">
                         <div class="col-md-4 ">
                             <label>Additional Information</label>
-                            <textarea rows="4 " cols="10 " class="form-control " input type="text " placeholder="Any Information which can help you in future "
-                                class="form-control " [(ngModel)]="entry.additionalinformation " name="additionalinformation
+                            <textarea rows="4 " cols="10 " class="form-control " input type="text " placeholder="Any Information which can help you in future " class="form-control " [(ngModel)]="entry.additionalinformation " name="additionalinformation
                                 " maxlength="50 ">
 								</textarea>
                         </div>

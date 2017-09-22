@@ -1,0 +1,89 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="header">
+                <h4 class="title">Expense View </h4><br>
+                <button class="btn btn-defualt btn-fill btn-sm" [routerLink]="['/Expense']" type="button">Back</button>
+            </div>
+            <div class="container">
+                <br>
+                <h3> view</h3>
+                <input [(ngModel)]="entry.view">
+
+                <br>
+                <h3> id</h3>
+                <input [(ngModel)]="entry.id">
+
+                <br>
+                <h3> rev</h3>
+                <input [(ngModel)]="entry.rev">
+
+                <br>
+                <h3> invoice number</h3>
+                <input [(ngModel)]="entry.invoicenumber">
+
+                <br>
+                <h3> invoice date</h3>
+                <input [(ngModel)]="entry.invoicedate">
+
+                <br>
+                <h3> customer</h3>
+                <input [(ngModel)]="entry.customer">
+
+                <br>
+                <h3> billingaddress</h3>
+                <input [(ngModel)]="entry.billingaddress">
+
+                <br>
+                <h3> invoice summery</h3>
+                <input [(ngModel)]="entry.invoicesummery">
+
+
+
+                <br>
+                <h3> List Of Items</h3>
+                <div *ngFor="let item of entry.items;let i=index">
+
+                    <h3>Item Number {{ i + 1}}</h3>
+
+                    <h4> itemname</h4>
+                    <input [(ngModel)]="item.itemname">
+                    <br>
+                    <h4> description</h4>
+                    <input [(ngModel)]="item.description">
+                    <br>
+                    <h4> unitprice</h4>
+                    <input [(ngModel)]="item.unitprice">
+                    <br>
+                    <h4> amount</h4>
+                    <input [(ngModel)]="item.amount">
+                    <br>
+                    <h4> discount</h4>
+                    <input [(ngModel)]="item.discount">
+                    <br>
+                    <h4> qty</h4>
+                    <input [(ngModel)]="item.qty">
+                    <br>
+                </div>
+
+                <br>
+                <h3> created</h3>
+                <input [(ngModel)]="entry.created">
+
+                <br>
+                <h3> updated</h3>
+                <input [(ngModel)]="entry.updated">
+            </div>
+
+            <br>
+
+
+            <div class="uk-modal-footer uk-text-right">
+                <button class="btn btn-primary btn-fill btn-sm" (click)="update(entry)" type="button">Update</button>
+                <button class="btn btn-danger btn-fill btn-sm" (click)="delete(entry)" type="button">Delete</button>
+
+            </div>
+        </div>
+    </div>
+
+</div>

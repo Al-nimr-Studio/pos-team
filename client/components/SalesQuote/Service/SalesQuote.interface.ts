@@ -14,13 +14,24 @@ export class SalesQuoteInterface {
     customer: String;
     billingaddress: String;
     quotesummery: String;
-    item: String;
+    items: items[];
+    itemname: string;
+
+    haha: { 
+        itemname: string;
+        description: String;
+        unitprice: number;
+        amount: number;
+        discount: number;
+        qty: number;
+    }[];
     description: String;
     unitprice: number;
     qty: number;
     discount: number;
     amount: number;
     notes: String
+    heading: String
 
 
 
@@ -30,5 +41,15 @@ export class SalesQuoteInterface {
         return this.created.valueOf() - other.created.valueOf();
     }
 
+
+}
+
+export class items {
+    itemname: string;
+    description: String;
+    unitprice: number;
+    amount: number;
+    discount: number;
+    qty: number;
 
 }

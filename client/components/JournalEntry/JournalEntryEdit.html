@@ -1,0 +1,114 @@
+<div class="row">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">Edit Sales Quote </h4>
+            <button class="btn btn-defualt btn-fill btn-sm" [routerLink]="['/JournalEntry']" type="button">Back</button>
+
+        </div>
+        <br>
+        <br>
+
+        <form novalidate #form="ngForm">
+
+            <!--enter new JournalEntry code here-->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div>Reference No.</div>
+                        <div class="input-group">
+                            <span class="input-group-addon">#</span>
+                            <input type="text" placeholder="reference no." name="reference" [(ngModel)]="entry.reference" class="form-control" required>
+                            <span class="input-group-addon"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div> Date</div>
+                        <input class="form-control datetimepicker" placeholder="Datetime Picker Here" name="issuedate" [(ngModel)]="entry.issuedate" type="text" required>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div> Narration</div>
+                        <input type="text" class="form-control" placeholder="" name="quotesummery" [(ngModel)]="entry.quotesummery" required>
+                    </div>
+                </div>
+
+                <br>
+
+                <div *ngFor="let item of entry.items;let i=index">
+                    <span class="fa fa-times pull-right" *ngIf="entry.items.length > 1" (click)="removeItem(i)"></span> &nbsp;
+                    <div class="card">
+                        <div class="container-fluid">
+                            <div id="{{i}}" class="row">
+                                <input type="hidden" id="index" [ngModelOptions]="{standalone: true}" [(ngModel)]="entry.items.length">
+                                <div class="col-sm-4">
+                                    <div> Account {{ i + 1}}</div>
+
+                                    <input autocomplete="off" (focus)="showinven(i)" (blur)="hideninven(i)" (keyup)="findItem(item.itemname)" id={{i}}inve class="form-control" placeholder="Item name" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.itemname" required>
+                                    <div class="list-group" id={{i}}inven style="display:none; z-index: 1000; position: absolute; width: 167px;">
+                                        <button *ngFor="let inven of inventory;" id={{i}}inventory (click)="selectinventory(inven.itemName,inven.Descrpition,inven.salePrice,i)" type="text" class="list-group-item list-group-item-action">{{inven.itemName}}</button>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div> Description</div>
+                                    <input type="text" class="form-control" id={{i}}description placeholder="Description of quete" name="description" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.description" required>
+                                </div>
+
+                                <div class="col-sm-2 ">
+                                    <div>Debit</div>
+                                    <input type="number" class="form-control" id={{i}}amount (focus)="findTotal()" placeholder="0%" name="qwe" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.amount" required>
+                                </div>
+                                <div class="col-sm-2 ">
+                                    <div>Credit</div>
+                                    <input type="number" class="form-control" id={{i}}amount (focus)="findTotal()" placeholder="0%" name="qwe" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.amount" required>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="destination"> </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <button (click)="add(entry)" class="btn btn-warning btn-fill btn-sm "><i class="fa fa-plus" aria-hidden="true"></i>More</button>
+                    </div>
+                    <div class="col-sm-6">
+                        &nbsp;
+                    </div>
+                    <div class="col-sm-2">
+                        <input value="0" type="number" class="form-control" placeholder="Total Debit" (focus)="findTotal()" [(ngModel)]="tot" name="total" id="total" required> &nbsp;
+                    </div>
+                    <div class="col-sm-2">
+                        <input value="0" type="number" class="form-control" placeholder="Total Credit" (focus)="findTotal()" [(ngModel)]="tot" name="total" id="total" required>
+                    </div>
+                </div>
+
+
+
+
+                <br>
+
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div> Notes</div>
+                        <textarea type="text" rows="4" cols="20" class="form-control" placeholder="optional" name="notes" [(ngModel)]="entry.notes" required></textarea>
+                    </div>
+                </div>
+                <br>
+
+
+
+
+            </div>
+            <div class="uk-modal-footer uk-text-right">
+                <button class="btn btn-primary btn-fill btn-sm" (click)="update(entry) " [routerLink]="['/JournalEntry']" [disabled]="form.invalid " type="button">Update</button>
+                <button class="btn btn-danger btn-fill btn-sm" (click)="delete(entry) " [routerLink]="['/JournalEntry']" type="button">Delete</button>
+            </div>
+        </form>
+    </div>
+
+</div>

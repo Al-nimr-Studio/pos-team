@@ -21,6 +21,11 @@ export class SupplierComponent implements OnInit, OnDestroy, SupplierObserver {
     entries: Array<SupplierInterface> = [];
     entry: SupplierInterface = new SupplierInterface();
 
+
+    search;
+    number: Array<SupplierInterface> = [];
+    jsondata;
+
     constructor(private repository: SupplierService) {
 
     }
@@ -31,6 +36,22 @@ export class SupplierComponent implements OnInit, OnDestroy, SupplierObserver {
         this.entry.created = this.entry.updated = new Date();
 
         this.repository.saveEntryv1(this.entry);
+    }
+    export(value) {
+        this.repository.export(value).then((jason: any) => this.jsondata = jason).then((jason: any) => console.log(this.jsondata));
+
+    }
+
+    find() {
+        if (this.search.length > 0) {
+
+            this.repository.search(this.search)
+                .then((entries: Array<SupplierInterface>) => this.entries = entries)
+        }
+        if (this.search.length == 0) {
+            this.repository.fetchEntriesv1()
+                .then((entries: Array<SupplierInterface>) => this.entries = entries)
+        }
     }
 
     ngOnInit() {
@@ -49,11 +70,12 @@ export class SupplierComponent implements OnInit, OnDestroy, SupplierObserver {
         this.repository.fetchEntriesv1()
             .then((entries: Array<SupplierInterface>) => this.entries = entries);
     }
-    update(entry) {
+    // update(entry) {
 
-        this.repository.saveEntryv1(entry);
-    }
-    delete(entry) {
-        this.repository.deleteEntry(entry);
+    //     this.repository.saveEntryv1(entry);
+    // }
+    delete(value) {
+        this.repository.deleteEntry(value)
+
     }
 }

@@ -1,44 +1,80 @@
-<div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="header">
-                <h4 class="title">InventoryItem List</h4><br>
-                <p class="category"><button href="#modal-overflow" uk-toggle class="btn btn-info btn-fill btn-wd">Add New Inventory Item</button></p>
+<div class="fresh-table toolbar-color" style="display: block;">
+    <!--    Available colors for the full background: full-color-blue, full-color-azure, full-color-green, full-color-red, full-color-orange
+                        Available colors only for the toolbar: toolbar-color-blue, toolbar-color-azure, toolbar-color-green, toolbar-color-red, toolbar-color-orange
+                -->
+
+
+    <div class="bootstrap-table">
+        <div class="fixed-table-toolbar">
+            <div class="bars pull-left">
+                <div class="toolbar">
+                    <!--<button id="alertBtn" [routerLink]="['/NewSalesQuote']" class="btn btn-info btn-fill"> New Sales Quote</button>-->
+                    <p class="category"><button href="#modal-overflow" uk-toggle class="btn btn-info btn-fill btn-wd">New Inventory Item</button></p>
+
+                </div>
             </div>
-            <div class="content table-responsive table-full-width">
-                <table class="table">
+            <div class="columns columns-right pull-right"><button class="btn btn-info btn-fill" type="button" name="refresh" title="Refresh"><i class="glyphicon fa fa-refresh"></i></button>
+                <div class="keep-open btn-group" title="Columns"><button type="button" class="btn btn-info btn-fill dropdown-toggle" data-toggle="dropdown"><i class="glyphicon fa fa-th-list"></i> <span class="caret"></span></button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a (click)="export('Json')">Export Json</a></li>
+                        <li><a (click)="export('Excel')">Export Excel</a></li>
+
+                    </ul>
+                </div>
+
+            </div>
+            <div class="pull-right search"><input class="form-control" type="text" [(ngModel)]="search" (keyup)="find()" placeholder="Search"></div>
+        </div>
+        <div class="fixed-table-container" style="padding-bottom: 0px;">
+            <div class="fixed-table-header" style="display: none;">
+                <table></table>
+            </div>
+            <div class="fixed-table-body">
+                <div class="fixed-table-loading" style="top: 45px;">Loading, please wait...</div>
+                <table id="fresh-table" class="table table-hover table-striped">
                     <thead>
                         <tr>
-                            <th class="text-center">#</th>
-                            <th>item Code</th>
-                            <th>item Name</th>
-                            <th>Descrpition</th>
-                            <!--<th>unitName</th>-->
-                            <th>cost Price </th>
-                            <th>sale Price</th>
+                            <th data-field="id">
+                                <div class="th-inner ">#</div>
+                                <div class="fht-cell"></div>
+                            </th>
+                            <th data-field="name">
+                                <div class="th-inner">Item Code</div>
+                                <div class="fht-cell"></div>
+                            </th>
+                            <th data-field="salary">
+                                <div class="th-inner">Item Name</div>
+                                <div class="fht-cell"></div>
+                            </th>
+                            <th data-field="country">
+                                <div class="th-inner">Description</div>
+                                <div class="fht-cell"></div>
+                            </th>
+                            <th data-field="country">
+                                <div class="th-inner">Sales Price</div>
+                                <div class="fht-cell"></div>
+                            </th>
 
-
-                            <th class="text-right">Actions</th>
+                            <th data-field="actions">
+                                <div class="th-inner ">Actions</div>
+                                <div class="fht-cell"></div>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
-
-                        <tr *ngFor="let entry of entries; trackBy:entry?.id">
-                            <td class="text-center"></td>
+                        <tr *ngFor="let entry of entries; trackBy:entry?.id;let i=index;">
+                            <td>{{i+1}}</td>
                             <td>{{entry.itemCode}}</td>
                             <td>{{entry.itemName}}</td>
                             <td>{{entry.Descrpition}}</td>
-                            <!--<td>{{entry.unitName}}</td>-->
-                            <td>{{entry.costPrice}}</td>
                             <td>{{entry.salePrice}}</td>
-
-
                             <td class="td-actions text-right">
                                 <a uk-toggle="target: #rana" rel="tooltip" title="" class="btn btn-info btn-fill btn-wd">Edit</a>
                             </td>
 
                             <div id="rana" class="uk-modal-container" uk-modal>
                                 <div class="uk-modal-dialog uk-modal-body">
+
                                     <button class="uk-modal-close-default" type="button" uk-close></button>
                                     <div class="uk-modal-header">
                                         <h2 class="uk-modal-title">Edit Here</h2>
@@ -53,7 +89,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-sm-2">
-                                                                <input type="text" class="form-control" [(ngModel)]="entry.itemCode" name="itemCode" number="true" maxLength="5" required>
+                                                                <input type="text" class="form-control" [(ngModel)]="entry.itemCode" name="itemCode" number="true" maxLength="10" required>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -65,7 +101,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-sm-2">
-                                                                <input type="text" class="form-control" [(ngModel)]="entry.itemName" name="itemName" maxLength="8" required>
+                                                                <input type="text" class="form-control" [(ngModel)]="entry.itemName" name="itemName" maxLength="15" required>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -78,7 +114,8 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-sm-2">
-                                                                <input type="text" placeholder="E.g cm,kg,ltr" class="form-control" [(ngModel)]="entry.unitName" name="unitName" maxLength="5" required>
+                                                                <input type="text" placeholder="E.g cm,kg,ltr" class="form-control" [(ngModel)]="entry.unitName" name="unitName" maxLength="5"
+                                                                    required>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -93,7 +130,8 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-sm-2">
-                                                                <input type="text" placeholder="optional" class="form-control" [(ngModel)]="entry.costPrice" name="costPrice" number="true" maxLength="10" required>
+                                                                <input type="number" placeholder="cost of per unit" class="form-control" [(ngModel)]="entry.costPrice" name="costPrice" number="true"
+                                                                    maxLength="10" required>
                                                             </div>
                                                         </div>
 
@@ -106,7 +144,8 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-sm-2">
-                                                                <input type="text" placeholder="optional" class="form-control" [(ngModel)]="entry.salePrice" name="salePrice" number="true" maxLength="3" required>
+                                                                <input type="number" placeholder="sales price" class="form-control" [(ngModel)]="entry.salePrice" name="salePrice" number="true"
+                                                                    maxLength="10" required>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -121,7 +160,8 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-sm-6">
-                                                                <textarea rows="4" cols="10" class="form-control" input type="text" class="form-control" [(ngModel)]="entry.Descrpition" name="Descrpition" maxLength="50" required>
+                                                                <textarea rows="4" cols="10" class="form-control" input type="text" class="form-control" [(ngModel)]="entry.Descrpition"
+                                                                    name="Descrpition" maxLength="50" required>
                                                     </textarea>
                                                             </div>
                                                         </div>
@@ -132,19 +172,23 @@
                                             <div class="row">
                                                 <div class="container">
                                                     <div class="col-sm-4">
-                                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> Custom income account</div>
+                                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> Custom
+                                                        income account</div>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="container">
                                                     <div class="col-sm-4">
-                                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> Custom expense account</div>
+                                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> Custom
+                                                        expense account</div>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="container">
                                                     <div class="col-sm-4">
-                                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> start balance</div>
+                                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> start
+                                                        balance
+                                                    </div>
                                                 </div>
                                             </div>
                                         </form>
@@ -155,31 +199,54 @@
                                     </div>
                                 </div>
                             </div>
-
                         </tr>
 
                     </tbody>
                 </table>
             </div>
+            <div class="fixed-table-footer" style="display: none;">
+                <table>
+                    <tbody>
+                        <tr></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="fixed-table-pagination">
+                <br>
+                <br>
+                <br>
+
+            </div>
         </div>
     </div>
-
+    <div class="clearfix"></div>
 </div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
 
 
 <!--<div id="modal-overflow" uk-modal>
     <div class="uk-modal-dialog">-->
+
 <div id="modal-overflow" class="uk-modal-container" uk-modal>
     <div class="uk-modal-dialog uk-modal-body">
 
         <button class="uk-modal-close-default" type="button" uk-close></button>
 
-        <div class="uk-modal-header">
-            <h2 class="uk-modal-title">Add New InventoryItem</h2>
-        </div>
 
-        <div class="uk-modal-body">
-            <form #form="ngForm" id="allInputsFormValidation" action="#" method="post" novalidate="">
+
+        <div styles="height:6000px;" class="uk-modal-body">
+
+            <form novalidate="" #form="ngForm">
+                <!--enter new Inventory Item code here-->
+
+                <br>
+
+                <br>
                 <div class="row">
                     <div class="col-sm-2">
                         <div class="container">
@@ -188,7 +255,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control" [(ngModel)]="entry.itemCode" name="itemCode" number="true" maxLength="5" required>
+                                    <input type="text" class="form-control" [(ngModel)]="entry.itemCode" name="itemCode" number="true" maxLength="10" required>
                                 </div>
                             </div>
                         </div>
@@ -200,7 +267,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control" [(ngModel)]="entry.itemName" name="itemName" maxLength="8" required>
+                                    <input type="text" class="form-control" [(ngModel)]="entry.itemName" name="itemName" maxLength="15" required>
                                 </div>
                             </div>
                         </div>
@@ -213,7 +280,8 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-2">
-                                    <input type="text" placeholder="E.g cm,kg,ltr" class="form-control" [(ngModel)]="entry.unitName" name="unitName" maxLength="5" required>
+                                    <input type="text" placeholder="E.g cm,kg,ltr" class="form-control" [(ngModel)]="entry.unitName" name="unitName" maxLength="5"
+                                        required>
                                 </div>
                             </div>
                         </div>
@@ -228,7 +296,8 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-2">
-                                    <input type="text" placeholder="optional" class="form-control" [(ngModel)]="entry.costPrice" name="costPrice" number="true" maxLength="10" required>
+                                    <input type="number" placeholder="cost of per unit" class="form-control" [(ngModel)]="entry.costPrice" name="costPrice" number="true"
+                                        maxLength="10" required>
                                 </div>
                             </div>
 
@@ -241,7 +310,8 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-2">
-                                    <input type="text" placeholder="optional" class="form-control" [(ngModel)]="entry.salePrice" name="salePrice" number="true" maxLength="3" required>
+                                    <input type="number" placeholder="sales price" class="form-control" [(ngModel)]="entry.salePrice" name="salePrice" number="true"
+                                        maxLength="10" required>
                                 </div>
                             </div>
                         </div>
@@ -256,7 +326,8 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <textarea rows="4" cols="10" class="form-control" input type="text" class="form-control" [(ngModel)]="entry.Descrpition" name="Descrpition" maxLength="50" required>
+                                    <textarea rows="4" cols="10" class="form-control" input type="text" class="form-control" [(ngModel)]="entry.Descrpition"
+                                        name="Descrpition" maxLength="50" required>
                                                     </textarea>
                                 </div>
                             </div>
@@ -279,16 +350,24 @@
                 <div class="row">
                     <div class="container">
                         <div class="col-sm-4">
-                            <input type="checkbox" id="inlineCheckbox1" value="option1"> start balance</div>
+                            <input type="checkbox" id="inlineCheckbox1" value="option1"> start balance
+                        </div>
                     </div>
                 </div>
+
+                <br>
+
+                <br>
+
+                <br>
+
+                <br>
+
             </form>
-
         </div>
-
-        <div class="uk-modal-footer uk-text-right">
-            <button class="uk-button uk-button-default uk-modal-close btn btn-info btn-fill btn-wd" type="button">Cancel</button>
-            <button class="uk-button uk-button-primary uk-modal-close btn btn-info btn-fill btn-wd " (click)="save(entry)" [disabled]="form.invalid">Save</button>
+        <div class="uk-modal-footer uk-text-right ">
+            <button class="uk-button uk-button-default uk-modal-close " type="button ">Cancel</button>
+            <button class="uk-button uk-button-primary uk-modal-close " (click)="save(entry) " [disabled]="form.invalid ">Save</button>
         </div>
     </div>
 </div>

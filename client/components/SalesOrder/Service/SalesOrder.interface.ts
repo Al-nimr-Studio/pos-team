@@ -11,15 +11,12 @@ export class SalesOrderInterface {
     created: Date;
     updated: Date;
     issuedate: Date;
-    customername: String;
+    customer: String;
     billingaddress: String;
     summery: String;
-    item: String;
-    description: String;
-    unitprice: number;
-    qty: number;
-    discount: number;
-    amount: number;
+    items: items[];
+    //itemname: string;
+
     deliverydate: Date;
     deliveryaddress: String;
     deliveryinstructions: String;
@@ -30,5 +27,15 @@ export class SalesOrderInterface {
         return this.created.valueOf() - other.created.valueOf();
     }
 
+
+}
+
+export class items {
+    itemname: string;
+    description: String;
+    unitprice: number;
+    amount: number;
+    discount: number;
+    qty: number;
 
 }

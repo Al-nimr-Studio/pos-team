@@ -95,19 +95,33 @@ export class SalesInvoiceReadComponent implements OnInit, OnDestroy, SalesInvoic
     entries: Array<SalesInvoiceInterface> = [];
     entry: SalesInvoiceInterface = new SalesInvoiceInterface();
 
+    search;
+    number: Array<SalesInvoiceInterface> = [];
+    jsondata;
+
     constructor(private repository: SalesInvoiceService) {
 
     }
-    save(entry) {
 
 
+    export(value) {
+        this.repository.export(value).then((jason: any) => this.jsondata = jason).then((jason: any) => console.log(this.jsondata));
 
-        this.entry.id = Date.now().toString();
-        this.entry.view = 'SalesInvoice';
-        this.entry.created = this.entry.updated = new Date();
-
-        this.repository.saveEntryv1(this.entry);
     }
+
+    find() {
+        if (this.search.length > 0) {
+
+            this.repository.search(this.search)
+                .then((entries: Array<SalesInvoiceInterface>) => this.entries = entries)
+        }
+        if (this.search.length == 0) {
+            this.repository.fetchEntriesv1()
+                .then((entries: Array<SalesInvoiceInterface>) => this.entries = entries)
+        }
+    }
+
+
 
     ngOnInit() {
         this.repository.registerObserver(this);
@@ -125,11 +139,9 @@ export class SalesInvoiceReadComponent implements OnInit, OnDestroy, SalesInvoic
         this.repository.fetchEntriesv1()
             .then((entries: Array<SalesInvoiceInterface>) => this.entries = entries);
     }
-    update(entry) {
 
-        this.repository.saveEntryv1(entry);
-    }
-    delete(entry) {
-        this.repository.deleteEntry(entry);
+    delete(value) {
+        this.repository.deleteEntry(value)
+
     }
 }

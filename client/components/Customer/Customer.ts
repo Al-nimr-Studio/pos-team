@@ -21,12 +21,35 @@ export class CustomerReadComponent implements OnInit, OnDestroy, CustomerObserve
     entries: Array<CustomerInterface> = [];
     entry: CustomerInterface = new CustomerInterface();
 
+    search;
+    number: Array<CustomerInterface> = [];
+    jsondata;
+
     constructor(private repository: CustomerService) {
 
     }
+
+    export(value) {
+        this.repository.export(value).then((jason: any) => this.jsondata = jason).then((jason: any) => console.log(this.jsondata));
+
+    }
+
+
+
+    find() {
+        if (this.search.length > 0) {
+
+            this.repository.search(this.search)
+                .then((entries: Array<CustomerInterface>) => this.entries = entries)
+        }
+        if (this.search.length == 0) {
+            this.repository.fetchEntriesv1()
+                .then((entries: Array<CustomerInterface>) => this.entries = entries)
+        }
+    }
+
+
     save(entry) {
-
-
 
         this.entry.id = Date.now().toString();
         this.entry.view = 'Customer';
@@ -51,11 +74,12 @@ export class CustomerReadComponent implements OnInit, OnDestroy, CustomerObserve
         this.repository.fetchEntriesv1()
             .then((entries: Array<CustomerInterface>) => this.entries = entries);
     }
-    update(entry) {
+    // update(entry) {
 
-        this.repository.saveEntryv1(entry);
-    }
-    delete(entry) {
-        this.repository.deleteEntry(entry);
+    //     this.repository.saveEntryv1(entry);
+    // }
+    delete(value) {
+        this.repository.deleteEntry(value)
+
     }
 }

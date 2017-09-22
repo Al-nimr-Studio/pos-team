@@ -1,0 +1,1022 @@
+<div class="row">
+    <div class="col-md-12">
+
+        <form novalidate="" #form="ngForm">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>From Date</h4>
+                    <div class="form-group">
+                        <input type="text" id="startdatetime" class="form-control datetimepicker " placeholder="Start Date and Time" required></div>
+                    <!-- [(ngModel)]="" name="startdatetime" #startdatetime="ngModel" #eEDatePicker (blur)="entry.startdatetime = eEDatePicker.value" -->
+
+                </div>
+                <div class="col-md-6">
+                    <h4>To Date</h4>
+                    <div class="form-group">
+                        <input type="text " id="enddatetime" class="form-control datetimepicker" placeholder="End Date and Time" required></div>
+                    <!-- [(ngModel)]="entry.enddatetime" name="enddatetime" #enddatetime="ngModel" #endDate (blur)="entry.enddatetime = endDate.value"  -->
+                </div>
+            </div>
+            <div class="card">
+                <div class="row">
+
+                    <div class="col-md-2 pull-right">
+                        <button type="submit" id="submitButton" (click)=" datetime()" disabled class="btn btn-primary btn-fill btn-sm" [disabled]="form.invalid ">&nbsp; &nbsp; &nbsp; &nbsp;Go&nbsp; &nbsp; &nbsp; &nbsp;</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- </div> -->
+    </div>
+    <div class="col-md-6">
+        <!-- -----------------/////// Supplier data //////////--------------- -->
+        <div class="card">
+            <div class="header">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="title">Supplier List</h4>
+
+                    </div>
+                    <div class="col-md-2">
+                        <h4 class="title" *ngIf="fetchSupplier">{{fetchSupplier.totalPrice}}</h4>
+
+                    </div>
+                    <div class="col-md-2">
+                        <button data-toggle="modal" data-target=".modal6" class="btn btn-warning btn-fill btn-round btn-icon pe-7s-graph1"></button>
+                    </div>
+                </div>
+
+                <p class="category">Here is a supplier data</p>
+            </div>
+            <div class="content table-responsive table-full-width">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+
+                            <th>SupplierName</th>
+                            <th>Invoice#</th>
+                            <th>Min</th>
+                            <th>Max</th>
+                            <th>%</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let entry of fetchSupplier;">
+                            <td>{{entry.key}}</td>
+                            <td>{{entry.value.count}}</td>
+                            <td>{{entry.value.min}}</td>
+                            <td>{{entry.value.max}}</td>
+                            <td>{{(entry.value.sum/fetchSupplier.totalPrice)*100| number:'2.1-2'}}</td>
+                            <td>{{entry.value.sum}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal fade modal6" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="card">
+                            <div class="header">
+                                Public Preferences
+                                <p class="category">Pie Chart</p>
+                            </div>
+                            <div class="content">
+                                <div id="chartPreferences" class="ct-chart "><svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-pie" style="width: 100%; height: 100%;"><g class="ct-series ct-series-c"><path d="M217.5,5A117.5,117.5,0,0,0,173.864,13.403L217.5,122.5Z" class="ct-slice-pie" value="6"></path></g><g class="ct-series ct-series-b"><path d="M174.245,13.251A117.5,117.5,0,0,0,137.365,208.434L217.5,122.5Z" class="ct-slice-pie" value="32"></path></g><g class="ct-series ct-series-a"><path d="M137.066,208.154A117.5,117.5,0,1,0,217.5,5L217.5,122.5Z" class="ct-slice-pie" value="62"></path></g><g><text dx="272.1243685459348" dy="144.12731747022482" text-anchor="middle" class="ct-label">62%</text><text dx="159.79062401968952" dy="111.49134776808874" text-anchor="middle" class="ct-label">32%</text><text dx="206.49134776808862" dy="64.79062401968955" text-anchor="middle" class="ct-label">6%</text></g></svg></div>
+                            </div>
+                            <div class="footer">
+                                <h6>Legend</h6>
+                                <i class="fa fa-circle text-info"></i> Apple
+                                <i class="fa fa-circle text-warning"></i> Samsung
+                                <i class="fa fa-circle text-danger"></i> Windows Phone
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- -----------------/////// PurchaseInvoice data //////////--------------- -->
+        <div class="card">
+            <div class="header">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="title">PurchaseInvoice </h4>
+
+                    </div>
+                    <div class="col-md-2">
+                        <h4 class="title" *ngIf="fetchSupplier">{{fetchSupplier.totalPrice}}</h4>
+
+                    </div>
+                    <div class="col-md-2">
+                        <button data-toggle="modal" data-target=".modal6" class="btn btn-warning btn-fill btn-round btn-icon pe-7s-graph1"></button>
+                    </div>
+                </div>
+
+                <p class="category">Here is a purchaseInvoice data</p>
+            </div>
+            <div class="content table-responsive table-full-width">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+                            <th>TotalInvoice</th>
+                            <th>Min</th>
+                            <th>Max</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let entry of purchaseInvoiceSummary;">
+                            <td>{{entry.key}}</td>
+                            <td>{{entry.value.count}}</td>
+                            <td>{{entry.value.min}}</td>
+                            <td>{{entry.value.max}}</td>
+                            <td>{{entry.value.sum}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal fade modal6" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="card">
+                            <div class="header">
+                                Public Preferences
+                                <p class="category">Pie Chart</p>
+                            </div>
+                            <div class="content">
+                                <div id="chartPreferences" class="ct-chart "><svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-pie" style="width: 100%; height: 100%;"><g class="ct-series ct-series-c"><path d="M217.5,5A117.5,117.5,0,0,0,173.864,13.403L217.5,122.5Z" class="ct-slice-pie" value="6"></path></g><g class="ct-series ct-series-b"><path d="M174.245,13.251A117.5,117.5,0,0,0,137.365,208.434L217.5,122.5Z" class="ct-slice-pie" value="32"></path></g><g class="ct-series ct-series-a"><path d="M137.066,208.154A117.5,117.5,0,1,0,217.5,5L217.5,122.5Z" class="ct-slice-pie" value="62"></path></g><g><text dx="272.1243685459348" dy="144.12731747022482" text-anchor="middle" class="ct-label">62%</text><text dx="159.79062401968952" dy="111.49134776808874" text-anchor="middle" class="ct-label">32%</text><text dx="206.49134776808862" dy="64.79062401968955" text-anchor="middle" class="ct-label">6%</text></g></svg></div>
+                            </div>
+                            <div class="footer">
+                                <h6>Legend</h6>
+                                <i class="fa fa-circle text-info"></i> Apple
+                                <i class="fa fa-circle text-warning"></i> Samsung
+                                <i class="fa fa-circle text-danger"></i> Windows Phone
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- -----------------/////// PurchaseOrder data //////////--------------- -->
+        <div class="card">
+            <div class="header">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="title">PurchaseOrder </h4>
+
+                    </div>
+                    <div class="col-md-2">
+                        <h4 class="title" *ngIf="purchaseOrderSummary">{{purchaseOrderSummary.totalPrice}}</h4>
+
+                    </div>
+                    <div class="col-md-2">
+                        <button data-toggle="modal" data-target=".modal6" class="btn btn-warning btn-fill btn-round btn-icon pe-7s-graph1"></button>
+                    </div>
+                </div>
+
+                <p class="category">Here is a purchaseOrder data</p>
+            </div>
+            <div class="content table-responsive table-full-width">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+                            <th>TotalInvoice</th>
+                            <th>Min</th>
+                            <th>Max</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let entry of purchaseOrderSummary;">
+                            <td>{{entry.key}}</td>
+                            <td>{{entry.value.count}}</td>
+                            <td>{{entry.value.min}}</td>
+                            <td>{{entry.value.max}}</td>
+                            <td>{{entry.value.sum}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal fade modal6" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="card">
+                            <div class="header">
+                                Public Preferences
+                                <p class="category">Pie Chart</p>
+                            </div>
+                            <div class="content">
+                                <div id="chartPreferences" class="ct-chart "><svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-pie" style="width: 100%; height: 100%;"><g class="ct-series ct-series-c"><path d="M217.5,5A117.5,117.5,0,0,0,173.864,13.403L217.5,122.5Z" class="ct-slice-pie" value="6"></path></g><g class="ct-series ct-series-b"><path d="M174.245,13.251A117.5,117.5,0,0,0,137.365,208.434L217.5,122.5Z" class="ct-slice-pie" value="32"></path></g><g class="ct-series ct-series-a"><path d="M137.066,208.154A117.5,117.5,0,1,0,217.5,5L217.5,122.5Z" class="ct-slice-pie" value="62"></path></g><g><text dx="272.1243685459348" dy="144.12731747022482" text-anchor="middle" class="ct-label">62%</text><text dx="159.79062401968952" dy="111.49134776808874" text-anchor="middle" class="ct-label">32%</text><text dx="206.49134776808862" dy="64.79062401968955" text-anchor="middle" class="ct-label">6%</text></g></svg></div>
+                            </div>
+                            <div class="footer">
+                                <h6>Legend</h6>
+                                <i class="fa fa-circle text-info"></i> Apple
+                                <i class="fa fa-circle text-warning"></i> Samsung
+                                <i class="fa fa-circle text-danger"></i> Windows Phone
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- -----------------/////// Expense data //////////--------------- -->
+        <div class="card">
+            <div class="header">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="title">Expense List</h4>
+
+                    </div>
+                    <div class="col-md-2">
+                        <h4 class="title" *ngIf="expenseSummary">{{expenseSummary.totalPrice}}</h4>
+
+                    </div>
+                    <div class="col-md-2">
+                        <button data-toggle="modal" data-target=".modal6" class="btn btn-warning btn-fill btn-round btn-icon pe-7s-graph1"></button>
+                    </div>
+                </div>
+
+                <p class="category">Here is a Expense data</p>
+            </div>
+            <div class="content table-responsive table-full-width">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+
+                            <th>ExpenseName</th>
+                            <th>Min</th>
+                            <th>Max</th>
+                            <th>%</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let entry of expenseSummary;">
+                            <td>{{entry.key}}</td>
+                            <td>{{entry.value.min}}</td>
+                            <td>{{entry.value.max}}</td>
+                            <td>{{(entry.value.sum/expenseSummary.totalPrice)*100| number:'2.1-2'}}</td>
+                            <td>{{entry.value.sum}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal fade modal6" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="card">
+                            <div class="header">
+                                Public Preferences
+                                <p class="category">Pie Chart</p>
+                            </div>
+                            <div class="content">
+                                <div id="chartPreferences" class="ct-chart "><svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-pie" style="width: 100%; height: 100%;"><g class="ct-series ct-series-c"><path d="M217.5,5A117.5,117.5,0,0,0,173.864,13.403L217.5,122.5Z" class="ct-slice-pie" value="6"></path></g><g class="ct-series ct-series-b"><path d="M174.245,13.251A117.5,117.5,0,0,0,137.365,208.434L217.5,122.5Z" class="ct-slice-pie" value="32"></path></g><g class="ct-series ct-series-a"><path d="M137.066,208.154A117.5,117.5,0,1,0,217.5,5L217.5,122.5Z" class="ct-slice-pie" value="62"></path></g><g><text dx="272.1243685459348" dy="144.12731747022482" text-anchor="middle" class="ct-label">62%</text><text dx="159.79062401968952" dy="111.49134776808874" text-anchor="middle" class="ct-label">32%</text><text dx="206.49134776808862" dy="64.79062401968955" text-anchor="middle" class="ct-label">6%</text></g></svg></div>
+                            </div>
+                            <div class="footer">
+                                <h6>Legend</h6>
+                                <i class="fa fa-circle text-info"></i> Apple
+                                <i class="fa fa-circle text-warning"></i> Samsung
+                                <i class="fa fa-circle text-danger"></i> Windows Phone
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ////////////////////------pervios function--------------////////////// -->
+
+        <!-- <div class="card">
+            <div class="header">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="title">Assets</h4>
+                    </div>
+                    <div class="col-md-2">
+                        <h4 class="title">96287</h4>
+                    </div>
+                    <div class="col-md-2">
+                        <button data-toggle="modal" data-target=".modal4" class="btn btn-warning btn-fill btn-round btn-icon pe-7s-graph1"></button>
+                    </div>
+                </div>
+                <p class="category">Here is a subtitle for this table</p>
+            </div>
+            <div class="content table-responsive table-full-width">
+                <table class="table table-hover table-striped">
+
+                    <tbody>
+                        <tr>
+                            <td>Bank Account</td>
+                            <td>121313</td>
+                        </tr>
+                        <tr>
+                            <td>Account Receivable</td>
+                            <td>3232</td>
+                        </tr>
+                        <tr>
+                            <td>Inventory On Hand</td>
+                            <td>21212</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal fade modal4" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="card">
+                            <div class="header">
+                                Public Preferences
+                                <p class="category">Pie Chart</p>
+                            </div>
+                            <div class="content">
+                                <div id="chartPreferences" class="ct-chart "><svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-pie" style="width: 100%; height: 100%;"><g class="ct-series ct-series-c"><path d="M217.5,5A117.5,117.5,0,0,0,173.864,13.403L217.5,122.5Z" class="ct-slice-pie" value="6"></path></g><g class="ct-series ct-series-b"><path d="M174.245,13.251A117.5,117.5,0,0,0,137.365,208.434L217.5,122.5Z" class="ct-slice-pie" value="32"></path></g><g class="ct-series ct-series-a"><path d="M137.066,208.154A117.5,117.5,0,1,0,217.5,5L217.5,122.5Z" class="ct-slice-pie" value="62"></path></g><g><text dx="272.1243685459348" dy="144.12731747022482" text-anchor="middle" class="ct-label">62%</text><text dx="159.79062401968952" dy="111.49134776808874" text-anchor="middle" class="ct-label">32%</text><text dx="206.49134776808862" dy="64.79062401968955" text-anchor="middle" class="ct-label">6%</text></g></svg></div>
+                            </div>
+                            <div class="footer">
+                                <h6>Legend</h6>
+                                <i class="fa fa-circle text-info"></i> Apple
+                                <i class="fa fa-circle text-warning"></i> Samsung
+                                <i class="fa fa-circle text-danger"></i> Windows Phone
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="header">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="title">Less Liabilities</h4>
+                    </div>
+                    <div class="col-md-2">
+                        <h4 class="title">96287</h4>
+                    </div>
+                    <div class="col-md-2">
+                        <button data-toggle="modal" data-target=".modal5" class="btn btn-warning btn-fill btn-round btn-icon pe-7s-graph1"></button>
+                    </div>
+                </div>
+
+                <p class="category">Here is a subtitle for this table</p>
+            </div>
+            <div class="content table-responsive table-full-width">
+                <table class="table table-hover table-striped">
+
+                    <tbody>
+                        <tr>
+                            <td>Accounts Payable</td>
+                            <td>121313</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div class="modal fade modal5" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="card">
+                            <div class="header">
+                                Public Preferences
+                                <p class="category">Pie Chart</p>
+                            </div>
+                            <div class="content">
+                                <div id="chartPreferences" class="ct-chart "><svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-pie" style="width: 100%; height: 100%;"><g class="ct-series ct-series-c"><path d="M217.5,5A117.5,117.5,0,0,0,173.864,13.403L217.5,122.5Z" class="ct-slice-pie" value="6"></path></g><g class="ct-series ct-series-b"><path d="M174.245,13.251A117.5,117.5,0,0,0,137.365,208.434L217.5,122.5Z" class="ct-slice-pie" value="32"></path></g><g class="ct-series ct-series-a"><path d="M137.066,208.154A117.5,117.5,0,1,0,217.5,5L217.5,122.5Z" class="ct-slice-pie" value="62"></path></g><g><text dx="272.1243685459348" dy="144.12731747022482" text-anchor="middle" class="ct-label">62%</text><text dx="159.79062401968952" dy="111.49134776808874" text-anchor="middle" class="ct-label">32%</text><text dx="206.49134776808862" dy="64.79062401968955" text-anchor="middle" class="ct-label">6%</text></g></svg></div>
+                            </div>
+                            <div class="footer">
+                                <h6>Legend</h6>
+                                <i class="fa fa-circle text-info"></i> Apple
+                                <i class="fa fa-circle text-warning"></i> Samsung
+                                <i class="fa fa-circle text-danger"></i> Windows Phone
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="header">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="title">Equity</h4>
+
+                    </div>
+                    <div class="col-md-2">
+                        <h4 class="title">96287</h4>
+
+                    </div>
+                    <div class="col-md-2">
+                        <button data-toggle="modal" data-target=".modal6" class="btn btn-warning btn-fill btn-round btn-icon pe-7s-graph1"></button>
+                    </div>
+                </div>
+
+                <p class="category">Here is a subtitle for this table</p>
+            </div>
+            <div class="content table-responsive table-full-width">
+                <table class="table table-hover table-striped">
+
+                    <tbody>
+                        <tr>
+                            <td>Retained Earning</td>
+                            <td>121313</td>
+                        </tr>
+                        <tr>
+                            <td>Starting Balance Equity</td>
+                            <td>3232</td>
+                        </tr>
+                        <tr>
+                            <td>Suspense</td>
+                            <td>35355</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal fade modal6" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="card">
+                            <div class="header">
+                                Public Preferences
+                                <p class="category">Pie Chart</p>
+                            </div>
+                            <div class="content">
+                                <div id="chartPreferences" class="ct-chart "><svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-pie" style="width: 100%; height: 100%;"><g class="ct-series ct-series-c"><path d="M217.5,5A117.5,117.5,0,0,0,173.864,13.403L217.5,122.5Z" class="ct-slice-pie" value="6"></path></g><g class="ct-series ct-series-b"><path d="M174.245,13.251A117.5,117.5,0,0,0,137.365,208.434L217.5,122.5Z" class="ct-slice-pie" value="32"></path></g><g class="ct-series ct-series-a"><path d="M137.066,208.154A117.5,117.5,0,1,0,217.5,5L217.5,122.5Z" class="ct-slice-pie" value="62"></path></g><g><text dx="272.1243685459348" dy="144.12731747022482" text-anchor="middle" class="ct-label">62%</text><text dx="159.79062401968952" dy="111.49134776808874" text-anchor="middle" class="ct-label">32%</text><text dx="206.49134776808862" dy="64.79062401968955" text-anchor="middle" class="ct-label">6%</text></g></svg></div>
+                            </div>
+                            <div class="footer">
+                                <h6>Legend</h6>
+                                <i class="fa fa-circle text-info"></i> Apple
+                                <i class="fa fa-circle text-warning"></i> Samsung
+                                <i class="fa fa-circle text-danger"></i> Windows Phone
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+    </div>
+
+    <!--second side of summary-->
+
+    <div class="col-md-6">
+
+        <!-- -----------------/////// Inventory data  of p of purchase//////////--------------- -->
+        <div class="card">
+            <div class="header">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="title">Inventory List P of Purchase</h4>
+
+                    </div>
+                    <div class="col-md-2">
+                        <h4 class="title" *ngIf="fetchSupplier">{{fetchSupplier.totalPrice}}</h4>
+
+                    </div>
+                    <div class="col-md-2">
+                        <button data-toggle="modal" data-target=".modal6" class="btn btn-warning btn-fill btn-round btn-icon pe-7s-graph1"></button>
+                    </div>
+                </div>
+
+                <p class="category">Here is a inventory data</p>
+            </div>
+            <div class="content table-responsive table-full-width">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+
+                            <th>ItemName</th>
+                            <th>UnitPrice</th>
+                            <th>TotalQty</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let entry of inventorySummary;">
+                            <td>{{entry.key[0]}}</td>
+                            <td>{{entry.key[1]}}</td>
+                            <td>{{entry.value.sum[0]}}</td>
+                            <td>{{entry.value.sum[1]}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal fade modal6" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="card">
+                            <div class="header">
+                                Public Preferences
+                                <p class="category">Pie Chart</p>
+                            </div>
+                            <div class="content">
+                                <div id="chartPreferences" class="ct-chart "><svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-pie" style="width: 100%; height: 100%;"><g class="ct-series ct-series-c"><path d="M217.5,5A117.5,117.5,0,0,0,173.864,13.403L217.5,122.5Z" class="ct-slice-pie" value="6"></path></g><g class="ct-series ct-series-b"><path d="M174.245,13.251A117.5,117.5,0,0,0,137.365,208.434L217.5,122.5Z" class="ct-slice-pie" value="32"></path></g><g class="ct-series ct-series-a"><path d="M137.066,208.154A117.5,117.5,0,1,0,217.5,5L217.5,122.5Z" class="ct-slice-pie" value="62"></path></g><g><text dx="272.1243685459348" dy="144.12731747022482" text-anchor="middle" class="ct-label">62%</text><text dx="159.79062401968952" dy="111.49134776808874" text-anchor="middle" class="ct-label">32%</text><text dx="206.49134776808862" dy="64.79062401968955" text-anchor="middle" class="ct-label">6%</text></g></svg></div>
+                            </div>
+                            <div class="footer">
+                                <h6>Legend</h6>
+                                <i class="fa fa-circle text-info"></i> Apple
+                                <i class="fa fa-circle text-warning"></i> Samsung
+                                <i class="fa fa-circle text-danger"></i> Windows Phone
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- -----------------/////// Inventory data  of p of Sale//////////--------------- -->
+        <div class="card">
+            <div class="header">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="title">Inventory List P of Sale</h4>
+
+                    </div>
+                    <div class="col-md-2">
+                        <h4 class="title" *ngIf="fetchSupplier">{{fetchSupplier.totalPrice}}</h4>
+
+                    </div>
+                    <div class="col-md-2">
+                        <button data-toggle="modal" data-target=".modal6" class="btn btn-warning btn-fill btn-round btn-icon pe-7s-graph1"></button>
+                    </div>
+                </div>
+
+                <p class="category">Here is a inventory data</p>
+            </div>
+            <div class="content table-responsive table-full-width">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+
+                            <th>ItemName</th>
+                            <th>UnitPrice</th>
+                            <th>TotalQty</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let entry of inventorySummaryPOS;">
+                            <td>{{entry.key[0]}}</td>
+                            <td>{{entry.key[1]}}</td>
+                            <td>{{entry.value.sum[0]}}</td>
+                            <td>{{entry.value.sum[1]}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal fade modal6" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="card">
+                            <div class="header">
+                                Public Preferences
+                                <p class="category">Pie Chart</p>
+                            </div>
+                            <div class="content">
+                                <div id="chartPreferences" class="ct-chart "><svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-pie" style="width: 100%; height: 100%;"><g class="ct-series ct-series-c"><path d="M217.5,5A117.5,117.5,0,0,0,173.864,13.403L217.5,122.5Z" class="ct-slice-pie" value="6"></path></g><g class="ct-series ct-series-b"><path d="M174.245,13.251A117.5,117.5,0,0,0,137.365,208.434L217.5,122.5Z" class="ct-slice-pie" value="32"></path></g><g class="ct-series ct-series-a"><path d="M137.066,208.154A117.5,117.5,0,1,0,217.5,5L217.5,122.5Z" class="ct-slice-pie" value="62"></path></g><g><text dx="272.1243685459348" dy="144.12731747022482" text-anchor="middle" class="ct-label">62%</text><text dx="159.79062401968952" dy="111.49134776808874" text-anchor="middle" class="ct-label">32%</text><text dx="206.49134776808862" dy="64.79062401968955" text-anchor="middle" class="ct-label">6%</text></g></svg></div>
+                            </div>
+                            <div class="footer">
+                                <h6>Legend</h6>
+                                <i class="fa fa-circle text-info"></i> Apple
+                                <i class="fa fa-circle text-warning"></i> Samsung
+                                <i class="fa fa-circle text-danger"></i> Windows Phone
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- -----------------/////// Remaining Qty of items in Inventory //////////--------------- -->
+        <div class="card">
+            <div class="header">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="title"> Remaining Qty of items in Inventory List </h4>
+
+                    </div>
+                    <div class="col-md-2">
+                        <h4 class="title" *ngIf="fetchSupplier">{{fetchSupplier.totalPrice}}</h4>
+
+                    </div>
+                    <div class="col-md-2">
+                        <button data-toggle="modal" data-target=".modal6" class="btn btn-warning btn-fill btn-round btn-icon pe-7s-graph1"></button>
+                    </div>
+                </div>
+
+                <p class="category">Here is a inventory Qantity data</p>
+            </div>
+            <div class="content table-responsive table-full-width">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+
+                            <th>ItemName</th>
+                            <!-- <th>UnitPrice</th> -->
+                            <th>Remaining Qty</th>
+                            <!-- <th>Total Price</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let entry of diffArray;">
+                            <td>{{entry.name}}</td>
+                            <td>{{entry.diff}}</td>
+
+                            <!-- <td>{{entry.key[1]}}</td> -->
+                            <!-- <td>{{entry.value.sum[0]}}</td>
+                            <td>{{entry.value.sum[1]}}</td> -->
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal fade modal6" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="card">
+                            <div class="header">
+                                Public Preferences
+                                <p class="category">Pie Chart</p>
+                            </div>
+                            <div class="content">
+                                <div id="chartPreferences" class="ct-chart "><svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-pie" style="width: 100%; height: 100%;"><g class="ct-series ct-series-c"><path d="M217.5,5A117.5,117.5,0,0,0,173.864,13.403L217.5,122.5Z" class="ct-slice-pie" value="6"></path></g><g class="ct-series ct-series-b"><path d="M174.245,13.251A117.5,117.5,0,0,0,137.365,208.434L217.5,122.5Z" class="ct-slice-pie" value="32"></path></g><g class="ct-series ct-series-a"><path d="M137.066,208.154A117.5,117.5,0,1,0,217.5,5L217.5,122.5Z" class="ct-slice-pie" value="62"></path></g><g><text dx="272.1243685459348" dy="144.12731747022482" text-anchor="middle" class="ct-label">62%</text><text dx="159.79062401968952" dy="111.49134776808874" text-anchor="middle" class="ct-label">32%</text><text dx="206.49134776808862" dy="64.79062401968955" text-anchor="middle" class="ct-label">6%</text></g></svg></div>
+                            </div>
+                            <div class="footer">
+                                <h6>Legend</h6>
+                                <i class="fa fa-circle text-info"></i> Apple
+                                <i class="fa fa-circle text-warning"></i> Samsung
+                                <i class="fa fa-circle text-danger"></i> Windows Phone
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!-- -----------------/////// Customer data //////////--------------- -->
+        <div class="card">
+            <div class="header">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="title">Customer List</h4>
+
+                    </div>
+                    <div class="col-md-2">
+                        <h4 class="title" *ngIf="customerSummary">{{customerSummary.totalPrice}}</h4>
+
+                    </div>
+                    <div class="col-md-2">
+                        <button data-toggle="modal" data-target=".modal6" class="btn btn-warning btn-fill btn-round btn-icon pe-7s-graph1"></button>
+                    </div>
+                </div>
+
+                <p class="category">Here is a supplier data</p>
+            </div>
+            <div class="content table-responsive table-full-width">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+
+                            <th>CustomerName</th>
+                            <th>TotalInvoice</th>
+                            <th>Min</th>
+                            <th>Max</th>
+                            <th>%</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let entry of customerSummary;">
+                            <td>{{entry.key}}</td>
+                            <td>{{entry.value.count}}</td>
+                            <td>{{entry.value.min}}</td>
+                            <td>{{entry.value.max}}</td>
+                            <td>{{(entry.value.sum/customerSummary.totalPrice)*100| number:'2.1-2'}}</td>
+                            <td>{{entry.value.sum}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal fade modal6" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="card">
+                            <div class="header">
+                                Public Preferences
+                                <p class="category">Pie Chart</p>
+                            </div>
+                            <div class="content">
+                                <div id="chartPreferences" class="ct-chart "><svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-pie" style="width: 100%; height: 100%;"><g class="ct-series ct-series-c"><path d="M217.5,5A117.5,117.5,0,0,0,173.864,13.403L217.5,122.5Z" class="ct-slice-pie" value="6"></path></g><g class="ct-series ct-series-b"><path d="M174.245,13.251A117.5,117.5,0,0,0,137.365,208.434L217.5,122.5Z" class="ct-slice-pie" value="32"></path></g><g class="ct-series ct-series-a"><path d="M137.066,208.154A117.5,117.5,0,1,0,217.5,5L217.5,122.5Z" class="ct-slice-pie" value="62"></path></g><g><text dx="272.1243685459348" dy="144.12731747022482" text-anchor="middle" class="ct-label">62%</text><text dx="159.79062401968952" dy="111.49134776808874" text-anchor="middle" class="ct-label">32%</text><text dx="206.49134776808862" dy="64.79062401968955" text-anchor="middle" class="ct-label">6%</text></g></svg></div>
+                            </div>
+                            <div class="footer">
+                                <h6>Legend</h6>
+                                <i class="fa fa-circle text-info"></i> Apple
+                                <i class="fa fa-circle text-warning"></i> Samsung
+                                <i class="fa fa-circle text-danger"></i> Windows Phone
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- -----------------/////// saleInvoice data //////////--------------- -->
+        <div class="card">
+            <div class="header">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="title">saleInvoice </h4>
+
+                    </div>
+                    <div class="col-md-2">
+                        <h4 class="title" *ngIf="customerSummary">{{customerSummary.totalPrice}}</h4>
+
+                    </div>
+                    <div class="col-md-2">
+                        <button data-toggle="modal" data-target=".modal6" class="btn btn-warning btn-fill btn-round btn-icon pe-7s-graph1"></button>
+                    </div>
+                </div>
+
+                <p class="category">Here is a SaleInvoice data</p>
+            </div>
+            <div class="content table-responsive table-full-width">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+                            <th>TotalInvoice</th>
+                            <th>Min</th>
+                            <th>Max</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let entry of saleInvoiceSummary;">
+                            <td>{{entry.key}}</td>
+                            <td>{{entry.value.count}}</td>
+                            <td>{{entry.value.min}}</td>
+                            <td>{{entry.value.max}}</td>
+                            <td>{{entry.value.sum}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal fade modal6" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="card">
+                            <div class="header">
+                                Public Preferences
+                                <p class="category">Pie Chart</p>
+                            </div>
+                            <div class="content">
+                                <div id="chartPreferences" class="ct-chart "><svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-pie" style="width: 100%; height: 100%;"><g class="ct-series ct-series-c"><path d="M217.5,5A117.5,117.5,0,0,0,173.864,13.403L217.5,122.5Z" class="ct-slice-pie" value="6"></path></g><g class="ct-series ct-series-b"><path d="M174.245,13.251A117.5,117.5,0,0,0,137.365,208.434L217.5,122.5Z" class="ct-slice-pie" value="32"></path></g><g class="ct-series ct-series-a"><path d="M137.066,208.154A117.5,117.5,0,1,0,217.5,5L217.5,122.5Z" class="ct-slice-pie" value="62"></path></g><g><text dx="272.1243685459348" dy="144.12731747022482" text-anchor="middle" class="ct-label">62%</text><text dx="159.79062401968952" dy="111.49134776808874" text-anchor="middle" class="ct-label">32%</text><text dx="206.49134776808862" dy="64.79062401968955" text-anchor="middle" class="ct-label">6%</text></g></svg></div>
+                            </div>
+                            <div class="footer">
+                                <h6>Legend</h6>
+                                <i class="fa fa-circle text-info"></i> Apple
+                                <i class="fa fa-circle text-warning"></i> Samsung
+                                <i class="fa fa-circle text-danger"></i> Windows Phone
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- ////////////////////------pervios function--------------////////////// -->
+        <!-- <div class="card">
+            <div class="header">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="title">Income</h4>
+                    </div>
+                    <div class="col-md-2">
+                        <h4 class="title">96287</h4>
+                    </div>
+                    <div class="col-md-2">
+                        <button data-toggle="modal" data-target=".modal1" class="btn btn-warning btn-fill btn-round btn-icon pe-7s-graph1"></button>
+                    </div>
+                </div>
+                <p class="category">Here is a subtitle for this table</p>
+            </div>
+            <div class="content table-responsive table-full-width">
+                <table class="table table-hover table-striped">
+                    <tbody>
+                        <tr>
+                            <td>Interset Received</td>
+                            <td>121313</td>
+                        </tr>
+                        <tr>
+                            <td>Inventory Sales</td>
+                            <td>3232</td>
+                        </tr>
+                        <tr>
+                            <td>Sales</td>
+                            <td>92454</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal fade modal1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="card">
+                            <div class="header">
+                                Public Preferences
+                                <p class="category">Pie Chart</p>
+                            </div>
+                            <div class="content">
+                                <div id="chartPreferences" class="ct-chart "><svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-pie" style="width: 100%; height: 100%;"><g class="ct-series ct-series-c"><path d="M217.5,5A117.5,117.5,0,0,0,173.864,13.403L217.5,122.5Z" class="ct-slice-pie" value="6"></path></g><g class="ct-series ct-series-b"><path d="M174.245,13.251A117.5,117.5,0,0,0,137.365,208.434L217.5,122.5Z" class="ct-slice-pie" value="32"></path></g><g class="ct-series ct-series-a"><path d="M137.066,208.154A117.5,117.5,0,1,0,217.5,5L217.5,122.5Z" class="ct-slice-pie" value="62"></path></g><g><text dx="272.1243685459348" dy="144.12731747022482" text-anchor="middle" class="ct-label">62%</text><text dx="159.79062401968952" dy="111.49134776808874" text-anchor="middle" class="ct-label">32%</text><text dx="206.49134776808862" dy="64.79062401968955" text-anchor="middle" class="ct-label">6%</text></g></svg></div>
+                            </div>
+                            <div class="footer">
+                                <h6>Legend</h6>
+                                <i class="fa fa-circle text-info"></i> Apple
+                                <i class="fa fa-circle text-warning"></i> Samsung
+                                <i class="fa fa-circle text-danger"></i> Windows Phone
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="header">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="title">Less Expenses</h4>
+                    </div>
+                    <div class="col-md-2">
+                        <h4 class="title">96287</h4>
+                    </div>
+                    <div class="col-md-2">
+                        <button data-toggle="modal" data-target=".modal2" class="btn btn-warning btn-fill btn-round btn-icon pe-7s-graph1"></button>
+                    </div>
+                </div>
+                <p class="category">Here is a subtitle for this table</p>
+            </div>
+            <div class="content table-responsive table-full-width">
+                <table class="table table-hover table-striped">
+                    <tbody>
+                        <tr>
+                            <td>Accounting fee</td>
+                            <td>121313</td>
+                        </tr>
+                        <tr>
+                            <td>Bank Charges</td>
+                            <td>3232</td>
+                        </tr>
+                        <tr>
+                            <td>Computer Equipment</td>
+                            <td>4434</td>
+                        </tr>
+                        <tr>
+                            <td>Electricity</td>
+                            <td>21432</td>
+                        </tr>
+                        <tr>
+                            <td>Rent</td>
+                            <td>32322</td>
+                        </tr>
+                        <tr>
+                            <td>Repair & Maintance</td>
+                            <td>13422</td>
+                        </tr>
+                        <tr>
+                            <td>Telephone </td>
+                            <td>13422</td>
+                        </tr>
+                        <tr>
+                            <td>Printing & Stationery</td>
+                            <td>13422</td>
+                        </tr>
+                        <tr>
+                            <td>Advertising and Promotion</td>
+                            <td>13422</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div class="modal fade modal2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="card">
+                            <div class="header">
+                                Public Preferences
+                                <p class="category">Pie Chart</p>
+                            </div>
+                            <div class="content">
+                                <div id="chartPreferences" class="ct-chart "><svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-pie" style="width: 100%; height: 100%;"><g class="ct-series ct-series-c"><path d="M217.5,5A117.5,117.5,0,0,0,173.864,13.403L217.5,122.5Z" class="ct-slice-pie" value="6"></path></g><g class="ct-series ct-series-b"><path d="M174.245,13.251A117.5,117.5,0,0,0,137.365,208.434L217.5,122.5Z" class="ct-slice-pie" value="32"></path></g><g class="ct-series ct-series-a"><path d="M137.066,208.154A117.5,117.5,0,1,0,217.5,5L217.5,122.5Z" class="ct-slice-pie" value="62"></path></g><g><text dx="272.1243685459348" dy="144.12731747022482" text-anchor="middle" class="ct-label">62%</text><text dx="159.79062401968952" dy="111.49134776808874" text-anchor="middle" class="ct-label">32%</text><text dx="206.49134776808862" dy="64.79062401968955" text-anchor="middle" class="ct-label">6%</text></g></svg></div>
+                            </div>
+                            <div class="footer">
+                                <h6>Legend</h6>
+                                <i class="fa fa-circle text-info"></i> Apple
+                                <i class="fa fa-circle text-warning"></i> Samsung
+                                <i class="fa fa-circle text-danger"></i> Windows Phone
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card"> 
+            <div class="header">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="title">Net Profit and Loss</h4>
+
+                    </div>
+                    <div class="col-md-2">
+                        <h4 class="title">96287</h4>
+
+                    </div>
+                    <div class="col-md-2">
+                        <button data-toggle="modal" data-target=".modal3" class="btn btn-warning btn-fill btn-round btn-icon pe-7s-graph1"></button>
+                    </div>
+                </div>
+
+                <p class="category">Here is a subtitle for this table</p>
+            </div>
+            <div class="content table-responsive table-full-width">
+                <table class="table table-hover table-striped">
+
+                </table>
+
+            </div>
+
+            <div class="modal fade modal3" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="card">
+                            <div class="header">
+                                Public Preferences
+                                <p class="category">Pie Chart</p>
+                            </div>
+                            <div class="content">
+                                <div id="chartPreferences" class="ct-chart "><svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-pie" style="width: 100%; height: 100%;"><g class="ct-series ct-series-c"><path d="M217.5,5A117.5,117.5,0,0,0,173.864,13.403L217.5,122.5Z" class="ct-slice-pie" value="6"></path></g><g class="ct-series ct-series-b"><path d="M174.245,13.251A117.5,117.5,0,0,0,137.365,208.434L217.5,122.5Z" class="ct-slice-pie" value="32"></path></g><g class="ct-series ct-series-a"><path d="M137.066,208.154A117.5,117.5,0,1,0,217.5,5L217.5,122.5Z" class="ct-slice-pie" value="62"></path></g><g><text dx="272.1243685459348" dy="144.12731747022482" text-anchor="middle" class="ct-label">62%</text><text dx="159.79062401968952" dy="111.49134776808874" text-anchor="middle" class="ct-label">32%</text><text dx="206.49134776808862" dy="64.79062401968955" text-anchor="middle" class="ct-label">6%</text></g></svg></div>
+                            </div>
+                            <div class="footer">
+                                <h6>Legend</h6>
+                                <i class="fa fa-circle text-info"></i> Apple
+                                <i class="fa fa-circle text-warning"></i> Samsung
+                                <i class="fa fa-circle text-danger"></i> Windows Phone
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+    </div>
+
+</div>

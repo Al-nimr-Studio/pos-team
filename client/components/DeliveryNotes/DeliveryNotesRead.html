@@ -1,0 +1,84 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="header">
+                <h4 class="title">Delivery Notes View </h4><br>
+                <button class="btn btn-defualt btn-fill btn-sm" [routerLink]="['/DeliveryNotes']" type="button">Back</button>
+            </div>
+            <div class="container">
+                <br>
+                <h3> view</h3>
+                <input [(ngModel)]="entry.view">
+
+                <br>
+                <h3> id</h3>
+                <input [(ngModel)]="entry.id">
+
+                <br>
+                <h3> rev</h3>
+                <input [(ngModel)]="entry.rev">
+
+                <br>
+                <h3> deliverynotenumber</h3>
+                <input [(ngModel)]="entry.deliverynotenumber">
+
+                <br>
+                <h3> deliverydate</h3>
+                <input [(ngModel)]="entry.deliverydate">
+
+                <br>
+                <h3> customer</h3>
+                <input [(ngModel)]="entry.customer">
+
+                <br>
+                <h3> billingaddress</h3>
+                <input [(ngModel)]="entry.billingaddress">
+
+                <br>
+                <h3> deliverynotesummery</h3>
+                <input [(ngModel)]="entry.deliverynotesummery">
+
+                <br>
+                <h3> notes</h3>
+                <input [(ngModel)]="entry.notes">
+
+
+
+                <br>
+                <h3> List Of Items</h3>
+                <div *ngFor="let item of entry.items;let i=index">
+
+                    <h3>Item Number {{ i + 1}}</h3>
+
+                    <h4> itemname</h4>
+                    <input [(ngModel)]="item.itemname">
+                    <br>
+                    <h4> description</h4>
+                    <input [(ngModel)]="item.description">
+                    <br>
+                    <h4> qty</h4>
+                    <input [(ngModel)]="item.qty">
+                    <br>
+                </div>
+
+                <br>
+                <h3> created</h3>
+                <input [(ngModel)]="entry.created">
+
+                <br>
+                <h3> updated</h3>
+                <input [(ngModel)]="entry.updated">
+            </div>
+
+            <br>
+
+
+            <div class="uk-modal-footer uk-text-right">
+                <button class="btn btn-primary btn-fill btn-sm" (click)="update(entry)" type="button">Update</button>
+                <button class="btn btn-danger btn-fill btn-sm" (click)="delete(entry)" type="button">Delete</button>
+
+            </div>
+        </div>
+    </div>
+
+</div>

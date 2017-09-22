@@ -16,15 +16,9 @@ export class DeliveryNotesInterface {
     customer: String;
     deliveryaddress: String;
     deliverynotesummery: String;
-    item: String;
-    description: String;
-    unitprice: number;
-    qty: number;
-    discount: number;
-    amount: number;
-    notes: String
-
-
+    items: items[];
+    notes: String;
+    billingaddress: String;
 
 
 
@@ -32,5 +26,14 @@ export class DeliveryNotesInterface {
         return this.created.valueOf() - other.created.valueOf();
     }
 
+
+}
+export class items {
+    itemname: string;
+    description: String;
+    unitprice: number;
+    amount: number;
+    discount: number;
+    qty: number;
 
 }

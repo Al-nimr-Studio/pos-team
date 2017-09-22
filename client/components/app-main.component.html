@@ -22,26 +22,15 @@
         <div class="sidebar-wrapper">
 
             <ul class="nav">
-                <li>
-                    <a data-toggle="collapse" href="#crud">
-                        <i class="pe-7s-server"></i>
-                        <p>Curd-full
-                            <b class="caret"></b>
-                        </p>
-                    </a>
-                    <div class="collapse" id="crud">
-                        <ul class="nav">
-                            <li><a [routerLink]="['/allinone']">All in one</a></li>
-                            <li><a [routerLink]="['/createform']">Create Form</a></li>
-                            <li><a [routerLink]="['/readform']">Read Form</a></li>
-                            <li><a [routerLink]="['/updateform']">Update Form</a></li>
-                            <li><a [routerLink]="['/deleteform']">Delete Form</a></li>
 
-                        </ul>
-                    </div>
-                </li>
 
                 <!--faheem-->
+                <li>
+                    <a [routerLink]="['/Summary']">
+                        <i class="material-icons">pie_chart</i>
+                        <p>Summary</p>
+                    </a>
+                </li>
                 <li>
                     <a [routerLink]="['/Customer']">
                         <i class="material-icons">assignment_ind</i>
@@ -82,7 +71,7 @@
                 </li>
                 <li>
                     <a [routerLink]="['/InventoryItemRead']">
-                        <i class="pe-7s-graph1"></i>
+                        <i class="material-icons">attach_file</i>
                         <p>Inventory Item</p>
                     </a>
                 </li>
@@ -99,7 +88,39 @@
                         <p>Purchase Order</p>
                     </a>
                 </li>
+                <li>
+                    <a [routerLink]="['/Expense']">
+                        <i class="material-icons">attach_file</i>
+                        <p>Expense</p>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="['/ExpenseCategories']">
+                        <i class="material-icons">attach_file</i>
+                        <p>ExpenseCategories</p>
+                    </a>
+                </li>
 
+
+                <li>
+                    <a [routerLink]="['/JournalEntry']">
+                        <i class="material-icons">attach_file</i>
+                        <p>Journal Entry</p>
+                    </a>
+                </li>
+
+                <li>
+                    <a [routerLink]="['/Reports']">
+                        <i class="material-icons">print</i>
+                        <p>Reports</p>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="['/Settings']">
+                        <i class="material-icons">settings</i>
+                        <p>Settings</p>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
@@ -188,7 +209,8 @@
         <div class="footer">
             <div class="container-fluid">
                 <p class="copyright pull-right">
-                    &copy; 2016 <a href="">Al nimr Studio </a>, made with love for a better web
+                    &copy; 2017 <a href="">Al nimr Studio </a>, made with <span><img id="beat" src="assets/img/heart.svg"></span>
+                    <!--for <span class="text-warning" style="font-size: 14px !important; font-weight: 900;" >&#220;</span>-->
                 </p>
             </div>
         </div>
@@ -199,7 +221,7 @@
 
 
 <div class="fixed-plugin">
-    <div class="dropdown show-dropdown">
+    <div class="dropdown">
         <a href="#" data-toggle="dropdown">
             <i class="fa fa-cog fa-2x"> </i>
         </a>

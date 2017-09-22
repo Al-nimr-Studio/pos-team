@@ -18,7 +18,7 @@ declare var $tr: any;
         margin:auto;
         padding:30px;
         border:1px solid #eee;
-        box-shadow:0 0 10px rgba(0, 0, 0, .15);
+       box-shadow:0 0 10px rgba(0, 0, 0, .15);
         font-size:16px;
         line-height:24px;
         font-family:'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
@@ -97,9 +97,39 @@ export class SalesOrderReadComponent implements OnInit, OnDestroy, SalesOrderObs
     entries: Array<SalesOrderInterface> = [];
     entry: SalesOrderInterface = new SalesOrderInterface();
 
+
+    search;
+    number: Array<SalesOrderInterface> = [];
+    jsondata;
+
+
     constructor(private repository: SalesOrderService) {
 
     }
+
+
+
+
+    export(value) {
+        this.repository.export(value).then((jason: any) => this.jsondata = jason).then((jason: any) => console.log(this.jsondata));
+
+    }
+
+
+
+    find() {
+        if (this.search.length > 0) {
+
+            this.repository.search(this.search)
+                .then((entries: Array<SalesOrderInterface>) => this.entries = entries)
+        }
+        if (this.search.length == 0) {
+            this.repository.fetchEntriesv1()
+                .then((entries: Array<SalesOrderInterface>) => this.entries = entries)
+        }
+    }
+
+
     save(entry) {
 
 
@@ -127,11 +157,9 @@ export class SalesOrderReadComponent implements OnInit, OnDestroy, SalesOrderObs
         this.repository.fetchEntriesv1()
             .then((entries: Array<SalesOrderInterface>) => this.entries = entries);
     }
-    update(entry) {
 
-        this.repository.saveEntryv1(entry);
-    }
-    delete(entry) {
-        this.repository.deleteEntry(entry);
+    delete(value) {
+        this.repository.deleteEntry(value)
+
     }
 }

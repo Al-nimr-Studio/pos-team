@@ -26,7 +26,7 @@ export class CustomerService {
     private pouchDbEventEmitter: any;
     private pouchDbSyncEventEmitter: any;
     private observer: Array<CustomerObserver> = [];
-
+    pager;
 
     constructor() {
         this.pouchDb = new PouchDB('crud-data');
@@ -40,6 +40,63 @@ export class CustomerService {
         //     live: true,
         //     retry: true
         // });
+    }
+    export(value): Promise<Array<CustomerInterface>> {
+        if (value === "Json") {
+            console.log("3")
+            return new Promise((resolve, reject) => {
+                let mapFunc: Function = (doc: any) => emit(doc.view);
+
+                let options: Object = {
+                    key: 'Supplier',
+                    include_docs: true
+                };
+
+                this.pouchDb.query(mapFunc, options)
+                    .then((result: any) => {
+                        let jason = JSON.stringify(result);
+                        resolve(jason);
+
+                        // let myJsonString = JSON.stringify(entries);
+
+                        // console.log(entries);
+                        // console.log (result);
+                        // console.log (myJsonString);
+                        // var xls = json2xls(myJsonString);
+
+                        // fs.writeFileSync('data.xlsx', xls, 'binary');
+                    })
+                    .catch(reject);
+            });
+        }
+        if (value === "Excel") {
+            console.log("2")
+
+        }
+        if (value === "Pdf") {
+            console.log("1")
+
+        }
+    }
+
+
+    search(value): Promise<Array<CustomerInterface>> {
+        return new Promise((resolve, reject) => {
+
+            let options: Object = {
+                selector: { issuedate: { $regex: value } }
+            };
+
+            this.pouchDb.find(options)
+                .then((result: any) => {
+                    // let entries: Array<SalesQuoteInterface> = result.rows.map((row: any) => this.mapObjectToEntry(row.doc));
+                    // resolve(entries);
+                    let entries: Array<CustomerInterface> = result.docs.map((doc: any) => this.mapObjectToEntry(doc));
+                    resolve(entries);
+                    // console.log(result.docs)
+                })
+                .catch(reject);
+        });
     }
 
     registerObserver(observer: CustomerObserver): void {

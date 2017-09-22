@@ -11,23 +11,23 @@
 
 
 
-import {InventoryItemInterface} from "./InventoryItem.interface";
+import { InventoryItemInterface } from "./InventoryItem.interface";
 // import {InventoryItemInterface} from "../interface/InventoryItem.interface";
 // import {View2Interface} from "../interface/view2.interface";
 import { InventoryItemObserver } from "./InventoryItem.observer";
 // import { View1Interface } from "../../view1/service/view1.interface";
 
-declare let PouchDB:any;
-declare let emit:Function;
+declare let PouchDB: any;
+declare let emit: Function;
 
 
 export class InventoryItemService {
 
-    private pouchDb:any;
-    private pouchDbEventEmitter:any;
-    private pouchDbSyncEventEmitter:any;
-    private observer:Array<InventoryItemObserver> = [];
-
+    private pouchDb: any;
+    private pouchDbEventEmitter: any;
+    private pouchDbSyncEventEmitter: any;
+    private observer: Array<InventoryItemObserver> = [];
+    pager;
 
     constructor() {
         this.pouchDb = new PouchDB('crud-data');
@@ -43,82 +43,140 @@ export class InventoryItemService {
         // });
     }
 
-    registerObserver(observer:InventoryItemObserver):void {
+
+    export(value): Promise<Array<InventoryItemInterface>> {
+        if (value === "Json") {
+            console.log("3")
+            return new Promise((resolve, reject) => {
+                let mapFunc: Function = (doc: any) => emit(doc.view);
+
+                let options: Object = {
+                    key: 'Inventory Item',
+                    include_docs: true
+                };
+
+                this.pouchDb.query(mapFunc, options)
+                    .then((result: any) => {
+                        let jason = JSON.stringify(result);
+                        resolve(jason);
+
+                        // let myJsonString = JSON.stringify(entries);
+
+                        // console.log(entries);
+                        // console.log (result);
+                        // console.log (myJsonString);
+                        // var xls = json2xls(myJsonString);
+
+                        // fs.writeFileSync('data.xlsx', xls, 'binary');
+                    })
+                    .catch(reject);
+            });
+        }
+        if (value === "Excel") {
+            console.log("2")
+
+        }
+        if (value === "Pdf") {
+            console.log("1")
+
+        }
+    }
+
+
+    search(value): Promise<Array<InventoryItemInterface>> {
+        return new Promise((resolve, reject) => {
+
+            let options: Object = {
+                selector: { issuedate: { $regex: value } }
+            };
+
+            this.pouchDb.find(options)
+                .then((result: any) => {
+                    // let entries: Array<SalesQuoteInterface> = result.rows.map((row: any) => this.mapObjectToEntry(row.doc));
+                    // resolve(entries);
+                    let entries: Array<InventoryItemInterface> = result.docs.map((doc: any) => this.mapObjectToEntry(doc));
+                    resolve(entries);
+                    // console.log(result.docs)
+                })
+                .catch(reject);
+        });
+    }
+
+    registerObserver(observer: InventoryItemObserver): void {
         if (!this.observer.includes(observer)) {
             this.observer.push(observer);
         }
     }
-
-    unregisterObserver(observer:InventoryItemObserver):void {
-        var index:number = this.observer.indexOf(observer);
+    unregisterObserver(observer: InventoryItemObserver): void {
+        var index: number = this.observer.indexOf(observer);
         if (index > -1) {
             this.observer.splice(index, 1);
         }
     }
 
-    notifyObserver():void {
-        this.observer.forEach((observer:InventoryItemObserver) => observer.notify());
+    notifyObserver(): void {
+        this.observer.forEach((observer: InventoryItemObserver) => observer.notify());
     }
 
     createv1() {
-    let InventoryItem:Object = {
-                        _id: '_design/InventoryItem',
-                        views: {
-                            index: {
-                            map: function mapFun(doc) {
-                                if (doc.view === "InventoryItem") {
-                                emit(doc.view);
-                                }
-                            }.toString()
-                            }
+        let InventoryItem: Object = {
+            _id: '_design/InventoryItem',
+            views: {
+                index: {
+                    map: function mapFun(doc) {
+                        if (doc.view === "InventoryItem") {
+                            emit(doc.view);
                         }
-                        } ;
+                    }.toString()
+                }
+            }
+        };
         return new Promise((resolve, reject) => {
-            
+
             // this.pouchDb.put(InventoryItem)
-// save the design doc
-      this.pouchDb.put(InventoryItem).catch(function (err) {
-  if (err.name !== 'conflict') {
-    throw err;
-  }
-  // ignore if doc already exists
-})
+            // save the design doc
+            this.pouchDb.put(InventoryItem).catch(function (err) {
+                if (err.name !== 'conflict') {
+                    throw err;
+                }
+                // ignore if doc already exists
+            })
                 .catch(reject);
         });
     }
-    fetchEntriesv1():Promise<Array<InventoryItemInterface>> {
+    fetchEntriesv1(): Promise<Array<InventoryItemInterface>> {
         return new Promise((resolve, reject) => {
-            let mapFunc:Function = (doc:any) => emit(doc.view);
+            let mapFunc: Function = (doc: any) => emit(doc.view);
 
-            let options:Object = {
+            let options: Object = {
                 key: 'InventoryItem',
                 include_docs: true
             };
 
             this.pouchDb.query(mapFunc, options)
-                .then((result:any) => {
-                    let entries:Array<InventoryItemInterface> = result.rows.map((row:any) => this.mapObjectToEntry(row.doc));
-                    entries.sort((one:InventoryItemInterface, two:InventoryItemInterface) => two.compareTo(one));
+                .then((result: any) => {
+                    let entries: Array<InventoryItemInterface> = result.rows.map((row: any) => this.mapObjectToEntry(row.doc));
+                    entries.sort((one: InventoryItemInterface, two: InventoryItemInterface) => two.compareTo(one));
                     resolve(entries);
                 })
                 .catch(reject);
         });
     }
 
-    fetchEntry(id:String):Promise<InventoryItemInterface> {
+    fetchEntry(id: String): Promise<InventoryItemInterface> {
         return new Promise((resolve, reject) => {
             this.pouchDb.get(id)
-                .then((object:any) => {
-                    let entry:InventoryItemInterface = this.mapObjectToEntry(object);
+                .then((object: any) => {
+                    let entry: InventoryItemInterface = this.mapObjectToEntry(object);
                     resolve(entry);
                 })
                 .catch(reject);
         });
     }
 
-    saveEntryv1(entry1:InventoryItemInterface):Promise<InventoryItemInterface> {
+    saveEntryv1(entry1: InventoryItemInterface): Promise<InventoryItemInterface> {
         return new Promise((resolve, reject) => {
-            let object:Object = this.mapEntryToObject(entry1);
+            let object: Object = this.mapEntryToObject(entry1);
             this.pouchDb.put(object)
                 .then(() => resolve(entry1))
                 .catch(reject);
@@ -126,17 +184,17 @@ export class InventoryItemService {
     }
 
 
-    deleteEntry(entry:InventoryItemInterface):Promise<InventoryItemInterface> {
+    deleteEntry(entry: InventoryItemInterface): Promise<InventoryItemInterface> {
         return new Promise((resolve, reject) => {
-            let object:Object = this.mapEntryToObject(entry);
+            let object: Object = this.mapEntryToObject(entry);
             this.pouchDb.remove(object)
                 .then(() => resolve(entry))
                 .catch(reject);
         });
     }
 
-    private mapObjectToEntry(object:any):InventoryItemInterface {
-        let entry:InventoryItemInterface = new InventoryItemInterface();
+    private mapObjectToEntry(object: any): InventoryItemInterface {
+        let entry: InventoryItemInterface = new InventoryItemInterface();
         entry.id = object._id;
         entry.rev = object._rev;
         entry.view = object.view;
@@ -151,7 +209,7 @@ export class InventoryItemService {
         return entry
     }
 
-    private mapEntryToObject(entry:InventoryItemInterface):Object {
+    private mapEntryToObject(entry: InventoryItemInterface): Object {
         return {
             _id: entry.id,
             _rev: entry.rev,
@@ -167,5 +225,5 @@ export class InventoryItemService {
             updated: entry.updated.toISOString()
         };
     }
-    
+
 } 

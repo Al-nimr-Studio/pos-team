@@ -36,6 +36,7 @@
         <script src="assets/js/jquery.min.js" type="text/javascript"></script>
 
         <script src="scripts/pouchdb/dist/pouchdb.min.js" type="text/javascript"></script>
+        <script src="scripts/pouchdb/dist/pouch-db-find.js" type="text/javascript"></script>
 
     </head>
 
@@ -107,15 +108,28 @@
     <script src="scripts/pouchdb/dist/pouchdb.min.js" type="text/javascript"></script>
     <script src="scripts/uikit/dist/js/uikit.min.js" type="text/javascript"></script>
     <script type="text/javascript">
-        $().ready(function () {
+        function pulse() {
+            $('#beat').animate({
+                width: 14, height: 14,
+                opacity: 0.5
+            }, 700, function () {
+                $('#beat').animate({
+                    width: 15, height: 15,
+                    opacity: 1
+                }, 700, function () {
+                    pulse();
+                });
+            });
+        };
 
-            $('#registerFormValidation').validate();
-            $('#loginFormValidation').validate();
-            $('#allInputsFormValidation').validate();
+        pulse();
 
-        });
     </script>
     <script type="text/javascript">
+        function abc(i) {
+            var a = document.getElementById(i);
+            $(a).remove();
+        }
         $().ready(function () {
 
             // Init Sliders
@@ -124,6 +138,7 @@
             // Init DatetimePicker
             demo.initFormExtendedDatetimepickers();
         });
+
     </script>
 
 </html>

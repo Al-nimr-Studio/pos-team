@@ -1,21 +1,9 @@
-//find and replace
-//CrudService
-//PurchaseInvoiceObserver
-//PurchaseInvoiceInterface
-//../interface/crud.interface
-//../observables/crud.observer
-// if (doc.view === "PurchaseInvoice") {
-// _id: '_design/PurchaseInvoice',    
-//    key: 'view2',
-
-
-
-
-import { PurchaseInvoiceInterface , SupplierInterface } from "./PurchaseInvoice.interface";
-// import {PurchaseInvoiceInterface} from "../interface/PurchaseInvoice.interface";
-// import {View2Interface} from "../interface/view2.interface";
+import { PurchaseInvoiceInterface, items } from "./PurchaseInvoice.interface";
 import { PurchaseInvoiceObserver } from "./PurchaseInvoice.observer";
-// import { View1Interface } from "../../view1/service/view1.interface";
+import { SupplierInterface } from '../../Supplier/Service/Supplier.interface';
+import { InventoryItemInterface } from '../../InventoryItem/Service/InventoryItem.interface';
+
+
 declare let PouchDB: any;
 declare let emit: Function;
 
@@ -26,7 +14,7 @@ export class PurchaseInvoiceService {
     private pouchDbEventEmitter: any;
     private pouchDbSyncEventEmitter: any;
     private observer: Array<PurchaseInvoiceObserver> = [];
-
+    pager;
 
     constructor() {
         this.pouchDb = new PouchDB('crud-data');
@@ -59,6 +47,44 @@ export class PurchaseInvoiceService {
         this.observer.forEach((observer: PurchaseInvoiceObserver) => observer.notify());
     }
 
+    export(value): Promise<Array<PurchaseInvoiceInterface>> {
+        if (value === "Json") {
+            console.log("3")
+            return new Promise((resolve, reject) => {
+                let mapFunc: Function = (doc: any) => emit(doc.view);
+
+                let options: Object = {
+                    key: 'SalesQuote',
+                    include_docs: true
+                };
+
+                this.pouchDb.query(mapFunc, options)
+                    .then((result: any) => {
+                        let jason = JSON.stringify(result);
+                        // resolve(jason);
+
+                        // let myJsonString = JSON.stringify(entries);
+
+                        // console.log(entries);
+                        // console.log (result);
+                        // console.log (myJsonString);
+                        // var xls = json2xls(myJsonString);
+
+                        // fs.writeFileSync('data.xlsx', xls, 'binary');
+                    })
+                    .catch(reject);
+            });
+        }
+        if (value === "Excel") {
+            console.log("2")
+
+        }
+        if (value === "Pdf") {
+            console.log("1")
+
+        }
+    }
+
     createv1() {
         let PurchaseInvoice: Object = {
             _id: '_design/PurchaseInvoice',
@@ -85,6 +111,7 @@ export class PurchaseInvoiceService {
                 .catch(reject);
         });
     }
+
     fetchEntriesv1(): Promise<Array<PurchaseInvoiceInterface>> {
         return new Promise((resolve, reject) => {
             let mapFunc: Function = (doc: any) => emit(doc.view);
@@ -103,20 +130,78 @@ export class PurchaseInvoiceService {
                 .catch(reject);
         });
     }
-fetchsupplier(): Promise<Array<SupplierInterface>> {
-               return new Promise((resolve, reject) => {
-            let mapFunc:Function = (doc:any) => emit(doc.view);
 
-            let options:Object = {
+    fetchInventry(): Promise<Array<InventoryItemInterface>> {
+        return new Promise((resolve, reject) => {
+            let mapFunc: Function = (doc: any) => emit(doc.view);
+
+            let options: Object = {
+                key: 'InventoryItem',
+                include_docs: true
+            };
+
+            this.pouchDb.query(mapFunc, options)
+                .then((result: any) => {
+                    let entries: Array<InventoryItemInterface> = result.rows.map((row: any) => this.mapObjectToInventory(row.doc));
+                    entries.sort((one: InventoryItemInterface, two: InventoryItemInterface) => two.compareTo(one));
+                    resolve(entries);
+                })
+                .catch(reject);
+        });
+    }
+
+    fetchSupplier(): Promise<Array<SupplierInterface>> {
+        return new Promise((resolve, reject) => {
+            let mapFunc: Function = (doc: any) => emit(doc.view);
+
+            let options: Object = {
                 key: 'Supplier',
                 include_docs: true
             };
 
             this.pouchDb.query(mapFunc, options)
-                .then((result:any) => {
-                    let entries:Array<SupplierInterface> = result.rows.map((row:any) => this.mapObjectToEntrysupplier(row.doc));
-                    entries.sort((one:SupplierInterface, two:SupplierInterface) => two.compareTo(one));
+                .then((result: any) => {
+                    let entries: Array<SupplierInterface> = result.rows.map((row: any) => this.mapObjectToSupplier(row.doc));
+                    entries.sort((one: SupplierInterface, two: SupplierInterface) => two.compareTo(one));
                     resolve(entries);
+                })
+                .catch(reject);
+        });
+    }
+
+    searchSupplier(value): Promise<Array<SupplierInterface>> {
+        return new Promise((resolve, reject) => {
+
+            let options: Object = {
+                selector: { name: { $regex: value } }
+            };
+
+            this.pouchDb.find(options)
+                .then((result: any) => {
+                    // let entries: Array<SalesQuoteInterface> = result.rows.map((row: any) => this.mapObjectToEntry(row.doc));
+                    // resolve(entries);
+                    let entries: Array<SupplierInterface> = result.docs.map((doc: any) => this.mapObjectToSupplier(doc));
+                    resolve(entries);
+                    // console.log(result.docs)
+                })
+                .catch(reject);
+        });
+    }
+
+    searchItem(value): Promise<Array<InventoryItemInterface>> {
+        return new Promise((resolve, reject) => {
+
+            let options1: Object = {
+                selector: { itemName: { $regex: value } }
+            };
+
+            this.pouchDb.find(options1)
+                .then((result: any) => {
+                    // let entries: Array<SalesQuoteInterface> = result.rows.map((row: any) => this.mapObjectToEntry(row.doc));
+                    // resolve(entries);
+                    let entries: Array<InventoryItemInterface> = result.docs.map((doc: any) => this.mapObjectToInventory(doc));
+                    resolve(entries);
+                    // console.log(result.docs)
                 })
                 .catch(reject);
         });
@@ -133,6 +218,67 @@ fetchsupplier(): Promise<Array<SupplierInterface>> {
         });
     }
 
+
+    fetchItem(): Promise<Array<InventoryItemInterface>> {
+        return new Promise((resolve, reject) => {
+            let mapFunc: Function = (doc: any) => emit(doc.view);
+
+            let options: Object = {
+                key: 'InventoryItem',
+                include_docs: true
+            };
+
+            this.pouchDb.query(mapFunc, options)
+                .then((result: any) => {
+                    let entries: Array<InventoryItemInterface> = result.rows.map((row: any) => this.mapObjectToInventory(row.doc));
+                    entries.sort((one: InventoryItemInterface, two: InventoryItemInterface) => two.compareTo(one));
+                    resolve(entries);
+                })
+                .catch(reject);
+        });
+    }
+
+    search(value): Promise<Array<PurchaseInvoiceInterface>> {
+        return new Promise((resolve, reject) => {
+
+            let options: Object = {
+                selector: { issuedate: { $regex: value } }
+            };
+
+            this.pouchDb.find(options)
+                .then((result: any) => {
+                    // let entries: Array<SalesQuoteInterface> = result.rows.map((row: any) => this.mapObjectToEntry(row.doc));
+                    // resolve(entries);
+                    let entries: Array<PurchaseInvoiceInterface> = result.docs.map((doc: any) => this.mapObjectToEntry(doc));
+                    resolve(entries);
+                    // console.log(result.docs)
+                })
+                .catch(reject);
+        });
+    }
+
+    pagination(skipi): Promise<Array<PurchaseInvoiceInterface>> {
+        return new Promise((resolve, reject) => {
+            let mapFunc: Function = (doc: any) => emit(doc.view);
+
+            let options: Object = {
+                limit: 5,
+                key: 'PurchaseOrder',
+                include_docs: true,
+                skip: skipi,
+                descending: true
+            };
+            console.log("hello from service pagination =>>> " + skipi);
+
+            this.pouchDb.query(mapFunc, options)
+                .then((result: any) => {
+                    let entries: Array<PurchaseInvoiceInterface> = result.rows.map((row: any) => this.mapObjectToEntry(row.doc));
+                    entries.sort((one: PurchaseInvoiceInterface, two: PurchaseInvoiceInterface) => two.compareTo(one));
+                    resolve(entries);
+                })
+                .catch(reject);
+        });
+    }
     saveEntryv1(entry1: PurchaseInvoiceInterface): Promise<PurchaseInvoiceInterface> {
         return new Promise((resolve, reject) => {
             let object: Object = this.mapEntryToObject(entry1);
@@ -142,6 +288,41 @@ fetchsupplier(): Promise<Array<SupplierInterface>> {
         });
     }
 
+    ex(model: any): Promise<any> {
+        return new Promise((resolve, reject) => {
+            let object: Object = this.mapEntryToObject(model);
+            let object2: Object = {
+                _id: model.id,
+                items: [{
+                    description: model.description,
+                    itemname: model.itemname,
+                    unitprice: model.unitprice,
+                    qty: model.qty,
+                    discount: model.discount,
+                    amount: model.amount,
+                }]
+            };
+            this.pouchDb.put(object)
+                .then(() => resolve(model))
+                .catch(reject);
+            this.pouchDb.put(object2)
+                .then(() => resolve(model))
+                .catch(reject);
+            console.log("from service hello() entry is done bosss ! " + model);
+
+        });
+    }
+    newa(model: PurchaseInvoiceInterface): Promise<PurchaseInvoiceInterface> {
+        return new Promise((resolve, reject) => {
+
+            let object: Object = this.mapEntryToObject(model);
+            this.pouchDb.put(object)
+                .then(() => resolve(model))
+                .catch(reject);
+
+
+        });
+    }
 
     deleteEntry(entry: PurchaseInvoiceInterface): Promise<PurchaseInvoiceInterface> {
         return new Promise((resolve, reject) => {
@@ -151,26 +332,38 @@ fetchsupplier(): Promise<Array<SupplierInterface>> {
                 .catch(reject);
         });
     }
+    hello(model: PurchaseInvoiceInterface): Promise<PurchaseInvoiceInterface> {
 
+        model.id = Date.now().toString();
+        model.view = 'SalesQuote';
+        model.created = model.updated = new Date();
+        return new Promise((resolve, reject) => {
+            console.log("from service hello() job is done bosss ! ");
+            let object: Object = this.mapEntryToObject(model);
+            this.pouchDb.put(object)
+                .then(() => resolve(model))
+                .catch(reject);
 
+        });
+    }
     private mapObjectToEntry(object: any): PurchaseInvoiceInterface {
         let entry: PurchaseInvoiceInterface = new PurchaseInvoiceInterface();
+        entry.view = object.view;
         entry.id = object._id;
         entry.rev = object._rev;
-        entry.view = object.view;
-        entry.invoiceDate = object.invoiceDate;
-        entry.dueDate = object.dueDate;
-        entry.invoiceNumber = object.invoiceNumber;
-        entry.orderNumber = object.orderNumber;
+        entry.invoicenumber = object.invoicenumber;
+        entry.purchaseorder = object.purchaseorder;
+        entry.salesquote = object.salesquote;
+        entry.invoicedate = object.invoicedate;
+        entry.duedate = object.duedate;
+        entry.supplier = object.supplier;
+        entry.billingaddress = object.billingaddress;
+        entry.invoicesummery = object.invoicesummery;
+        entry.items = object.item;
 
-        entry.description = object.discription;
-        entry.description1 = object.description1;
-        entry.qty = object.qty;
-        entry.Unitprice = object.Unitprice;
-        entry.discount = object.discount;
-        entry.amount = object.amount;
-        entry.info = object.info;
-        entry.Supplier = object.Supplier;
+        entry.notes = object.notes;
+        entry.total = object.total;
+
 
         entry.created = new Date(object.created);
         entry.updated = new Date(object.updated);
@@ -179,73 +372,106 @@ fetchsupplier(): Promise<Array<SupplierInterface>> {
 
     private mapEntryToObject(entry: PurchaseInvoiceInterface): Object {
         return {
+            view: entry.view,
             _id: entry.id,
             _rev: entry.rev,
-            view: entry.view,
             type: PurchaseInvoiceInterface.TYPE,
-            invoiceDate: entry.invoiceDate,
-            dueDate: entry.dueDate,
-            invoiceNumber: entry.invoiceNumber,
-            orderNumber: entry.orderNumber,
+            invoicenumber: entry.invoicenumber,
+            purchaseorder: entry.purchaseorder,
+            salesquote: entry.salesquote,
+            invoicedate: entry.invoicedate,
+            duedate: entry.duedate,
+            supplier: entry.supplier,
+            billingaddress: entry.billingaddress,
+            invoicesummery: entry.invoicesummery,
+            item: entry.items,
 
-            description: entry.description,
-            description1: entry.description1,
-            qty: entry.qty,
-            Unitprice: entry.Unitprice,
-            discount: entry.discount,
-            amount: entry.amount,
-            info: entry.info,
-            Supplier: entry.Supplier,
+            notes: entry.notes,
+            total: entry.total,
+
+
             created: entry.created.toISOString(),
             updated: entry.updated.toISOString()
         };
     }
+    private mapEntryToObjectItems(entry: items): Object {
+        return {
 
-    private mapObjectToEntrysupplier(object:any):SupplierInterface {
-        let entry:SupplierInterface = new SupplierInterface();
+            description: entry.description,
+            itemname: entry.itemname,
+            unitprice: entry.unitprice,
+            qty: entry.qty,
+            discount: entry.discount,
+            amount: entry.amount,
+
+        };
+    }
+
+    private mapObjectToInventory(object: any): InventoryItemInterface {
+        let entry: InventoryItemInterface = new InventoryItemInterface();
         entry.id = object._id;
         entry.rev = object._rev;
- 
         entry.view = object.view;
+        entry.itemCode = object.itemCode;
+        entry.itemName = object.itemName;
+        entry.unitName = object.unitName;
+        entry.costPrice = object.costPrice;
+        entry.salePrice = object.salePrice;
+        entry.Descrpition = object.Descrpition;
+        entry.created = new Date(object.created);
+        entry.updated = new Date(object.updated);
+        return entry
+    }
 
+
+    private mapObjectToSupplier(object: any): SupplierInterface {
+        let entry: SupplierInterface = new SupplierInterface();
+        entry.view = object.view;
+        entry.id = object._id;
+        entry.rev = object._rev;
         entry.name = object.name;
+        entry.email = object.email;
         entry.code = object.code;
-        entry.address= object.address;
-        entry.creditLimit = object.creditLimit;
-        entry.email =object.email;
-        entry.telephone = object.telephone;
+        entry.currency = object.currency;
+        entry.businessidentifier = object.businessidentifierd;
+        entry.billingaddress = object.billingaddress;
+        entry.telephonenumber = object.telephonenumber;
         entry.fax = object.fax;
         entry.mobile = object.mobile;
-        entry.info = object.info;
+        entry.additionalinformation = object.additionalinformation;
 
-       
 
         entry.created = new Date(object.created);
         entry.updated = new Date(object.updated);
         return entry
     }
 
-    private mapEntryToObjectsupplier(entry:SupplierInterface):Object {
-        return {
-            _id: entry.id,
-            _rev: entry.rev,
-            type: SupplierInterface.TYPE,
+    ///////////---------------------Summary Function ------------------///////////////////////////////////
+    fetchSupplierTotal(): Promise<Array<PurchaseInvoiceInterface>> {
+        return new Promise((resolve, reject) => {
+            // let mapFunc: Function = (doc: any) => emit(doc.view);
+            var mapReduceFun = {
+               map:  function (doc){
+                if(doc.view === "PurchaseInvoice"){
+                  emit(doc.supplier,doc.total)
+                }
+            },
+                reduce: '_sum'
+            };
 
-            view: entry.view,
+            let options: Object = {
+                // key: 'PurchaseInvoice',
+                // include_docs: true
+            };
 
-           name: entry.name,
-            code : entry.code,
-            address: entry.address,
-            creditLimit: entry.creditLimit,
-            email: entry.email,
-            telephone: entry.telephone,
-            fax: entry.fax,
-            mobile: entry.mobile,
-            info: entry.info,
-
-
-            created: entry.created.toISOString(),
-            updated: entry.updated.toISOString()
-        };
+            this.pouchDb.query(mapReduceFun, options)
+                .then((result: any) => {
+                    console.log("supplier total",result);
+                    // let entries: Array<PurchaseInvoiceInterface> = result.rows.map((row: any) => this.mapObjectToEntry(row.doc));
+                    // entries.sort((one: PurchaseInvoiceInterface, two: PurchaseInvoiceInterface) => two.compareTo(one));
+                    // resolve(entries);
+                })
+                .catch(reject);
+        });
     }
 } 

@@ -27,3 +27,13 @@ export class CustomerInterface {
 
 
 }
+
+export class items {
+    itemname: string;
+    description: String;
+    unitprice: number;
+    amount: number;
+    discount: number;
+    qty: number;
+
+}

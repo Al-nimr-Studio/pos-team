@@ -1,474 +1,95 @@
-<div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="header">
-                <h4 class="title">Sales Quote's List </h4><br>
-                <p class="category"><button href="#modal-overflow" uk-toggle class="btn btn-info btn-fill btn-wd"> New Sales Quote</button></p>
+<div class="fresh-table toolbar-color" style="display: block;">
+    <!--    Available colors for the full background: full-color-blue, full-color-azure, full-color-green, full-color-red, full-color-orange
+                        Available colors only for the toolbar: toolbar-color-blue, toolbar-color-azure, toolbar-color-green, toolbar-color-red, toolbar-color-orange
+                -->
+
+
+    <div class="bootstrap-table">
+        <div class="fixed-table-toolbar">
+            <div class="bars pull-left">
+                <div class="toolbar">
+                    <button id="alertBtn" [routerLink]="['/NewSalesQuote']" class="btn btn-info btn-fill"> New Sales Quote</button>
+                </div>
             </div>
-            <div class="content table-responsive table-full-width">
-                <table class="table">
+            <div class="columns columns-right pull-right"><button class="btn btn-info btn-fill" type="button" name="refresh" title="Refresh"><i class="glyphicon fa fa-refresh"></i></button>
+                <div class="keep-open btn-group" title="Columns"><button type="button" class="btn btn-info btn-fill dropdown-toggle" data-toggle="dropdown"><i class="glyphicon fa fa-th-list"></i> <span class="caret"></span></button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a (click)="export('Json')">Export Json</a></li>
+                        <li><a (click)="export('Excel')">Export Excel</a></li>
+
+                    </ul>
+                </div>
+
+            </div>
+            <div class="pull-right search"><input class="form-control" type="text" [(ngModel)]="search" (keyup)="find()" placeholder="Search"></div>
+        </div>
+        <div class="fixed-table-container" style="padding-bottom: 0px;">
+            <div class="fixed-table-header" style="display: none;">
+                <table></table>
+            </div>
+            <div class="fixed-table-body">
+                <div class="fixed-table-loading" style="top: 45px;">Loading, please wait...</div>
+                <table id="fresh-table" class="table table-hover table-striped">
                     <thead>
                         <tr>
-                            <th class="text-center">#</th>
-                            <th>Date</th>
-                            <th>Customer</th>
-                            <th>Description</th>
-                            <th>Amount</th>
-                            <th class="text-right">Actions</th>
+                            <th data-field="id">
+                                <div class="th-inner ">ID</div>
+                                <div class="fht-cell"></div>
+                            </th>
+                            <th data-field="name">
+                                <div class="th-inner">Customer</div>
+                                <div class="fht-cell"></div>
+                            </th>
+                            <th data-field="salary">
+                                <div class="th-inner">Date</div>
+                                <div class="fht-cell"></div>
+                            </th>
+                            <th data-field="country">
+                                <div class="th-inner">Description</div>
+                                <div class="fht-cell"></div>
+                            </th>
+                            <th data-field="city">
+                                <div class="th-inner ">Amount</div>
+                                <div class="fht-cell"></div>
+                            </th>
+                            <th data-field="actions">
+                                <div class="th-inner ">Actions</div>
+                                <div class="fht-cell"></div>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
-
-                        <tr *ngFor="let entry of entries; trackBy:entry?.id">
-                            <td class="text-center"></td>
-                            <td>{{entry.issuedate}}</td>
+                        <tr *ngFor="let entry of entries; trackBy:entry?.id;let i=index;">
+                            <td>{{i+1}}</td>
                             <td>{{entry.customer}}</td>
-                            <td>{{entry.quotesummery}}</td>
+                            <td>{{entry.issuedate}}</td>
+                            <td>{{entry.description}}</td>
                             <td>{{entry.amount}}</td>
-                            <td class="td-actions text-right">
-                                <a uk-toggle="target: #rana" rel="tooltip" title="" class="btn btn-info btn-fill">Edit</a>
-                                <a uk-toggle="target: #invoice" rel="tooltip" title="" class="btn btn-info btn-fill">View</a>
+                            <td><a rel="tooltip" title="Invoice" class="table-action like" [routerLink]="['/SalesQuoteRead',entry.id ]"><i class="fa fa-print text-info"></i></a>
+                                <a rel="tooltip" title="Edit" [routerLink]="['/SalesQuoteEdit',entry.id ]" class="table-action edit"><i class=" fa fa-edit text-info"></i></a>
+                                <a rel="tooltip" title="Remove" (click)="delete(entry)" class="table-action remove"><i class="fa fa-remove text-info"></i></a>
+                                <!--<button class="btn btn-success btn-fill btn-round"></button>-->
                             </td>
-
-                            <div id="rana" class="uk-modal-container" uk-modal>
-                                <div class="uk-modal-dialog uk-modal-body">
-
-                                    <button class="uk-modal-close-default" type="button" uk-close></button>
-                                    <div class="uk-modal-header">
-                                        <h2 class="uk-modal-title">Edit Here</h2>
-                                    </div>
-                                    <div class="uk-modal-body">
-                                        <form novalidate #form="ngForm">
-
-
-                                            <!--enter new SalesQuote code here-->
-
-                                            <div class="container">
-                                                <div class="row">
-                                                    <div class="col-sm-2">
-                                                        <div>Reference No.</div>
-                                                        <div class="input-group">
-                                                            <span class="input-group-addon">#</span>
-                                                            <input type="text" placeholder="reference no." class="form-control" [(ngModel)]="entry.reference" name="reference" #reference="ngModel"
-                                                                [rangeLength]="[3, 30]" required>
-                                                            <p *ngIf="reference.errors?.rangeLength">must contain be 3 to 10 worlds</p>
-                                                            <span class="input-group-addon"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <br>
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <div> Heading</div>
-                                                        <input type="text" placeholder="Quote heading" class="form-control" [(ngModel)]="entry.heading" name="heading" #heading="ngModel"
-                                                            [rangeLength]="[5, 30]" required>
-                                                        <p *ngIf="heading.errors?.rangeLength">must contain be 3 to 10 worlds</p>
-                                                    </div>
-                                                </div>
-
-
-
-                                                <br>
-                                                <div class="row">
-                                                    <div class="col-md-2">
-                                                        <div> Issue Date</div>
-                                                        <input class="form-control datetimepicker" placeholder="Datetime Picker Here" type="text" [(ngModel)]="entry.issuedate" name="issuedate"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                                <br>
-
-                                                <div class="row">
-                                                    <div class="col-md-2">
-                                                        <div> Customer</div>
-                                                        <input type="text" class="form-control datetimepicker" placeholder="Customer name" [(ngModel)]="entry.customer" name="customer"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                                <br>
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <div> Billing Address</div>
-                                                        <input type="text" class="form-control" placeholder="billing address" [(ngModel)]="entry.billingaddress" name="billingaddress"
-                                                            #billingaddress="ngModel" [rangeLength]="[5, 70]" required>
-                                                        <p *ngIf="billingaddress.errors?.rangeLength">billing address must be less 30 worlds</p>
-                                                    </div>
-                                                </div>
-                                                <br>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div> Summary</div>
-                                                        <input type="text" class="form-control" placeholder="optional" [(ngModel)]="entry.quotesummery" name="quotesummery" #quotesummery="ngModel"
-                                                            [rangeLength]="[5, 70]">
-                                                        <p *ngIf="quotesummery.errors?.rangeLength">Summery must be less 30 worlds</p>
-                                                    </div>
-                                                </div>
-                                                <br>
-                                                <div class="row">
-                                                    <div class="col-md-2">
-                                                        <div> Item name</div>
-                                                        <input type="text" class="form-control" placeholder="Item name" [(ngModel)]=" entry.item" name="Item" required>
-                                                    </div>
-
-                                                    <div class="col-md-4">
-                                                        <div> Description</div>
-                                                        <input type="text" class="form-control" placeholder="Description of quete" [(ngModel)]="entry.description" name="description"
-                                                            required>
-                                                    </div>
-
-                                                    <div class="col-sm-1">
-                                                        <div>Qty</div>
-                                                        <input type="number" class="form-control" placeholder="0" [(ngModel)]="entry.qty" name="qty" required>
-                                                    </div>
-
-                                                    <div class="col-sm-1">
-                                                        <div>Unit Price</div>
-                                                        <input type="number" class="form-control" placeholder="0" [(ngModel)]="entry.unitprice" name="unitprice" required>
-                                                    </div>
-
-                                                    <div class="col-sm-1">
-                                                        <div>Discount</div>
-                                                        <input type="number" class="form-control" placeholder="%" [(ngModel)]="entry.discount" name="discount" required>
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <div>Amount</div>
-                                                        <div class="input-group">
-                                                            <span class="input-group-addon"></span>
-                                                            <input type="number" class="form-control" placeholder="0%" [(ngModel)]="entry.amount" name="amount" required>
-                                                            <span class="input-group-addon">Rs.</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <br>
-                                                <div class="row">
-                                                    <div class="col-sm-2">
-                                                        <select name="cities" class="selectpicker" data-title="Add line" data-style="btn-info btn-fill btn-block btn-sm" data-menu-style="dropdown-blue"></select>
-                                                    </div>
-                                                    <div class="col-sm-7"></div>
-                                                    <div class="col-sm-2">
-                                                        <input type="text" class="form-control" placeholder="0" [(ngModel)]="entry.name" name="name" required>
-                                                    </div>
-                                                </div>
-
-
-
-
-                                                <br>
-
-
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <div> Notes</div>
-                                                        <textarea type="text" rows="4" cols="20" class="form-control" placeholder="optional" [(ngModel)]="entry.notes" name="notes"
-                                                            #notes="ngModel" [rangeLength]="[0, 100]" required></textarea>
-                                                        <p *ngIf="notes.errors?.rangeLength">must be less then 100 worlds</p>
-                                                    </div>
-                                                </div>
-                                                <br>
-
-
-
-
-                                            </div>
-
-                                        </form>
-                                    </div>
-                                    <div class="uk-modal-footer uk-text-right">
-                                        <button class="btn btn-info btn-fill btn-wd uk-modal-close" (click)="update(entry)" type="button">Update</button>
-                                        <button class="btn btn-danger btn-fill btn-wd uk-modal-close" (click)="delete(entry)" type="button">Delete</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="invoice" class="uk-modal-container" uk-modal>
-                                <div class="uk-modal-dialog uk-modal-body">
-
-                                    <button class="uk-modal-close-default" type="button" uk-close></button>
-
-
-                                    <div styles="height:6000px;" class="uk-modal-body">
-
-                                        <div class="invoice-box">
-                                            <table cellpadding="0" cellspacing="0">
-                                                <tr class="top">
-                                                    <td colspan="2">
-                                                        <table>
-                                                            <tr>
-                                                                <td class="title">
-                                                                    <img src="http://nextstepwebs.com/images/logo.png" style="width:100%; max-width:300px;">
-                                                                </td>
-
-                                                                <td>
-                                                                    Invoice #: {{entry.invoicenumber}}<br> Created: January
-                                                                    1, 2015<br> Due: February 1, 2015
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-
-                                                <tr class="information">
-                                                    <td colspan="2">
-                                                        <table>
-                                                            <tr>
-                                                                <td>
-                                                                    Next Step Webs, Inc.<br> 12345 Sunny Road<br> Sunnyville,
-                                                                    TX 12345
-                                                                </td>
-
-                                                                <td>
-                                                                    Acme Corp.<br> John Doe<br> john@example.com
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-
-                                                <tr class="heading">
-                                                    <td>
-                                                        Payment Method
-                                                    </td>
-
-                                                    <td>
-                                                        Check #
-                                                    </td>
-                                                </tr>
-
-                                                <tr class="details">
-                                                    <td>
-                                                        Check
-                                                    </td>
-
-                                                    <td>
-                                                        1000
-                                                    </td>
-                                                </tr>
-
-                                                <tr class="heading">
-                                                    <td>
-                                                        Item
-                                                    </td>
-
-                                                    <td>
-                                                        Price
-                                                    </td>
-                                                </tr>
-
-                                                <tr class="item">
-                                                    <td>
-                                                        Website design
-                                                    </td>
-
-                                                    <td>
-                                                        $300.00
-                                                    </td>
-                                                </tr>
-
-                                                <tr class="item">
-                                                    <td>
-                                                        Hosting (3 months)
-                                                    </td>
-
-                                                    <td>
-                                                        $75.00
-                                                    </td>
-                                                </tr>
-
-                                                <tr class="item last">
-                                                    <td>
-                                                        Domain name (1 year)
-                                                    </td>
-
-                                                    <td>
-                                                        $10.00
-                                                    </td>
-                                                </tr>
-
-                                                <tr class="total">
-                                                    <td></td>
-
-                                                    <td>
-                                                        Total: $385.00
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-                            </div>
 
                         </tr>
 
                     </tbody>
                 </table>
             </div>
+            <div class="fixed-table-footer" style="display: none;">
+                <table>
+                    <tbody>
+                        <tr></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="fixed-table-pagination">
+                <br>
+                <br>
+                <br>
+
+            </div>
         </div>
     </div>
-
-</div>
-
-
-
-
-
-
-
-<!--enter new SalesQuote page-->
-
-<div id="modal-overflow" class="uk-modal-container" uk-modal>
-    <div class="uk-modal-dialog uk-modal-body">
-
-        <button class="uk-modal-close-default" type="button" uk-close></button>
-
-        <div class="uk-modal-header">
-            <h2 class="uk-modal-title">New Sales Quote</h2>
-        </div>
-
-        <div styles="height:6000px;" class="uk-modal-body">
-            <form novalidate #form="ngForm">
-
-
-                <!--enter new SalesQuote code here-->
-
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <div>Reference No.</div>
-                            <div class="input-group">
-                                <span class="input-group-addon">#</span>
-                                <input type="text" placeholder="reference no." class="form-control" [(ngModel)]="entry.reference" name="reference" #reference="ngModel"
-                                    [rangeLength]="[3, 30]" required>
-
-                                <span class="input-group-addon"></span>
-
-                            </div>
-                            <p *ngIf="reference.errors?.rangeLength">must be 3 to 10 worlds</p>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div> Heading</div>
-                            <input type="text" placeholder="Quote heading" class="form-control" [(ngModel)]="entry.heading" name="heading" #heading="ngModel"
-                                [rangeLength]="[5, 30]" required>
-                            <p *ngIf="heading.errors?.rangeLength">must contain 3 to 10 worlds</p>
-                        </div>
-                    </div>
-
-
-
-                    <br>
-                    <div class="row">
-                        <div class="col-md-2">
-                            <div> Issue Date</div>
-                            <input class="form-control datetimepicker" placeholder="Datetime Picker Here" type="text" [(ngModel)]="entry.issuedate" name="issuedate"
-                                required>
-                        </div>
-                    </div>
-                    <br>
-
-                    <div class="row">
-                        <div class="col-md-2">
-                            <div> Customer</div>
-                            <input type="text" class="form-control datetimepicker" placeholder="Customer name" [(ngModel)]="entry.customer" name="customer"
-                                required>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div> Billing Address</div>
-                            <input type="text" class="form-control" placeholder="billing address" [(ngModel)]="entry.billingaddress" name="billingaddress"
-                                #billingaddress="ngModel" [rangeLength]="[5, 70]" required>
-                            <p *ngIf="billingaddress.errors?.rangeLength">billing address must be less 30 worlds</p>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div> Summary</div>
-                            <input type="text" class="form-control" placeholder="optional" [(ngModel)]="entry.quotesummery" name="quotesummery" #quotesummery="ngModel"
-                                [rangeLength]="[5, 70]">
-                            <p *ngIf="quotesummery.errors?.rangeLength">Summery must be less 30 worlds</p>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-2">
-                            <div> Item name</div>
-                            <input type="text" class="form-control" placeholder="Item name" [(ngModel)]=" entry.item" name="Item" required>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div> Description</div>
-                            <input type="text" class="form-control" placeholder="Description of quete" [(ngModel)]="entry.description" name="description"
-                                required>
-                        </div>
-
-                        <div class="col-sm-1">
-                            <div>Qty</div>
-                            <input type="number" class="form-control" placeholder="0" [(ngModel)]="entry.qty" name="qty" required>
-                        </div>
-
-                        <div class="col-sm-1">
-                            <div>Unit Price</div>
-                            <input type="number" class="form-control" placeholder="0" [(ngModel)]="entry.unitprice" name="unitprice" required>
-                        </div>
-
-                        <div class="col-sm-1">
-                            <div>Discount</div>
-                            <input type="number" class="form-control" placeholder="%" [(ngModel)]="entry.discount" name="discount" required>
-                        </div>
-                        <div class="col-sm-2">
-                            <div>Amount</div>
-                            <div class="input-group">
-                                <span class="input-group-addon"></span>
-                                <input type="number" class="form-control" placeholder="0%" [(ngModel)]="entry.amount" name="amount" required>
-                                <span class="input-group-addon">Rs.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <select name="cities" class="selectpicker" data-title="Add line" data-style="btn-info btn-fill btn-block btn-sm" data-menu-style="dropdown-blue"></select>
-                        </div>
-                        <div class="col-sm-7"></div>
-                        <div class="col-sm-2">
-                            <input type="text" class="form-control" placeholder="0" [(ngModel)]="entry.name" name="name" required>
-                        </div>
-                    </div>
-
-
-
-
-                    <br>
-
-
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div> Notes</div>
-                            <textarea type="text" rows="4" cols="20" class="form-control" placeholder="optional" [(ngModel)]="entry.notes" name="notes"
-                                #notes="ngModel" [rangeLength]="[0, 100]" required></textarea>
-                            <p *ngIf="notes.errors?.rangeLength">must be less then 100 worlds</p>
-                        </div>
-                    </div>
-                    <br>
-
-
-
-
-                </div>
-
-            </form>
-
-        </div>
-
-        <div class="uk-modal-footer uk-text-right ">
-            <button class="uk-button uk-button-default uk-modal-close " type="button ">Cancel</button>
-            <button class="uk-button uk-button-primary uk-modal-close " (click)="save(entry) " [disabled]="form.invalid ">Save</button>
-        </div>
-
-    </div>
+    <div class="clearfix"></div>
 </div>

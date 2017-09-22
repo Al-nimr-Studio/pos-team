@@ -1,0 +1,127 @@
+<div class="row">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">Business Details </h4>
+            <button class="btn btn-defualt btn-fill btn-sm" [routerLink]="['/Settings']" type="button">Back</button>
+
+        </div>
+        <br>
+        <br>
+
+
+
+
+        <form novalidate #form="ngForm">
+
+
+            <!--enter new Settings code here-->
+
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div>Trading Name</div>
+                        <input type="text" placeholder="Quote heading" name="heading" [(ngModel)]="entry.heading" class="form-control" required>
+                        <div>Enter trading name as it should appear at the top of all invoices you print or send</div>
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-4">
+                        <div>BusinessLogo</div>
+                        <div class="test-upload uk-placeholder uk-text-center">
+                            <span uk-icon="icon: cloud-upload"></span>
+                            <span class="uk-text-middle">Select image file here</span>
+                            <div uk-form-custom>
+                                <input type="file" multiple>
+                                <span class="uk-link">selecting one</span>
+                            </div>
+                        </div>
+
+                        <progress id="progressbar" class="uk-progress" value="0" max="100"></progress>
+                    </div>
+                </div>
+
+
+                <br>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div> Contant Details</div>
+                        <textarea type="text" rows="4" cols="20" class="form-control" placeholder="optional" name="notes" [(ngModel)]="entry.notes" required></textarea>
+                        <div> Enter contact details as they should appear at the top of all invoices you print or send</div>
+                    </div>
+                    <div class="col-md-2"></div>
+
+                    <!--<div class="col-md-4">
+
+                        <div>Base Currency</div>
+                        <input type="text" placeholder="Quote heading" name="heading" [(ngModel)]="entry.heading" class="form-control" required>
+                    </div>-->
+                    <div class="col-md-4">
+                        <div>Base Currency</div>
+                        <div class="btn-group bootstrap-select dropup"><button type="button" class="btn dropdown-toggle btn-default btn-block" data-toggle="dropdown" title="Single Select" aria-expanded="false"><span class="filter-option pull-left">Single Select</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button>
+                            <div class="dropdown-menu open" style="max-height: 465px; overflow: hidden; min-height: 109px;">
+                                <ul class="dropdown-menu inner" role="menu" style="max-height: 463px; overflow-y: auto; min-height: 107px;">
+                                    <li data-original-index="1"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">Bahasa Indonesia</span><span class="fa fa-check check-mark"></span></a></li>
+                                    <li data-original-index="2"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">Bahasa Melayu</span><span class="fa fa-check check-mark"></span></a></li>
+                                    <li data-original-index="3"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">Català</span><span class="fa fa-check check-mark"></span></a></li>
+                                    <li data-original-index="4"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">Dansk</span><span class="fa fa-check check-mark"></span></a></li>
+                                    <li data-original-index="5"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">Deutsch</span><span class="fa fa-check check-mark"></span></a></li>
+                                    <li data-original-index="6"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">English</span><span class="fa fa-check check-mark"></span></a></li>
+                                    <li data-original-index="7"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">Español</span><span class="fa fa-check check-mark"></span></a></li>
+                                    <li data-original-index="8"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">Eλληνικά</span><span class="fa fa-check check-mark"></span></a></li>
+                                    <li data-original-index="9"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">Français</span><span class="fa fa-check check-mark"></span></a></li>
+                                    <li data-original-index="10"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">Italiano</span><span class="fa fa-check check-mark"></span></a></li>
+                                    <li data-original-index="11"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">Magyar</span><span class="fa fa-check check-mark"></span></a></li>
+                                    <li data-original-index="12"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">Nederlands</span><span class="fa fa-check check-mark"></span></a></li>
+                                    <li data-original-index="13"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">Norsk</span><span class="fa fa-check check-mark"></span></a></li>
+                                    <li data-original-index="14"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">Polski</span><span class="fa fa-check check-mark"></span></a></li>
+                                    <li data-original-index="15"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">Português</span><span class="fa fa-check check-mark"></span></a></li>
+                                    <li data-original-index="16"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">Suomi</span><span class="fa fa-check check-mark"></span></a></li>
+                                    <li data-original-index="17"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">Svenska</span><span class="fa fa-check check-mark"></span></a></li>
+                                    <li data-original-index="18"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">Türkçe</span><span class="fa fa-check check-mark"></span></a></li>
+                                    <li data-original-index="19"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">Íslenska</span><span class="fa fa-check check-mark"></span></a></li>
+                                    <li data-original-index="20"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">Čeština</span><span class="fa fa-check check-mark"></span></a></li>
+                                    <li data-original-index="21"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">Русский</span><span class="fa fa-check check-mark"></span></a></li>
+                                    <li data-original-index="22"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">ภาษาไทย</span><span class="fa fa-check check-mark"></span></a></li>
+                                    <li data-original-index="23"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">中文 (简体)</span><span class="fa fa-check check-mark"></span></a></li>
+                                    <li data-original-index="24"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">中文 (繁體)</span><span class="fa fa-check check-mark"></span></a></li>
+                                    <li data-original-index="25"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">日本語</span><span class="fa fa-check check-mark"></span></a></li>
+                                    <li data-original-index="26"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">한국어</span><span class="fa fa-check check-mark"></span></a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div>Business Indentifier</div>
+                        <input type="text" placeholder="Quote heading" name="heading" [(ngModel)]="entry.heading" class="form-control" required>
+                        <div>VAT XXX XXX XXX, TIN XXX XXX XXX, ABN XXX XXX XXX etc.</div>
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-4">
+                        <div>
+                            <div>Email Address </div>
+                            <input class="form-control" name="email" type="text" required="true" email="true" autocomplete="off" aria-required="true">
+                        </div>
+                        <div class="form-group pull-left">
+                            <label class="checkbox checked">
+                                <span class="icons"><span class="first-icon fa fa-square-o"></span>
+                                <span class="second-icon fa fa-check-square-o"></span></span><input type="checkbox" data-toggle="checkbox" value="subscribe">
+                                 Send a copy of every email to this address
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <br>
+            <div class="uk-modal-footer uk-text-right">
+                <button class="btn btn-primary btn-fill btn-sm" (click)="save(entry) " [routerLink]="['/Settings']" type="button">Update</button>
+
+            </div>
+        </form>
+    </div>
+
+</div>

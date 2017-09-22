@@ -1,0 +1,186 @@
+<div class="row">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">Edit Purchase Invoice </h4>
+            <button class="btn btn-defualt btn-fill btn-sm" [routerLink]="['/PurchaseInvoice']" type="button">Back</button>
+
+        </div>
+        <br>
+        <br>
+
+        <form novalidate #form="ngForm">
+
+
+            <!--enter new SalesOrder code here-->
+
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div>Invoice No.</div>
+                        <div class="input-group">
+                            <span class="input-group-addon">#</span>
+                            <input type="text" placeholder="Invoice no." class="form-control" [(ngModel)]="entry.invoicenumber" name="invoicenumber" #invoicenumber="ngModel" [rangeLength]="[0,25]">
+                            <p *ngIf="invoicenumber.errors?.rangeLength">must be less then 25 cherecters</p>
+                            <span class="input-group-addon"></span>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div>Purchase Order</div>
+                        <div class="input-group">
+                            <span class="input-group-addon">#</span>
+                            <input type="text" placeholder="Purchase Order" class="form-control" [(ngModel)]="entry. purchaseorder" name=" purchaseorder" #purchaseorder="ngModel" [rangeLength]="[0,25]">
+                            <p *ngIf="purchaseorder.errors?.rangeLength">must be less then 25 cherecters</p>
+                            <span class="input-group-addon"></span>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div>Sales Quote</div>
+                        <div class="input-group">
+                            <span class="input-group-addon">#</span>
+                            <input type="text" placeholder="Sales Quote" class="form-control" [(ngModel)]="entry. salesquote" name=" salesquote" #salesquote="ngModel" [rangeLength]="[0,25]">
+                            <p *ngIf="salesquote.errors?.rangeLength">must be less then 25 cherecters</p>
+                            <span class="input-group-addon"></span>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div> Invoice Date</div>
+                        <input class="form-control datetimepicker" placeholder="Datetime Picker Here" type="text" [(ngModel)]="entry. invoicedate" name=" invoicedate" required>
+                    </div>
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-3">
+                        <div> Due Date</div>
+                        <input class="form-control datetimepicker" placeholder="Datetime Picker Here" type="text" [(ngModel)]="entry.duedate" name="duedate" required>
+                    </div>
+
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div> Supplier</div>
+                        <input autocomplete="off" type="text" (keyup)="find()" (focus)="show()" (blur)="hiden()" id="cus" class="form-control" placeholder="Supplier name" name="supplier" [(ngModel)]="entry.supplier" required>
+                        <div class="list-group" id="res" style="display:none; z-index: 1000; position: absolute; width: 167px;">
+                            <button *ngFor="let supp of supplier;let i=index" id={{i}}+supplier (click)="select(supp.name,supp.billingaddress)" type="text" class="list-group-item list-group-item-action">{{supp.name}}</button>
+                        </div>
+
+
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div> Billing Address</div>
+                        <input type="text" class="form-control" id="address" placeholder="billing address" name="billingaddress" [(ngModel)]="entry.billingaddress" required>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div> Invoice Summary</div>
+                        <input type="text" class="form-control" placeholder="optional" [(ngModel)]="entry.invoicesummery" name="invoicesummery" #invoicesummery="ngModel" [rangeLength]="[0,100]">
+                        <p *ngIf="invoicesummery.errors?.rangeLength">must be less then 100 words</p>
+                    </div>
+                </div>
+
+
+                <div *ngFor="let item of entry.items;let i=index">
+                    <span class="fa fa-times pull-right" *ngIf="entry.items.length > 1" (click)="removeItem(i)"></span> &nbsp;
+                    <div class="card">
+                        <div class="container-fluid">
+                            <div id="{{i}}" class="row">
+
+                                <input type="hidden" id="index" [ngModelOptions]="{standalone: true}" [(ngModel)]="entry.items.length">
+                                <div class="col-sm-2">
+                                    <div> Item name {{ i + 1}}</div>
+
+                                    <input autocomplete="off" (focus)="showinven(i)" (blur)="hideninven(i)" (keyup)="findItem(item.itemname)" id={{i}}inve class="form-control" placeholder="Item name" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.itemname" required>
+                                    <div class="list-group" id={{i}}inven style="display:none; z-index: 1000; position: absolute; width: 167px;">
+                                        <button *ngFor="let inven of inventory;" id={{i}}inventory (click)="selectinventory(inven.itemName,inven.Descrpition,inven.salePrice,i)" type="text" class="list-group-item list-group-item-action">{{inven.itemName}}</button>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2 col-md-3">
+                                    <div> Description</div>
+                                    <input type="text" class="form-control" id={{i}}description placeholder="Description of quete" name="description" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.description" required>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <div>Qty</div>
+                                    <input type="number" class="form-control" (blur)="findTotal()" (change)="math(i)" id={{i}}qty placeholder="0" name="qty" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.qty" required>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <div>Unit Price</div>
+                                    <input type="number" class="form-control" id={{i}}unit-p placeholder="0" name="unitprice" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.unitprice" required>
+                                </div>
+
+                                <div class="col-sm-2 col-md-1">
+                                    <div>Discount</div>
+                                    <input type="number" class="form-control" (change)="math(i)" (blur)="findTotal()" id={{i}}discount value=0 placeholder="%" name="discount" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.discount" required>
+                                </div>
+                                <div class="col-sm-2 ">
+                                    <div>Amount</div>
+
+                                    <input type="number" class="form-control" id={{i}}amount (focus)="findTotal()" placeholder="0%" name="qwe" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.amount" required>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="destination"> </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <button (click)="add(entry)" class="btn btn-warning btn-fill btn-sm "><i class="fa fa-plus" aria-hidden="true"></i>More</button>
+                    </div>
+                    <div class="col-sm-8"> &nbsp;</div>
+                    <div class="col-sm-2">
+                        <input value="0" type="number" class="form-control" placeholder="Total" (focus)="findTotal()" [(ngModel)]="tot" name="total" id="total" required>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+                <br>
+
+                <br>
+
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div> Notes</div>
+                        <textarea type="text" rows="4" cols="20" class="form-control" placeholder="optional" [(ngModel)]="entry.notes" name="notes" #notes="ngModel" [rangeLength]="[0,100]"></textarea>
+                        <p *ngIf="notes.errors?.rangeLength">must be less then 100 words</p>
+                    </div>
+                </div>
+                <br>
+
+
+
+            </div>
+
+            <div class="uk-modal-footer uk-text-right">
+                <button class="btn btn-primary btn-fill btn-sm" (click)="update(entry) " [routerLink]="['/PurchaseInvoice']" type="button">Update</button>
+                <button class="btn btn-danger btn-fill btn-sm" (click)="delete(entry) " [routerLink]="['/PurchaseInvoice']" type="button">Delete</button>
+            </div>
+
+
+        </form>
+
+    </div>
+</div>

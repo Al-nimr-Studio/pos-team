@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { DeliveryNotesInterface } from './Service/DeliveryNotes.interface';
 import { DeliveryNotesService } from './Service/DeliveryNotes.service';
+
 import { DeliveryNotesObserver } from './Service/DeliveryNotes.observer';
-import { NgForm } from '@angular/forms';
+import { NgForm, Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 
 declare var $: any;
-declare var $tr: any;
 
 @Component({
     selector: 'DeliveryNotes',
@@ -13,7 +13,7 @@ declare var $tr: any;
     styles: [`
     input.ng-dirty.ng-invalid { border: solid red 2px; }
     input.ng-dirty.ng-valid { border: solid green 2px; }
-    .invoice-box{
+     .invoice-box{
         max-width:1600px;
         margin:auto;
         padding:30px;
@@ -97,27 +97,45 @@ export class DeliveryNotesReadComponent implements OnInit, OnDestroy, DeliveryNo
     entries: Array<DeliveryNotesInterface> = [];
     entry: DeliveryNotesInterface = new DeliveryNotesInterface();
 
+
+    search;
+    number: Array<DeliveryNotesInterface> = [];
+    jsondata;
+
     constructor(private repository: DeliveryNotesService) {
 
     }
-    save(entry) {
 
 
+    export(value) {
+        this.repository.export(value).then((jason: any) => this.jsondata = jason).then((jason: any) => console.log(this.jsondata));
 
-        this.entry.id = Date.now().toString();
-        this.entry.view = 'DeliveryNotes';
-        this.entry.created = this.entry.updated = new Date();
-
-        this.repository.saveEntryv1(this.entry);
     }
+
+
+
+    find() {
+        if (this.search.length > 0) {
+
+            this.repository.search(this.search)
+                .then((entries: Array<DeliveryNotesInterface>) => this.entries = entries)
+        }
+        if (this.search.length == 0) {
+            this.repository.fetchEntriesv1()
+                .then((entries: Array<DeliveryNotesInterface>) => this.entries = entries)
+        }
+    }
+
 
     ngOnInit() {
         this.repository.registerObserver(this);
         this.repository.fetchEntriesv1()
-            .then((entries: Array<DeliveryNotesInterface>) => this.entries = entries);
+            .then((entries: Array<DeliveryNotesInterface>) => this.entries = entries)
+        // .then((entries: Array<DeliveryNotesInterface>) => this.total = this.entries.length)
         this.repository.createv1();
 
     }
+
 
     ngOnDestroy(): void {
         this.repository.unregisterObserver(this);
@@ -127,11 +145,11 @@ export class DeliveryNotesReadComponent implements OnInit, OnDestroy, DeliveryNo
         this.repository.fetchEntriesv1()
             .then((entries: Array<DeliveryNotesInterface>) => this.entries = entries);
     }
-    update(entry) {
 
-        this.repository.saveEntryv1(entry);
+    delete(value) {
+        this.repository.deleteEntry(value)
+
     }
-    delete(entry) {
-        this.repository.deleteEntry(entry);
-    }
+
+
 }

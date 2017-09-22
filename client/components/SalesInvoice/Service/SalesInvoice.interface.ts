@@ -17,13 +17,9 @@ export class SalesInvoiceInterface {
     customer: String;
     billingaddress: String;
     invoicesummery: String;
-    item: String;
-    description: String;
-    unitprice: number;
-    qty: number;
-    discount: number;
-    amount: number;
-    notes: String
+    items: items[];
+    notes: String;
+    total:number;
 
 
 
@@ -33,5 +29,15 @@ export class SalesInvoiceInterface {
         return this.created.valueOf() - other.created.valueOf();
     }
 
+
+}
+
+export class items {
+    itemname: string;
+    description: String;
+    unitprice: number;
+    amount: number;
+    discount: number;
+    qty: number;
 
 }
